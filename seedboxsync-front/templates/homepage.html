@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class="title is-invisible">{% block title %}Homepage{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h2>Download in progress</h2>
+  <p>No download in progress now...</p>
+
+  <h2>Last torrent downloaded</h2>
+  <p>List of last torrents downloaded from the seedbox to the NAS.</p>
+
+  <h2>Last torrent uploaded</h2>
+  <p>List of last torrents uploaded from the NAS to the seedbox.</p>
+</div>
+{% endblock %}

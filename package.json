@@ -1,0 +1,40 @@
+{
+  "name": "seedboxsync-frontend",
+  "title": "Frontend for SeedboxSync",
+  "description": "The frontend for SeedboxSync.",
+  "version": "0.0.1-alpha.1",
+  "type": "module",
+  "homepage": "https://github.com/llaumgui/seedboxsync-front",
+  "author": {
+    "name": "Guillaume Kulakowski",
+    "url": "http://blog.kulakowski.fr/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llaumgui/seedboxsync-front.git"
+  },
+  "keywords": [
+    "seedbox",
+    "sync",
+    "seedboxsync",
+    "frontend"
+  ],
+  "bugs": {
+    "url": "https://github.com/llaumgui/seedboxsync-front/issues"
+  },
+  "license": "GPL 2.0",
+ "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.1",
+    "bulma": "^1.0.4"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.1",
+    "bulma": "^1.0.4"
+  },
+  "scripts": {
+    "build": "grunt build",
+    "test": "grunt test --verbose",
+    "test:unit": "grunt unit_test --verbose",
+    "release": "grunt release --verbose && npm pack"
+  }
+}
