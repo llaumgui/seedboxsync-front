@@ -7,7 +7,8 @@
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-lask --app seedboxsync-front run --debug
+pip install -e .
+flask --app seedboxsync_front run --debug
 ```
 
 ### Frontweb part

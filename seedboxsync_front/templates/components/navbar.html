@@ -1,7 +1,7 @@
 <div class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+        <a class="navbar-item" href="{{ url_for('root.homepage') }}">
           <img alt="SeedboxSync logo" src="{{ url_for('static', filename='logo.png') }}" /> SeedboxSync
         </a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -28,7 +28,7 @@
             </a>
           </p>
           <p class="control">
-            <a class="button is-dark is-light" href="https://github.com/llaumgui/SeedboxSyncFront" target="_blank">
+            <a class="button is-dark is-light" href="https://github.com/llaumgui/seedboxsync-front" target="_blank">
               <span class="icon"><i class="fab fa-github"></i></span><span>Github</span>
             </a>
           </p>
