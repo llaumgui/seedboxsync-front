@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class="title is-invisible">{% block title %}Homepage{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h2>Download in progress</h2>
+  <p class="is-italic">List of downloads in progress from the seedbox to the NAS.</p>
+  <div x-data="{
+    data: [], loading: true, error: false,
+    load(apiUrl) {
+      this.loading = true;
+      this.error = false;
+      fetch(apiUrl)
+        .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+        .then(json => { this.data = json; })
+        .catch(() => { this.error = true; this.data = []; })
+        .finally(() => { this.loading = false; });
+    }
+  }"
+  x-init="load('{{ url_for('api.progress') }}'); setInterval(() => load('{{ url_for('api.progress') }}'), 30000);">
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-info"><i class="fas fa-inbox"></i> No download in progress now...</div>
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="row in data" :key="row.id || row.key">
+          <tr>
+            <td x-text="row.id"></td>
+            <td x-text="row.path"></td>
+            <td x-text="row.local_size"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+
+
+  <h2>Last files downloaded</h2>
+  <p class="is-italic">List of last files downloaded from the seedbox to the NAS.</p>
+  <div x-data="{
+    data: [], loading: true, error: false,
+    load(apiUrl) {
+      this.loading = true;
+      this.error = false;
+      fetch(apiUrl)
+        .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+        .then(json => { this.data = json; })
+        .catch(() => { this.error = true; this.data = []; })
+        .finally(() => { this.loading = false; });
+    }
+  }"
+  x-init="load('{{ url_for('api.downloaded') }}'); setInterval(() => load('{{ url_for('api.downloaded') }}'), 30000);">
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No files downloaded yet...</div>
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Finished</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="row in data" :key="row.id || row.key">
+          <tr>
+            <td x-text="row.id"></td>
+            <td x-text="row.path"></td>
+            <td x-text="row.finished"></td>
+            <td x-text="row.local_size"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Last torrents uploaded</h2>
+  <p class="is-italic">List of last torrents uploaded from the NAS to the seedbox.</p>
+  <div x-data="{
+    data: [], loading: true, error: false,
+    load(apiUrl) {
+      this.loading = true;
+      this.error = false;
+      fetch(apiUrl)
+        .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+        .then(json => { this.data = json; })
+        .catch(() => { this.error = true; this.data = []; })
+        .finally(() => { this.loading = false; });
+    }
+  }"
+  x-init="load('{{ url_for('api.uploaded') }}'); setInterval(() => load('{{ url_for('api.uploaded') }}'), 30000);">
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No torrent downloaded yet...</div>
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="row in data" :key="row.id || row.key">
+          <tr>
+            <td  x-text="row.id"></td>
+            <td  x-text="row.name"></td>
+            <td  x-text="row.sent"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+{% endblock %}

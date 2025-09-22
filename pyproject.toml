@@ -1,0 +1,37 @@
+[project]
+name = "seedboxsync-front"
+version = "2.0.1a1"
+description = "The frontend for SeedboxSync."
+readme = "README.md"
+dependencies = [
+  "flask",
+  "pyyaml",
+  "peewee",
+  "seedboxsync>=3.2.0",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+  "flake8",
+  "pytest",
+  "pytest-cov",
+  "flit",
+]
+
+[project.scripts]
+seedboxsync-front = "seedboxsync_front.app:main"
+
+[tool.flit.sdist]
+include = [
+  "CHANGELOG.md",
+  "CONTRIBUTORS.md",
+  "LICENSE",
+  "README.md",
+  "SECURITY.md",
+  "seedboxsync_front/static/include_this/**",
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
