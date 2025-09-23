@@ -7,12 +7,61 @@
 {% block content %}
 <div class="content">
   <h2>Download in progress</h2>
-  <p>No download in progress now...</p>
+  <div id="download-in-progress">
+    <p>List of downloads in progress from the seedbox to the NAS.</p>
+    <p class="noresult notification is-info">
+      No download in progress now...
+    </p>
+    <table style="display: none" class="table is-bordered is-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 
-  <h2>Last torrent downloaded</h2>
-  <p>List of last torrents downloaded from the seedbox to the NAS.</p>
+  <h2>Last torrents downloaded</h2>
+  <div id="last-torrents-downloaded">
+    <p>List of last torrents downloaded from the seedbox to the NAS.</p>
+    <p class="noresult notification is-warning">
+      No torrent downloaded yet...
+    </p>
+    <table style="display: none" class="table is-bordered is-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 
-  <h2>Last torrent uploaded</h2>
-  <p>List of last torrents uploaded from the NAS to the seedbox.</p>
+  <h2>Last torrents uploaded</h2>
+  <div id="last-torrents-uploaded">
+    <p>List of last torrents uploaded from the NAS to the seedbox.</p>
+    <p class="noresult notification is-warning">
+      No torrent uploaded yet...
+    </p>
+    <table style="display: none" class="table is-bordered is-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 {% endblock %}

@@ -6,31 +6,15 @@ root = true
 [*]
 end_of_line = lf
 charset = utf-8
+indent_style = space
+indent_size = 2
 trim_trailing_whitespace = true
 insert_final_newline = false
 
-[*.ini]
-indent_style = space
-indent_size = 4
-
-[*.ini.dist]
-indent_style = space
-indent_size = 4
-
-[*.html]
-indent_style = space
-indent_size = 2
-
 [*.md]
-indent_style = space
 indent_size = 4
 insert_final_newline = true
 
 [*.py]
-indent_style = space
 indent_size = 4
 insert_final_newline = true
-
-[*.yml]
-indent_style = space
-indent_size = 2

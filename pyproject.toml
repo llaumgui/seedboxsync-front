@@ -3,7 +3,10 @@ name = "seedboxsync-front"
 version = "0.0.1a1"
 description = "The frontend for SeedboxSync."
 dependencies = [
-    "flask",
+  "flask",
+  "pyyaml",
+  "peewee",
+  "seedboxsync>=3.2.0",
 ]
 
 [build-system]
