@@ -26,12 +26,24 @@
   </div>
 
   <h2>Last torrents downloaded</h2>
-  <div id="last-torrents-downloaded">
-    <p>List of last torrents downloaded from the seedbox to the NAS.</p>
-    <p class="noresult notification is-warning">
-      No torrent downloaded yet...
-    </p>
-    <table style="display: none" class="table is-bordered is-striped">
+  <p>List of last torrents downloaded from the seedbox to the NAS.</p>
+  <div x-data="{
+    data: [], loading: true, error: false,
+    load(apiUrl) {
+      this.loading = true;
+      this.error = false;
+      fetch(apiUrl)
+        .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+        .then(json => { this.data = json; })
+        .catch(() => { this.error = true; this.data = []; })
+        .finally(() => { this.loading = false; });
+    }
+  }"
+  x-init="load('{{ url_for('api.downloaded') }}'); setInterval(() => load('{{ url_for('api.downloaded') }}'), 30000);">
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No torrent downloaded yet...</div>
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
       <thead>
         <tr>
           <th>Id</th>
@@ -40,6 +52,13 @@
         </tr>
       </thead>
       <tbody>
+        <template x-for="row in data" :key="row.id || row.key">
+          <tr>
+            <template x-for="value in Object.values(row)">
+              <td class="border border-gray-300 p-2" x-text="value"></td>
+            </template>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>

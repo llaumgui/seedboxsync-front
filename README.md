@@ -25,7 +25,7 @@ Use [Bulma](https://bulma.io/) / [Vanilla](https://vanilla-js.com/) / [Alpine.js
 
 ```bash
 npm i
-npm run dev
+npm run build
 ```
 
 ### Python development

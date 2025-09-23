@@ -29,6 +29,7 @@
     "bulma": "^1.0.4"
   },
   "devDependencies": {
+    "sass": "^1.93.1",
     "vite": "^7.1.7"
   },
   "scripts": {
