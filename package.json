@@ -2,7 +2,6 @@
   "name": "seedboxsync-frontend",
   "title": "Frontend for SeedboxSync",
   "description": "The frontend for SeedboxSync.",
-  "version": "0.0.1-alpha.1",
   "type": "module",
   "homepage": "https://github.com/llaumgui/seedboxsync-front",
   "author": {

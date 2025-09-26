@@ -1,6 +1,4 @@
-.PHONY: test virtualenv run pytest comply comply-fix comply-typing docs
-
-test: comply
+.PHONY: virtualenv run test test-ci pytest pytest-xml comply markdownlint clean dist publish
 
 virtualenv:
 	virtualenv --prompt '|> seedboxsync-front <| ' env
@@ -12,14 +10,20 @@ virtualenv:
 run:
 	flask --app seedboxsync_front run --debug
 
+test: comply markdownlint
+
+test-ci: comply
+
 pytest:
 	python -m pytest -v --cov=seedboxsync_front --cov-report=term --cov-report=html:coverage-report --capture=sys tests/
+test-pytest-xml:
+	python -m pytest -v --cov=seedboxsync --cov-report=term --cov-report=xml --capture=sys tests/
 
 comply:
-	flake8 seedboxsync_front/	
+	flake8 seedboxsync_front/
 
-comply-fix:
-	autopep8 -ri seedboxsync_front/
+markdownlint:
+	markdownlint -c .markdownlint.yaml *.md
 
 clean:
 	find . -name '*.py[co]' -delete
@@ -28,3 +32,6 @@ dist: clean
 	rm -rf dist/*
 	npm run build
 	flit build
+
+publish:
+	flit publish

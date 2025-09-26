@@ -6,8 +6,8 @@ FROM node:lts-alpine AS builder
 WORKDIR /src
 
 COPY . /src
-RUN npm i \
-    npm run build
+RUN npm install
+RUN npm run build
 
 
 ################################################################################
@@ -55,7 +55,7 @@ WORKDIR /app
 COPY . /app
 RUN pip install --no-cache-dir -e . && \
     pip install --no-cache-dir gunicorn && \
-    rm -rf /app/docker
+    rm -rf /app/docker /app/*.json /app/*.js
 COPY --from=builder /src/seedboxsync_front/static/dist /app/seedboxsync_front/static
 
 # Seedboxsync folders

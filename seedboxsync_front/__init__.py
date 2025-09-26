@@ -6,6 +6,8 @@ from .controlers import api
 from . import db
 from .controlers.page_not_found import page_not_found
 
+__version__ = "1.0.0b1"
+
 CONFIG_PATHS = [
     os.path.expanduser("~/.config/seedboxsync/seedboxsync.yml"),
     os.path.expanduser("~/.seedboxsync.yml"),

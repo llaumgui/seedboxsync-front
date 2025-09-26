@@ -15,7 +15,4 @@ env
 Dockerfile
 Makefile
 node_modules
-package-lock.json
-package.json
 sonar-project.properties
-vite.config.js

@@ -13,28 +13,27 @@
 [![Reliability Rating][ico-sonarcloud-reliability]][link-sonarcloud-reliability]
 [![Security Rating][ico-sonarcloud-security]][link-sonarcloud-security]
 
-## For users
+<p align="center">
+  <img alt="SeedboxSync logo" src="logo.png" />
+</p>
 
-ToDo
+SeedboxSyncFront is the frontend of **SeedboxSync**, which provides powerful synchronization features between your NAS and your seedbox, making torrent management seamless and automated.
 
-## For developers
+Key Features:
 
-### frontend development
+* **Local to Seedbox Sync**: Synchronize a local blackhole folder (e.g., on your NAS) with the blackhole directory on your seedbox.
+* **Seedbox to NAS Downloads**: Automatically download files from your seedbox to your NAS, keeping track of downloaded files in a SQLite database to prevent duplicates.
+* **Query & Reporting**: Retrieve information such as recent torrents, latest downloads, and other useful statistics.
 
-Use [Bulma](https://bulma.io/) / [Vanilla](https://vanilla-js.com/) / [Alpine.js](https://alpinejs.dev/) / [Vite](https://vite.dev) / :
+<p align="center">
+  <a href="screenshot/homepage.png">
+    <img alt="SeedboxSyncFront Homegage screenshot" src="screenshot/homepage.png" width="400px"/>
+  </a>
+</p>
 
-```bash
-npm i
-npm run build
-```
+## Full documentation
 
-### Python development
-
-```bash
-make virtualenv
-. .venv/bin/activate
-make run
-```
+Full documentation, see: [https://llaumgui.github.io/seedboxsync/frontend/](https://llaumgui.github.io/seedboxsync/frontend/)
 
 ## License
 
