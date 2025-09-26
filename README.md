@@ -14,7 +14,7 @@
 [![Security Rating][ico-sonarcloud-security]][link-sonarcloud-security]
 
 <p align="center">
-  <img alt="SeedboxSync logo" src="logo.png" />
+  <img alt="SeedboxSync logo" src="screenshots/logo.png" />
 </p>
 
 SeedboxSyncFront is the frontend of **SeedboxSync**, which provides powerful synchronization features between your NAS and your seedbox, making torrent management seamless and automated.
@@ -26,8 +26,8 @@ Key Features:
 * **Query & Reporting**: Retrieve information such as recent torrents, latest downloads, and other useful statistics.
 
 <p align="center">
-  <a href="screenshot/homepage.png">
-    <img alt="SeedboxSyncFront Homegage screenshot" src="screenshot/homepage.png" width="400px"/>
+  <a href="screenshots/homepage.png">
+    <img alt="SeedboxSyncFront Homegage screenshot" src="screenshots/homepage.png" width="400px"/>
   </a>
 </p>
 

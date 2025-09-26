@@ -5,6 +5,7 @@
 build
 dist
 env
+screenshots
 .dockerignore
 .editorconfig
 .flake8
