@@ -4,23 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{% endblock %} - SeedboxSync</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='dist/main.css') }}">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/main.css') }}">
+  {% include 'components/javascripts.html' %}
 </head>
 <body>
-
   {% include 'components/navbar.html' %}
   {% include 'components/messages.html' %}
-
   <section class="section">
     <div class="container">
       {% block header %}{% endblock %}
       {% block content %}{% endblock %}
     </div>
   </section>
-
   {% include 'components/footer.html' %}
-  {% include 'components/javascripts.html' %}
-
 </body>
 </html>
