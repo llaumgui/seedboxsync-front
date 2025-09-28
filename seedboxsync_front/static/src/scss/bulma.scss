@@ -1,3 +1,41 @@
+@use "nord/src/sass/nord" as nord;
 @use "bulma/sass" with (
-  $footer-padding: "3rem 1.5rem 3rem"
+  $footer-padding: 3rem 1.5rem 3rem,
+  $orange: nord.$nord12,
+  $yellow: nord.$nord13,
+  $green: nord.$nord14,
+  $turquoise: nord.$nord8,
+  $cyan: nord.$nord9,
+  $blue: nord.$nord10,
+  $purple: nord.$nord15,
+  $red: nord.$nord11,
+  $navbar-background-color: nord.$nord0,
 );
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* CSS Variables */
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bulma-black: nord.$nord4;
+    --bulma-black-bis: darken(nord.$nord4, 10%);
+    --bulma-black-ter: darken(nord.$nord4, 20%);
+
+    --bulma-white-ter: nord.$nord2;
+    --bulma-white-bis: lighten(nord.$nord1, 2%);
+    --bulma-white: nord.$nord0;
+    --bulma-body-background-color: #242933;
+
+    --bulma-grey-darker: nord.$nord4;
+    --bulma-grey-dark: mix(nord.$nord4, nord.$nord5);
+    --bulma-grey: nord.$nord5;
+    --bulma-grey-light: mix(nord.$nord5, nord.$nord6);
+    --bulma-grey-lighter: nord.$nord6;
+
+    --bulma-yellow-invert: rgba($white, 0.7);
+    --bulma-primary-invert: rgba($white, 0.7);
+  }
+}
