@@ -46,7 +46,6 @@ def create_app(test_config=None):
         app.config['INIT_ERROR'] = "No SeedboxSync configuration file found!"
         app.logger.error('No SeedboxSync configuration file found!')
     app.config.update(yaml_config)
-    print(app.config)
 
     # DB lazly loading
     db.get_db(app)
