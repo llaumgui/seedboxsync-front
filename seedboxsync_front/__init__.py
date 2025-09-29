@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2025 Guillaume Kulakowski <guillaume@kulakowski.fr>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
 import os
 import yaml
-from flask import Flask
+from flask import Flask, request
 from .controlers import frontend
 from .controlers import api
 from . import db
-from .controlers.page_not_found import page_not_found
+from . import cache
 
 __version__ = "1.0.0b1"
 
@@ -16,32 +23,43 @@ CONFIG_PATHS = [
 ]
 
 
-def load_yaml_config():
+def __load_yaml_config() -> dict:  # type: ignore[type-arg]
     """
     Load config from the seedboxsync cli yaml.
     """
     for path in CONFIG_PATHS:
         if os.path.exists(path):
             with open(path, "r") as f:
-                return yaml.safe_load(f)
+                return yaml.safe_load(f)  # type: ignore[no-any-return]
     return {}
 
 
-def create_app(test_config=None):
+def __handle_http_exception(e: Exception) -> tuple:  # type: ignore[type-arg]
+    """
+    Global 404 handler.
+    Return JSON for /api routes, else return frontend template.
+    """
+    if request.path.startswith("/api"):
+        return api.api_error(e)
+    return frontend.page_error(e)
+
+
+def create_app() -> Flask:
     """
     Flask create app.
     """
-    # create and configure the app
+    # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    cache.cache.init_app(app)
 
     # Set SECRET_KEY
-    app.config.from_prefixed_env()  # FRom env préfix by 'FLASK_'
+    app.config.from_prefixed_env()  # From env préfix by 'FLASK_'
     if app.config['SECRET_KEY'] is None:
         app.logger.warning('Warning: SECRET_KEY is still set to "dev". Change it in production to secure your sessions.')
         app.config['SECRET_KEY'] = 'dev'
 
     # Load config from SeedboxSync yaml
-    yaml_config = load_yaml_config()
+    yaml_config = __load_yaml_config()
     if not yaml_config:
         app.config['INIT_ERROR'] = "No SeedboxSync configuration file found!"
         app.logger.error('No SeedboxSync configuration file found!')
@@ -53,6 +71,6 @@ def create_app(test_config=None):
     # Register blueprint and error handler
     app.register_blueprint(frontend.bp)
     app.register_blueprint(api.bp)
-    app.register_error_handler(404, page_not_found)  # Utilisation de la fonction importée
+    app.register_error_handler(Exception, __handle_http_exception)
 
     return app

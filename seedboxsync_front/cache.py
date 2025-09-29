@@ -5,6 +5,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-from . import create_app
+from flask_caching import Cache
 
-app = create_app()
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})

@@ -1,13 +1,22 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2025 Guillaume Kulakowski <guillaume@kulakowski.fr>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
 from flask import current_app, Blueprint, render_template, flash
 from peewee import fn
+from werkzeug.exceptions import HTTPException
 from seedboxsync.core.dao.download import Download
-from ..db import sizeof
+from ..db import sizeof, byte_to_gi
+from .. import cache
 
 # Create a Blueprint named 'frontend'
 bp = Blueprint('frontend', __name__)
 
 
-def __init_flash():
+def __init_flash() -> None:
     """
     Initialize flash messages.
     """
@@ -15,10 +24,11 @@ def __init_flash():
         flash(current_app.config['INIT_ERROR'], 'error')
 
 
-def __stats_by_period(period):
+def __stats_by_period(period: str) -> list[dict[str, str | float]]:
     """
     Generic stats by period (month or year).
-    :param period: 'month' or 'year'
+    :param period: 'month' or 'year'.
+    :return: list of dict with period, files count and total size in GiB.
     """
     strftime_format = "%Y-%m" if period == "month" else "%Y"
 
@@ -44,28 +54,44 @@ def __stats_by_period(period):
         {
             period: key,
             "files": tmp[key]["files"],
-            "total_size": sizeof(tmp[key]["total_size"]),
+            "total_size": byte_to_gi(tmp[key]["total_size"]),
         }
         for key in sorted(tmp)
     ]
 
 
+def page_error(e: Exception) -> tuple[str, int | None]:
+    """
+    Global error handler.
+    :param e: Exception
+    :return: Rendered error template with status code
+    """
+    status_code = e.code if isinstance(e, HTTPException) else 500
+    title = e.name if isinstance(e, HTTPException) else "Internal Server Error"
+    detail = e.description if isinstance(e, HTTPException) else str(e)
+
+    return render_template("error.html", title=title, detail=detail), status_code
+
+
 @bp.route('/')
-@bp.route('/homepage')
-def homepage():
+@cache.cache.cached(timeout=300)
+def homepage() -> str:
     """
     Home page controller.
     """
+    print("Home page accessed")
     __init_flash()
 
     return render_template('homepage.html')
 
 
 @bp.route('/stats')
-def stats():
+@cache.cache.cached(timeout=3600)
+def stats() -> str:
     """
     Stats page controller.
     """
+    print("Stats page accessed")
     __init_flash()
 
     query = Download.select().where(Download.finished != 0)
