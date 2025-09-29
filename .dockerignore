@@ -2,8 +2,8 @@
 .github
 .pytest_cache
 .vscode
-build
-dist
+./build
+./dist
 env
 screenshots
 .dockerignore
@@ -13,6 +13,7 @@ screenshots
 .gitignore
 .hadolint.yaml
 .markdownlint.yaml
+__pycache__
 Dockerfile
 Makefile
 node_modules

@@ -56,7 +56,7 @@ COPY . /app
 RUN pip install --no-cache-dir -e . && \
     pip install --no-cache-dir gunicorn && \
     rm -rf /app/docker /app/*.json /app/*.js
-COPY --from=builder /src/seedboxsync_front/static/dist /app/seedboxsync_front/static
+COPY --from=builder /src/seedboxsync_front/static/dist /app/seedboxsync_front/static/dist
 
 # Seedboxsync folders
 RUN chown -R seedboxsync:seedboxsync /app && \
@@ -71,7 +71,7 @@ RUN chmod 755 /etc/s6-overlay/s6-rc.d/*/run && \
     chmod 755 /etc/s6-overlay/s6-rc.d/*/up
 
 # healthcheck
-HEALTHCHECK --interval=1m --start-period=1m CMD wget --no-verbose --tries=1 http://localhost:8000/ -q -O /dev/null || exit 1
+HEALTHCHECK --interval=1m --start-period=1m CMD ["wget", "--no-verbose", "--tries=1", "-q", "-O", "/dev/null", "http://127.0.0.1:8000/"]
 
 WORKDIR /app
 EXPOSE 8000
