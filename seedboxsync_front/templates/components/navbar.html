@@ -1,39 +1,21 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{ url_for('root.homepage') }}">
+      <a class="navbar-item" href="{{ url_for('frontend.homepage') }}">
         <img alt="SeedboxSync logo" src="{{ url_for('static', filename='logo.png') }}" /> SeedboxSync
       </a>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-menu" id="navMenu">
       <div class="navbar-start">
-        <a class="navbar-item" href="{{ url_for('root.homepage') }}">Home</a>
-        <a class="navbar-item" href="{{ url_for('root.homepage') }}">Stats</a>
-        <a class="navbar-item" href="{{ url_for('root.homepage') }}">Info </a>
+        <a class="navbar-item" href="{{ url_for('frontend.homepage') }}">Home</a>
+        <a class="navbar-item" href="{{ url_for('frontend.stats') }}">Stats</a>
       </div>
     </div>
-
-    <div class="navbar-end">
-    <div class="navbar-item">
-      <div class="field is-grouped">
-        <p class="control">
-          <a class="bd-tw-button button is-dark is-soft" data-social-network="Bluesky" data-social-action="bluesky" target="_blank" href="https://bsky.app/profile/llaumgui.kulakowski.fr">
-            <span class="icon"><i class="fab fa-bluesky"></i></span><span>Bluesky</span>
-          </a>
-        </p>
-        <p class="control">
-          <a class="button is-dark is-light" href="https://github.com/llaumgui/seedboxsync-front" target="_blank">
-            <span class="icon"><i class="fab fa-github"></i></span><span>Github</span>
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
   </div>
 </nav>

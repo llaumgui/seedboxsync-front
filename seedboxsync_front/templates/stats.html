@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class="title is-invisible">{% block title %}Statistics{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h2>Total</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Number of files downloaded</th>
+        <th>Total size of files downloaded</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ stats_total.files }}</td>
+        <td>{{ stats_total.total_size }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Statistics by month</h2>
+  <canvas id="statsByMonth"></canvas>
+
+  <h2>Statistics by year</h2>
+  <canvas id="statsByYear"></canvas>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+function createBarChart(ctx, data, labelFiles = "Files", labelSize = "Size (GiB)", labelField = "month") {
+  const labels = data.map(d => d[labelField]);
+  const filesData = data.map(d => d.files);
+  const sizeData = data.map(d => parseFloat(d.total_size));
+
+  return new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        { label: labelFiles, data: filesData, backgroundColor: "rgb(163, 190, 140)" },
+        { label: labelSize, data: sizeData, backgroundColor: "rgb(180, 142, 173)" }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: "index", intersect: false },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+}
+
+  // Récupérer les canvas
+  const ctxMonth = document.getElementById('statsByMonth');
+  const ctxYear = document.getElementById('statsByYear');
+
+  // Créer les charts
+  const statsMonth = {{ stats_month | tojson }};
+  const statsYear  = {{ stats_year | tojson }};
+
+createBarChart(ctxMonth, statsMonth, "Files", "Size (GiB)", "month");
+createBarChart(ctxYear, statsYear, "Files", "Size (GiB)", "year");
+
+});
+</script>
+
+{% endblock %}

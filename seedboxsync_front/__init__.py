@@ -1,7 +1,7 @@
 import os
 import yaml
 from flask import Flask
-from .controlers import homepage
+from .controlers import frontend
 from .controlers import api
 from . import db
 from .controlers.page_not_found import page_not_found
@@ -51,7 +51,7 @@ def create_app(test_config=None):
     db.get_db(app)
 
     # Register blueprint and error handler
-    app.register_blueprint(homepage.bp)
+    app.register_blueprint(frontend.bp)
     app.register_blueprint(api.bp)
     app.register_error_handler(404, page_not_found)  # Utilisation de la fonction importée
 
