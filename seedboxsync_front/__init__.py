@@ -7,9 +7,9 @@
 #
 import os
 import yaml
-from flask import Flask, request
-from .controlers import frontend
-from .controlers import api
+from flask import Flask, Response, request
+from .controlers import bp as bp_frontend, error as error_front
+from .controlers.api import bp as bp_api, error as error_api
 from . import db
 from . import cache
 
@@ -34,14 +34,14 @@ def __load_yaml_config() -> dict:  # type: ignore[type-arg]
     return {}
 
 
-def __handle_http_exception(e: Exception) -> tuple:  # type: ignore[type-arg]
+def __handle_http_exception(e: Exception) -> tuple[Response, int | None] | tuple[str, int | None]:
     """
     Global 404 handler.
     Return JSON for /api routes, else return frontend template.
     """
     if request.path.startswith("/api"):
-        return api.api_error(e)
-    return frontend.page_error(e)
+        return error_api.error(e)
+    return error_front.error(e)
 
 
 def create_app() -> Flask:
@@ -69,8 +69,8 @@ def create_app() -> Flask:
     db.get_db(app)
 
     # Register blueprint and error handler
-    app.register_blueprint(frontend.bp)
-    app.register_blueprint(api.bp)
-    app.register_error_handler(Exception, __handle_http_exception)
+    app.register_blueprint(bp_frontend)
+    app.register_blueprint(bp_api)
+    app.register_error_handler(Exception, __handle_http_exception)  # type: ignore[arg-type]
 
     return app
