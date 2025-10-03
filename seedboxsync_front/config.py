@@ -6,6 +6,7 @@
 # file that was distributed with this source code.
 #
 from flask import Flask
+from flask_babel import gettext
 import os
 import yaml
 
@@ -43,7 +44,7 @@ def init_config(app: Flask) -> None:
     # Load config from SeedboxSync yaml
     yaml_config = __load_yaml_config()
     if not yaml_config:
-        app.config['INIT_ERROR'] = "No SeedboxSync configuration file found!"
+        app.config['INIT_ERROR'] = gettext(u"No SeedboxSync configuration file found!")
         app.logger.error('No SeedboxSync configuration file found!')
 
     app.config.update(yaml_config)

@@ -25,6 +25,7 @@ requires-python = ">=3.10"
 dependencies = [
   "flask",
   "Flask-Caching",
+  "Flask-Babel",
   "pyyaml",
   "peewee",
   "seedboxsync>=3.2.0",

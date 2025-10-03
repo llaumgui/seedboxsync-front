@@ -1,0 +1,165 @@
+# French translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: SeedboxSyncFront\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-10-03 21:30+0200\n"
+"PO-Revision-Date: 2025-10-03 21:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: Guillaume Kulakowski <guillaume@kulakowski.fr>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Babel 2.17.0\n"
+"X-Generator: Poedit 3.7\n"
+
+#: seedboxsync_front/config.py:47
+msgid "No SeedboxSync configuration file found!"
+msgstr "Aucun fichier de configuration SeedboxSync trouvé !"
+
+#: seedboxsync_front/controlers/api/error.py:22
+#: seedboxsync_front/controlers/error.py:20
+msgid "Internal Server Error"
+msgstr "Erreur interne du serveur"
+
+#: seedboxsync_front/templates/downloaded.html:9
+#: seedboxsync_front/templates/homepage.html:36
+msgid "Last files downloaded"
+msgstr "Derniers fichiers téléchargés"
+
+#: seedboxsync_front/templates/downloaded.html:10
+#: seedboxsync_front/templates/homepage.html:37
+msgid "List of last files downloaded from the seedbox to the NAS."
+msgstr "Liste des derniers fichiers téléchargés de la seedbox vers le NAS."
+
+#: seedboxsync_front/templates/downloaded.html:13
+#: seedboxsync_front/templates/homepage.html:12
+#: seedboxsync_front/templates/homepage.html:39
+#: seedboxsync_front/templates/homepage.html:67
+#: seedboxsync_front/templates/uploaded.html:13
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: seedboxsync_front/templates/downloaded.html:14
+#: seedboxsync_front/templates/homepage.html:13
+#: seedboxsync_front/templates/homepage.html:40
+#: seedboxsync_front/templates/homepage.html:68
+#: seedboxsync_front/templates/uploaded.html:14
+msgid "An error has occurred."
+msgstr "Une erreur est survenue."
+
+#: seedboxsync_front/templates/downloaded.html:15
+#: seedboxsync_front/templates/homepage.html:41
+msgid "No files downloaded yet..."
+msgstr "Pas encore de fichier téléchargé..."
+
+#: seedboxsync_front/templates/downloaded.html:20
+#: seedboxsync_front/templates/homepage.html:18
+#: seedboxsync_front/templates/homepage.html:73
+#: seedboxsync_front/templates/uploaded.html:20
+msgid "Id"
+msgstr "Id"
+
+#: seedboxsync_front/templates/downloaded.html:21
+#: seedboxsync_front/templates/homepage.html:19
+#: seedboxsync_front/templates/homepage.html:46
+#: seedboxsync_front/templates/homepage.html:74
+#: seedboxsync_front/templates/uploaded.html:21
+msgid "Name"
+msgstr "Nom"
+
+#: seedboxsync_front/templates/downloaded.html:22
+#: seedboxsync_front/templates/homepage.html:47
+msgid "Finished"
+msgstr "Terminé"
+
+#: seedboxsync_front/templates/downloaded.html:23
+#: seedboxsync_front/templates/homepage.html:20
+#: seedboxsync_front/templates/homepage.html:48
+msgid "Size"
+msgstr "Taille"
+
+#: seedboxsync_front/templates/homepage.html:4
+msgid "Homepage"
+msgstr "Accueil"
+
+#: seedboxsync_front/templates/homepage.html:9
+msgid "Download in progress"
+msgstr "Téléchargement en cours"
+
+#: seedboxsync_front/templates/homepage.html:10
+msgid "List of downloads in progress from the seedbox to the NAS."
+msgstr "Liste des téléchargements en cours de la seedbox vers le NAS."
+
+#: seedboxsync_front/templates/homepage.html:14
+msgid "No download in progress now..."
+msgstr "Aucun téléchargement en cours..."
+
+#: seedboxsync_front/templates/homepage.html:64
+#: seedboxsync_front/templates/uploaded.html:9
+msgid "Last torrents uploaded"
+msgstr "Derniers torrents envoyés"
+
+#: seedboxsync_front/templates/homepage.html:65
+#: seedboxsync_front/templates/uploaded.html:10
+msgid "List of last torrents uploaded from the NAS to the seedbox."
+msgstr "Liste des derniers torrents envoyés du NAS vers la seedbox."
+
+#: seedboxsync_front/templates/homepage.html:69
+msgid "No torrent downloaded yet..."
+msgstr "Pas encore de torrent téléchargé..."
+
+#: seedboxsync_front/templates/homepage.html:75
+#: seedboxsync_front/templates/uploaded.html:22
+msgid "Sent"
+msgstr "Envoyé"
+
+#: seedboxsync_front/templates/stats.html:4
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: seedboxsync_front/templates/stats.html:9
+msgid "Total"
+msgstr "Total"
+
+#: seedboxsync_front/templates/stats.html:13
+msgid "Number of files downloaded"
+msgstr "Nombre de fichiers téléchargés"
+
+#: seedboxsync_front/templates/stats.html:14
+msgid "Total size of files downloaded"
+msgstr "Taille totale des fichiers téléchargés"
+
+#: seedboxsync_front/templates/stats.html:25
+msgid "Statistics by month"
+msgstr "Statistiques par mois"
+
+#: seedboxsync_front/templates/stats.html:28
+msgid "Statistics by year"
+msgstr "Statistiques par année"
+
+#: seedboxsync_front/templates/uploaded.html:15
+msgid "No files uploaded yet..."
+msgstr "Pas encore de fichier envoyé..."
+
+#: seedboxsync_front/templates/components/navbar.html:17
+msgid "Home"
+msgstr "Accueil"
+
+#: seedboxsync_front/templates/components/navbar.html:18
+msgid "Downloaded"
+msgstr "Téléchargés"
+
+#: seedboxsync_front/templates/components/navbar.html:19
+msgid "Uploaded"
+msgstr "Envoyés"
+
+#: seedboxsync_front/templates/components/navbar.html:20
+msgid "Stats"
+msgstr "Statistiques"

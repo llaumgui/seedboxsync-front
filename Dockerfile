@@ -1,13 +1,21 @@
 ################################################################################
 # Build
 #
-FROM node:lts-alpine AS builder
+FROM node:lts-alpine AS builder-node
 
 WORKDIR /src
 
 COPY . /src
 RUN npm install
 RUN npm run build
+
+
+FROM python:3.13-alpine AS builder-python
+
+WORKDIR /src
+
+COPY . /src
+RUN make i18n-compile
 
 
 ################################################################################
@@ -55,8 +63,9 @@ WORKDIR /app
 COPY . /app
 RUN pip install --no-cache-dir -e . && \
     pip install --no-cache-dir gunicorn && \
-    rm -rf /app/docker /app/*.json /app/*.js
-COPY --from=builder /src/seedboxsync_front/static/dist /app/seedboxsync_front/static/dist
+    rm -rf /app/docker /app/*.json /app/*.js /app/*.cfg
+COPY --from=builder-node /src/seedboxsync_front/static/dist /app/seedboxsync_front/static/dist
+COPY --from=builder-python /src/seedboxsync_front/translations /app/seedboxsync_front/translations
 
 # Seedboxsync folders
 RUN chown -R seedboxsync:seedboxsync /app && \

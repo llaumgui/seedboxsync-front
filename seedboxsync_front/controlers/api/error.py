@@ -7,6 +7,7 @@
 #
 import uuid
 from flask import jsonify, Response
+from flask_babel import gettext
 from werkzeug.exceptions import HTTPException
 from datetime import datetime
 
@@ -18,7 +19,7 @@ def error(e: Exception) -> tuple[Response, int | None]:
     :return: Rendered error template with status code
     """
     status_code = e.code if isinstance(e, HTTPException) else 500
-    title = e.name if isinstance(e, HTTPException) else "Internal Server Error"
+    title = e.name if isinstance(e, HTTPException) else gettext(u'Internal Server Error')
     detail = e.description if isinstance(e, HTTPException) else str(e)
 
     return jsonify({

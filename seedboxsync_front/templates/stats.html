@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="title is-invisible">{% block title %}Statistics{% endblock %}</h1>
+  <h1 class="title is-invisible">{% block title %}{{ _('Statistics') }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="content">
-  <h2>Total</h2>
+  <h2>{{ _('Total') }}</h2>
   <table>
     <thead>
       <tr>
-        <th>Number of files downloaded</th>
-        <th>Total size of files downloaded</th>
+        <th>{{ _('Number of files downloaded') }}</th>
+        <th>{{ _('Total size of files downloaded') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -22,10 +22,10 @@
     </tbody>
   </table>
 
-  <h2>Statistics by month</h2>
+  <h2>{{ _('Statistics by month') }}</h2>
   <canvas id="statsByMonth"></canvas>
 
-  <h2>Statistics by year</h2>
+  <h2>{{ _('Statistics by year') }}</h2>
   <canvas id="statsByYear"></canvas>
 </div>
 
@@ -35,5 +35,4 @@
     loadChart(document.getElementById('statsByYear'), '{{ url_for("api.stats_by_year") }}', 'year');
   });
 </script>
-
 {% endblock %}

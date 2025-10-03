@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-from flask import current_app, flash, request
+from flask import current_app, flash, g, request
 from seedboxsync.core.dao.download import Download
 from peewee import fn
 
@@ -95,3 +95,10 @@ def stats_by_period(period: str) -> list[dict[str, str | float]]:
         }
         for key in sorted(tmp)
     ]
+
+
+def get_locale():
+    """
+    Get locale from browser.
+    """
+    return request.accept_languages.best_match(['fr', 'en'])

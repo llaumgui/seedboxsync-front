@@ -6,11 +6,13 @@
 # file that was distributed with this source code.
 #
 from flask import Flask, Response, request
+from flask_babel import Babel
 from .controlers import bp as bp_frontend, error as error_front
 from .controlers.api import bp as bp_api, error as error_api
 from . import db
 from .cache import cache
 from .config import init_config
+from .utils import get_locale
 
 __version__ = "1.0.0b1"
 
@@ -32,6 +34,9 @@ def create_app() -> Flask:
     # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     init_config(app)
+
+    # Babel lazly loading
+    Babel(app, locale_selector=get_locale)
 
     # Cache lazly loading
     cache.init_app(app)

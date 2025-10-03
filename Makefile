@@ -1,4 +1,4 @@
-.PHONY: virtualenv run test test-ci pytest pytest-xml comply markdownlint mypy clean dist publish
+.PHONY: virtualenv run i18n-extract i18n-update i18n-compile test test-ci pytest pytest-xml comply markdownlint mypy clean dist publish
 
 virtualenv:
 	virtualenv --prompt '|> seedboxsync-front <| ' env
@@ -11,6 +11,15 @@ run:
 	export FLASK_SECRET_KEY=dev ; \
 	export FLASK_CACHE_TYPE=NullCache ; \
 	flask --app seedboxsync_front run --debug
+
+i18n-extract:
+	pybabel extract -F babel.cfg -o seedboxsync_front/messages.pot .
+
+i18n-update:
+	pybabel update -i seedboxsync_front/messages.pot -d seedboxsync_front/translations
+
+i18n-compile:
+	pybabel compile -d seedboxsync_front/translations
 
 test: comply markdownlint mypy
 

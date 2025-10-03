@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="title is-invisible">{% block title %}Homepage{% endblock %}</h1>
+  <h1 class="title is-invisible">{% block title %}{{ _('Homepage') }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="content">
-  <h2>Download in progress</h2>
-  <p class="is-italic">List of downloads in progress from the seedbox to the NAS.</p>
+  <h2>{{ _('Download in progress') }}</h2>
+  <p class="is-italic">{{ _('List of downloads in progress from the seedbox to the NAS.') }}</p>
   <div x-data="tableComponent('{{ url_for('api.progress') }}')">
-    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
-    <div x-show="!loading && !error && data.length === 0" class="notification is-info"><i class="fas fa-inbox"></i> No download in progress now...</div>
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-info"><i class="fas fa-inbox"></i> {{ _('No download in progress now...') }}</div>
     <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th class="is-hidden-mobile">Size</th>
+          <th>{{ _('Id') }}</th>
+          <th>{{ _('Name') }}</th>
+          <th class="is-hidden-mobile">{{ _('Size') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -33,19 +33,19 @@
   </div>
 
 
-  <h2>Last files downloaded</h2>
-  <p class="is-italic">List of last files downloaded from the seedbox to the NAS.</p>
+  <h2>{{ _('Last files downloaded') }}</h2>
+  <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
   <div x-data="tableComponent('{{ url_for('api.downloads') }}')">
-    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
-    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No files downloaded yet...</div>
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No files downloaded yet...') }}</div>
     <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
       <thead>
         <tr>
           <th>Id</th>
-          <th>Name</th>
-          <th class="is-hidden-mobile">Finished</th>
-          <th class="is-hidden-mobile">Size</th>
+          <th>{{ _('Name') }}</th>
+          <th class="is-hidden-mobile">{{ _('Finished') }}</th>
+          <th class="is-hidden-mobile">{{ _('Size') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -61,18 +61,18 @@
     </table>
   </div>
 
-  <h2>Last torrents uploaded</h2>
-  <p class="is-italic">List of last torrents uploaded from the NAS to the seedbox.</p>
+  <h2>{{ _('Last torrents uploaded') }}</h2>
+  <p class="is-italic">{{ _('List of last torrents uploaded from the NAS to the seedbox.') }}</p>
   <div x-data="tableComponent('{{ url_for('api.uploads') }}')">
-    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
-    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No torrent downloaded yet...</div>
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No torrent downloaded yet...') }} </div>
     <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th class="is-hidden-mobile">Sent</th>
+          <th>{{ _('Id') }}</th>
+          <th>{{ _('Name') }}</th>
+          <th class="is-hidden-mobile">{{ _('Sent') }}</th>
         </tr>
       </thead>
       <tbody>
