@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class="title is-invisible">{% block title %}Homepage{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h2>Last files downloaded</h2>
+  <p class="is-italic">List of last files downloaded from the seedbox to the NAS.</p>
+
+  <div x-data="{
+      data: [], loading: true, error: false,
+      perPage: 20,
+      page: 1,
+      load(apiUrl) {
+        this.loading = true;
+        this.error = false;
+        fetch(apiUrl)
+          .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+          .then(json => { this.data = json; this.page = 1; })
+          .catch(() => { this.error = true; this.data = []; })
+          .finally(() => { this.loading = false; });
+      },
+      get totalPages() {
+        return Math.ceil(this.data.length / this.perPage);
+      },
+      get paginatedData() {
+        const start = (this.page - 1) * this.perPage;
+        return this.data.slice(start, start + this.perPage);
+      }
+    }"
+    x-init="load('{{ url_for('api.downloads') }}?limit=200')">
+
+    <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No files downloaded yet...</div>
+
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Finished</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="row in paginatedData" :key="row.id || row.key">
+          <tr>
+            <td x-text="row.id"></td>
+            <td x-text="row.path"></td>
+            <td x-text="row.finished"></td>
+            <td x-text="row.local_size"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+
+    <!-- Pagination controls -->
+    <nav class="pagination is-right" role="navigation" aria-label="pagination">
+      <a href="#" class="{ 'is-disabled': page === 1 } pagination-previous" @click="if(page>1) page--">Previous</a>
+      <a href="#" class="{ 'is-disabled': page === totalPages } pagination-next" @click="if(page<totalPages) page++">Next</a>
+      <ul class="pagination-list">
+        <template x-for="p in totalPages" :key="p">
+          <li>
+            <a class="pagination-link" :class="{ 'is-current': page === p }" @click="page = p" x-text="p"></a>
+          </li>
+        </template>
+      </ul>
+    </nav>
+  </div>
+
+</div>
+{% endblock %}

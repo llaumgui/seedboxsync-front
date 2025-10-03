@@ -11,8 +11,8 @@ from ...utils import stats_by_period
 from ...cache import cache
 
 
-@cache.cached(timeout=3600)
 @bp.route('/stats-by-month', methods=['GET'])
+@cache.cached(timeout=3600)
 def stats_by_month() -> Response:
     """
     Get Download statistics by month.

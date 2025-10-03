@@ -13,7 +13,7 @@ from ..utils import init_flash, sizeof, stats_by_period
 
 
 @bp.route('/stats')
-@cache.cached(timeout=3600)
+@cache.cached(timeout=300)
 def stats() -> str:
     """
     Stats page controller.
