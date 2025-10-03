@@ -30,41 +30,10 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-function createBarChart(ctx, data, labelFiles = "Files", labelSize = "Size (GiB)", labelField = "month") {
-  const labels = data.map(d => d[labelField]);
-  const filesData = data.map(d => d.files);
-  const sizeData = data.map(d => parseFloat(d.total_size));
-
-  return new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: labels,
-      datasets: [
-        { label: labelFiles, data: filesData, backgroundColor: "rgb(163, 190, 140)" },
-        { label: labelSize, data: sizeData, backgroundColor: "rgb(180, 142, 173)" }
-      ]
-    },
-    options: {
-      responsive: true,
-      interaction: { mode: "index", intersect: false },
-      scales: { y: { beginAtZero: true } }
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+    loadChart(document.getElementById('statsByMonth'), '{{ url_for("api.stats_by_month") }}', 'month');
+    loadChart(document.getElementById('statsByYear'), '{{ url_for("api.stats_by_year") }}', 'year');
   });
-}
-
-  // Récupérer les canvas
-  const ctxMonth = document.getElementById('statsByMonth');
-  const ctxYear = document.getElementById('statsByYear');
-
-  // Créer les charts
-  const statsMonth = {{ stats_month | tojson }};
-  const statsYear  = {{ stats_year | tojson }};
-
-createBarChart(ctxMonth, statsMonth, "Files", "Size (GiB)", "month");
-createBarChart(ctxYear, statsYear, "Files", "Size (GiB)", "year");
-
-});
 </script>
 
 {% endblock %}

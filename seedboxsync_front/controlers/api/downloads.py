@@ -12,8 +12,8 @@ from . import bp
 from ...utils import get_limit
 
 
-@bp.route('/downloaded', methods=['GET'])
-def downloaded() -> Response:
+@bp.route('/downloads', methods=['GET'])
+def downloads() -> Response:
     """
     Get last downloaded files.
     """

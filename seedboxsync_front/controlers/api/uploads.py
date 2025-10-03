@@ -11,8 +11,8 @@ from . import bp
 from ...utils import get_limit
 
 
-@bp.route('/uploaded', methods=['GET'])
-def uploaded() -> Response:
+@bp.route('/uploads', methods=['GET'])
+def uploads() -> Response:
     """
     Get last uploaded torrents.
     """
