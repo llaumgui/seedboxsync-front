@@ -6,30 +6,28 @@
 
 {% block content %}
 <div class="content">
-  <h2>Last files downloaded</h2>
-  <p class="is-italic">List of last files downloaded from the seedbox to the NAS.</p>
+  <h2>Last torrents uploaded</h2>
+  <p class="is-italic">List of last torrents uploaded from the NAS to the seedbox.</p>
 
-  <div x-data="tablePaginedComponent('{{ url_for('api.downloads') }}?limit=1000')">
+  <div x-data="tablePaginedComponent('{{ url_for('api.uploads') }}?limit=1000')">
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> An error has occurred.</div>
-    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No files downloaded yet...</div>
+    <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> No files uploaded yet...</div>
 
     <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
       <thead>
         <tr>
           <th>Id</th>
           <th>Name</th>
-          <th>Finished</th>
-          <th>Size</th>
+          <th>Sent</th>
         </tr>
       </thead>
       <tbody>
         <template x-for="row in paginatedData" :key="row.id || row.key">
           <tr>
             <td x-text="row.id"></td>
-            <td x-text="row.path"></td>
-            <td x-text="row.finished"></td>
-            <td x-text="row.local_size"></td>
+            <td x-text="row.name"></td>
+            <td x-text="row.sent"></td>
           </tr>
         </template>
       </tbody>

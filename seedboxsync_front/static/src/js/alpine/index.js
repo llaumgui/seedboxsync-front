@@ -6,8 +6,10 @@
  */
 import Alpine from "alpinejs";
 import { tableComponent } from "./table";
+import { tablePaginedComponent } from "./table_pagined";
 
 window.tableComponent = tableComponent;
+window.tablePaginedComponent = tablePaginedComponent;
 
 window.Alpine = Alpine;
 Alpine.start();

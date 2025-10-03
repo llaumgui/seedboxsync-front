@@ -11,12 +11,12 @@ from ..cache import cache
 from ..utils import init_flash
 
 
-@bp.route('/downloaded')
+@bp.route('/uploaded')
 @cache.cached(timeout=300)
-def downloaded() -> str:
+def uploaded() -> str:
     """
-    Downloaded list controller.
+    Uploaded list controller.
     """
     init_flash()
 
-    return render_template('downloaded.html')
+    return render_template('uploaded.html')
