@@ -8,6 +8,8 @@ virtualenv:
 	@echo
 
 run:
+	export FLASK_SECRET_KEY=dev ; \
+	export FLASK_CACHE_TYPE=NullCache ; \
 	flask --app seedboxsync_front run --debug
 
 test: comply markdownlint mypy

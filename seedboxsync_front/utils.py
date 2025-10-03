@@ -18,7 +18,7 @@ def init_flash() -> None:
         flash(current_app.config['INIT_ERROR'], 'error')
 
 
-def get_limit(default: int = 5, max_limit: int = 50) -> int:
+def get_limit(default: int = 5, max_limit: int = 1000) -> int:
     """
     Helper which get limit parameter from arg.
     :param default: default limit if not set or invalid (default: 5).
