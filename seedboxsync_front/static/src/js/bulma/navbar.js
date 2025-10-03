@@ -1,3 +1,10 @@
+/**
+ * Copyright (C) 2025 Guillaume Kulakowski <guillaume@kulakowski.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+// @see https://bulma.io/documentation/components/navbar/
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(
