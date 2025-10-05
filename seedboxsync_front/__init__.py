@@ -14,7 +14,7 @@ from .cache import cache
 from .config import init_config
 from .utils import get_locale
 
-__version__ = "1.0.0b1"
+__version__ = "1.0.0b2"
 
 
 def __handle_http_exception(e: Exception) -> tuple[Response, int | None] | tuple[str, int | None]:
