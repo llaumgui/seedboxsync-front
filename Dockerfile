@@ -1,6 +1,8 @@
 ################################################################################
 # Build
 #
+
+# Buil assets
 FROM node:lts-alpine AS builder-node
 
 WORKDIR /src
@@ -10,11 +12,15 @@ RUN npm install
 RUN npm run build
 
 
+# Build translations
 FROM python:3.13-alpine AS builder-python
 
 WORKDIR /src
-
 COPY . /src
+
+RUN apk add --no-cache make && \
+    pip install -e ".[dev]"
+
 RUN make i18n-compile
 
 
@@ -63,7 +69,8 @@ WORKDIR /app
 COPY . /app
 RUN pip install --no-cache-dir -e . && \
     pip install --no-cache-dir gunicorn && \
-    rm -rf /app/docker /app/*.json /app/*.js /app/*.cfg
+    # Cleanup \
+    rm -rf /app/docker /app/*.json /app/*.js /app/*.cfg /app/Makefile
 COPY --from=builder-node /src/seedboxsync_front/static/dist /app/seedboxsync_front/static/dist
 COPY --from=builder-python /src/seedboxsync_front/translations /app/seedboxsync_front/translations
 
