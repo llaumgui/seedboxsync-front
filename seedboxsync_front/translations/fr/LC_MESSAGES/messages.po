@@ -1,23 +1,22 @@
-# French translations for PROJECT.
+# French translations for .
 # Copyright (C) 2025 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the  project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: SeedboxSyncFront\n"
+"Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-10-03 21:30+0200\n"
+"POT-Creation-Date: 2025-10-05 18:52+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
-"Language-Team: Guillaume Kulakowski <guillaume@kulakowski.fr>\n"
 "Language: fr\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Guillaume Kulakowski <guillaume@kulakowski.fr>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
-"X-Generator: Poedit 3.7\n"
 
 #: seedboxsync_front/config.py:47
 msgid "No SeedboxSync configuration file found!"
@@ -85,9 +84,10 @@ msgstr "Terminé"
 msgid "Size"
 msgstr "Taille"
 
+#: seedboxsync_front/templates/components/navbar.html:17
 #: seedboxsync_front/templates/homepage.html:4
-msgid "Homepage"
-msgstr "Accueil"
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
 #: seedboxsync_front/templates/homepage.html:9
 msgid "Download in progress"
@@ -148,10 +148,6 @@ msgstr "Statistiques par année"
 msgid "No files uploaded yet..."
 msgstr "Pas encore de fichier envoyé..."
 
-#: seedboxsync_front/templates/components/navbar.html:17
-msgid "Home"
-msgstr "Accueil"
-
 #: seedboxsync_front/templates/components/navbar.html:18
 msgid "Downloaded"
 msgstr "Téléchargés"
@@ -163,3 +159,10 @@ msgstr "Envoyés"
 #: seedboxsync_front/templates/components/navbar.html:20
 msgid "Stats"
 msgstr "Statistiques"
+
+#~ msgid "Homepage"
+#~ msgstr "Accueil"
+
+#~ msgid "Home"
+#~ msgstr "Accueil"
+
