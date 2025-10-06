@@ -21,17 +21,17 @@ i18n-update:
 i18n-compile:
 	pybabel compile -d seedboxsync_front/translations
 
-test: comply markdownlint mypy
+test: comply markdownlint mypy pytest
 
-test-ci: comply mypy
+test-ci: comply mypy pytest-xml
 
 pytest:
 	python -m pytest -v --cov=seedboxsync_front --cov-report=term --cov-report=html:coverage-report --capture=sys tests/
-test-pytest-xml:
+pytest-xml:
 	python -m pytest -v --cov=seedboxsync --cov-report=term --cov-report=xml --capture=sys tests/
 
 comply:
-	flake8 seedboxsync_front/
+	flake8 seedboxsync_front/ tests/
 
 markdownlint:
 	markdownlint -c .markdownlint.yaml *.md

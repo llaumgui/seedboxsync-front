@@ -33,6 +33,7 @@ def create_app(test_config: dict[str, str] | None = None) -> Flask:
     # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
+    # Load config
     if test_config is None:
         # load the instance config, if it exists, when not testing
         config.init_app(app)
