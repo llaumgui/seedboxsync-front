@@ -26,10 +26,10 @@ jobs:
       run: pip install -e ".[dev]"
     - name: Make all tests with make
       run: make test-ci
-    #- uses: actions/upload-artifact@v4
-    #  with:
-    #    name: coverage-${{ matrix.python-version }}
-    #    path: coverage.xml
+    - uses: actions/upload-artifact@v4
+      with:
+        name: coverage-${{ matrix.python-version }}
+        path: coverage.xml
 
   ##############################################################################
   # Markdownlint
@@ -43,7 +43,7 @@ jobs:
     - name: markdownlint-cli
       uses: nosborn/github-action-markdown-cli@v3.5.0
       with:
-        files: "*.md docs/*.md"
+        files: "*.md docs/"
         config_file: ".markdownlint.yaml"
 
   ##############################################################################
@@ -81,9 +81,9 @@ jobs:
     # https://docs.sonarsource.com/sonarqube/latest/project-administration/analysis-scope/#sonarqube-respects-ignored-files
     - name: Remove .gitignore because SonarQube respects ignored files
       run: rm .gitignore
-    #- uses: actions/download-artifact@v5
-    #  with:
-    #    name: coverage-${{ env.pythonLastVersion }}
+    - uses: actions/download-artifact@v5
+      with:
+        name: coverage-${{ env.pythonLastVersion }}
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v6.0.0
       env:
