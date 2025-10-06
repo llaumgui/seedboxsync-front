@@ -35,8 +35,8 @@
 
     <!-- Pagination controls -->
     <nav class="pagination is-right" role="navigation" aria-label="pagination">
-      <a href="#" class="pagination-previous"  :class="{ 'is-disabled': page === 1 }" @click.prevent="if(page>1) page--">Previous</a>
-      <a href="#" class="pagination-next"  :class="{ 'is-disabled': page === totalPages }"   @click.prevent="if(page<totalPages) page++">Next</a>
+      <a href="#" class="pagination-previous"  :class="{ 'is-disabled': page === 1 }" @click.prevent="if(page>1) page--">{{ _('Previous') }}</a>
+      <a href="#" class="pagination-next"  :class="{ 'is-disabled': page === totalPages }"   @click.prevent="if(page<totalPages) page++">{{ _('Next') }}</a>
       <ul class="pagination-list">
         <template x-for="pObj in visiblePages" :key="pObj.page ?? Math.random()">
           <li>
