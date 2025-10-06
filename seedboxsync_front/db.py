@@ -5,12 +5,11 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-import os
 from flask import Flask
 from peewee import SqliteDatabase
-from cement.utils import fs
 from seedboxsync.core.dao.model import global_database_object
 from .utils import sizeof, byte_to_gi
+import os
 
 
 def get_db(app: Flask) -> None:
@@ -18,7 +17,9 @@ def get_db(app: Flask) -> None:
     Load SeedboxSync DB from SeedboxSyncFront
     :param app: Flask application.
     """
-    db_file = fs.abspath(str((app.config.get('local') or {}).get('db_file', 'default.db')))
+
+    # Get DB from config
+    db_file = app.config['DATABASE']
 
     if not os.path.exists(db_file):
         app.logger.error('No database %s found', db_file)
@@ -35,3 +36,19 @@ def get_db(app: Flask) -> None:
         @db.func('byte_to_gi')  # type: ignore
         def db_byte_to_gi(num: float, suffix: str = 'B') -> str:
             return byte_to_gi(num, suffix)
+
+
+def close_db(ext=None) -> None:  # type: ignore[no-untyped-def]
+    """
+    Close database
+    """
+    if global_database_object is not None:
+        global_database_object.close()
+
+
+def init_app(app: Flask) -> None:
+    """
+    DB init
+    """
+    app.teardown_appcontext(close_db)
+    get_db(app)

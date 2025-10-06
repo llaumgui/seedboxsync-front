@@ -7,6 +7,7 @@
 #
 from flask import Flask
 from flask_babel import gettext
+from cement.utils import fs
 import os
 import yaml
 
@@ -30,9 +31,16 @@ def __load_yaml_config() -> dict:  # type: ignore[type-arg]
     return {}
 
 
-def init_config(app: Flask) -> None:
+def init_app(app: Flask) -> None:
     # Set from env prefixed by 'FLASK_'
     app.config.from_prefixed_env()  # From env préfix by 'FLASK_'
+
+    # Load config from SeedboxSync yaml
+    yaml_config = __load_yaml_config()
+    if not yaml_config:
+        app.config['INIT_ERROR'] = gettext(u"No SeedboxSync configuration file found!")
+        app.logger.error('No SeedboxSync configuration file found!')
+    app.config.update(yaml_config)
 
     # SECRET_KEY warning
     if app.config.get('SECRET_KEY') is None:
@@ -41,10 +49,5 @@ def init_config(app: Flask) -> None:
     # Init Flask Cache
     app.config.setdefault('CACHE_TYPE', 'SimpleCache')
 
-    # Load config from SeedboxSync yaml
-    yaml_config = __load_yaml_config()
-    if not yaml_config:
-        app.config['INIT_ERROR'] = gettext(u"No SeedboxSync configuration file found!")
-        app.logger.error('No SeedboxSync configuration file found!')
-
-    app.config.update(yaml_config)
+    # Get DB file
+    app.config.setdefault('DATABASE', fs.abspath(str((app.config.get('local') or {}).get('db_file', 'default.db'))))
