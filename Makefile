@@ -28,7 +28,7 @@ test-ci: comply mypy i18n-compile pytest-xml
 pytest:
 	python -m pytest -v --cov=seedboxsync_front --cov-report=term --cov-report=html:coverage-report --capture=sys tests/
 pytest-xml:
-	python -m pytest -v --cov=seedboxsync --cov-report=term --cov-report=xml --capture=sys tests/
+	python -m pytest -v --cov=seedboxsync_front --cov-report=term --cov-report=xml --capture=sys tests/
 
 comply:
 	flake8 seedboxsync_front/ tests/
