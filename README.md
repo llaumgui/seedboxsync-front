@@ -25,11 +25,36 @@ Key Features:
 * **Seedbox to NAS Downloads**: Automatically download files from your seedbox to your NAS, keeping track of downloaded files in a SQLite database to prevent duplicates.
 * **Query & Reporting**: Retrieve information such as recent torrents, latest downloads, and other useful statistics.
 
-<p align="center">
-  <a href="screenshots/homepage.png">
-    <img alt="SeedboxSyncFront Homegage screenshot" src="screenshots/homepage.png" width="400px"/>
-  </a>
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="screenshots/homepage.png">
+        <img alt="Main page" src="screenshots/homepage.png" width="300"/>
+      </a>
+      <br><em>Main page</em>
+    </td>
+    <td align="center">
+      <a href="screenshots/downloaded.png">
+        <img alt="Downloaded files" src="screenshots/downloaded.png" width="300"/>
+      </a>
+      <br><em>Downloaded files</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="screenshots/uploaded.png">
+        <img alt="Uploaded torrents" src="screenshots/uploaded.png" width="300"/>
+      </a>
+      <br><em>Uploaded torrents</em>
+    </td>
+    <td align="center">
+      <a href="screenshots/stats.png">
+        <img alt="Statistics" src="screenshots/stats.png" width="300"/>
+      </a>
+      <br><em>Statistics</em>
+    </td>
+  </tr>
+</table>
 
 ## Full documentation
 
