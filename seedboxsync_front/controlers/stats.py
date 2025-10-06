@@ -9,7 +9,7 @@ from flask import render_template
 from seedboxsync.core.dao.download import Download
 from . import bp
 from ..cache import cache
-from ..utils import init_flash, sizeof, stats_by_period
+from ..utils import init_flash, sizeof
 
 
 @bp.route('/stats')
@@ -29,7 +29,4 @@ def stats() -> str:
         'total_size': sizeof(total_size),
     }
 
-    stats_month = stats_by_period('month')
-    stats_year = stats_by_period('year')
-
-    return render_template('stats.html', stats_total=stats_total, stats_month=stats_month, stats_year=stats_year)
+    return render_template('stats.html', stats_total=stats_total)
