@@ -1,4 +1,4 @@
-.PHONY: virtualenv run i18n-extract i18n-update i18n-compile test test-ci pytest pytest-xml comply markdownlint mypy clean dist publish
+.PHONY: virtualenv run i18n-extract i18n-update i18n-compile test test-ci pytest pytest-xml comply markdownlint hadolint mypy clean dist publish
 
 virtualenv:
 	virtualenv --prompt '|> seedboxsync-front <| ' env
@@ -21,9 +21,9 @@ i18n-update:
 i18n-compile:
 	pybabel compile -d seedboxsync_front/translations
 
-test: comply markdownlint mypy pytest
+test: comply mypy pytest markdownlint hadolint
 
-test-ci: comply mypy pytest-xml
+test-ci: comply mypy i18n-compile pytest-xml
 
 pytest:
 	python -m pytest -v --cov=seedboxsync_front --cov-report=term --cov-report=html:coverage-report --capture=sys tests/
@@ -35,6 +35,9 @@ comply:
 
 markdownlint:
 	markdownlint -c .markdownlint.yaml *.md
+
+hadolint:
+	hadolint Dockerfile
 
 mypy:
 	mypy

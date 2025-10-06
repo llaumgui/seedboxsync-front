@@ -23,8 +23,8 @@ def test_uploads(client):
     assert response.status_code == 200
 
 
-def test_translation(client, client_translated):
+def test_translation(client):
     response = client.get('/')
     assert b'<h1 class="title is-invisible">Dashboard</h1>' in response.data
-    response = client_translated.get('/')
+    response = client.get('/', headers={'Accept-Language': 'fr'})
     assert b'<h1 class="title is-invisible">Tableau de bord</h1>' in response.data

@@ -19,7 +19,7 @@ WORKDIR /src
 COPY . /src
 
 RUN apk add --no-cache make && \
-    pip install -e ".[dev]"
+    pip install --no-cache-dir -e ".[dev]"
 
 RUN make i18n-compile
 
