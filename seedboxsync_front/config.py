@@ -6,7 +6,6 @@
 # file that was distributed with this source code.
 #
 from flask import Flask
-from flask_babel import gettext
 from cement.utils import fs
 import os
 import yaml
@@ -45,8 +44,7 @@ class Config(object):
             # Load config from SeedboxSync yaml
             yaml_config = self.__load_yaml_config()
             if not yaml_config:
-                self.app.config['INIT_ERROR'] = gettext(u"No SeedboxSync configuration file found!")
-                self.app.logger.error('No SeedboxSync configuration file found!')
+                raise Exception('No SeedboxSync configuration file found!')
             self.app.config.update(yaml_config)
 
         self.__check_config()  # Do all checks

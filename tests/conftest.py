@@ -1,7 +1,6 @@
 import os
-
 import pytest
-from seedboxsync_front.app import create_app
+from seedboxsync_front import create_app
 
 
 @pytest.fixture
