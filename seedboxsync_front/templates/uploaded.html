@@ -10,10 +10,21 @@
   <p class="is-italic">{{ _('List of last torrents uploaded from the NAS to the seedbox.') }}</p>
 
   <div x-data="tablePaginedComponent('{{ url_for('api.uploads') }}?limit=1000')">
+
+    {# Search #}
+    <div class="mb-4 control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="{{ _('Search') }}" x-model="search" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+
+    {# Messages #}
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No files uploaded yet...') }}</div>
 
+    {# Table #}
     <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
       <thead>
         <tr>
@@ -33,7 +44,7 @@
       </tbody>
     </table>
 
-    <!-- Pagination controls -->
+    {# Pagination controls #}
     <nav class="pagination is-right" role="navigation" aria-label="pagination">
       <a href="#" class="pagination-previous"  :class="{ 'is-disabled': page === 1 }" @click.prevent="if(page>1) page--">{{ _('Previous') }}</a>
       <a href="#" class="pagination-next"  :class="{ 'is-disabled': page === totalPages }"   @click.prevent="if(page<totalPages) page++">{{ _('Next') }}</a>

@@ -6,6 +6,7 @@
 
 {% block content %}
 <div class="content">
+
   <h2>{{ _('Download in progress') }}</h2>
   <p class="is-italic">{{ _('List of downloads in progress from the seedbox to the NAS.') }}</p>
   <div x-data="tableComponent('{{ url_for('api.progress') }}')">
@@ -31,7 +32,6 @@
       </tbody>
     </table>
   </div>
-
 
   <h2>{{ _('Last files downloaded') }}</h2>
   <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>

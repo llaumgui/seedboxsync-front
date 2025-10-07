@@ -11,13 +11,14 @@
  * @param {*} perPage
  * @returns
  */
-export function tablePaginedComponent (apiUrl, perPage = 20) {
+export function tablePaginedComponent(apiUrl, perPage = 20) {
   return {
     data: [],
     loading: true,
     error: false,
     page: 1,
     perPage,
+    search: '',
 
     load() {
       this.loading = true;
@@ -40,16 +41,27 @@ export function tablePaginedComponent (apiUrl, perPage = 20) {
         });
     },
 
+    // Filter data based on search
+    get filteredData() {
+      if (!this.search) return this.data;
+      const searchLower = this.search.toLowerCase();
+      return this.data.filter(item =>
+        Object.values(item).some(
+          val => String(val).toLowerCase().includes(searchLower)
+        )
+      );
+    },
+
+    // PAgination based on search (or not)
     get totalPages() {
-      return Math.ceil(this.data.length / this.perPage);
+      return Math.ceil(this.filteredData.length / this.perPage);
     },
 
     get paginatedData() {
       const start = (this.page - 1) * this.perPage;
-      return this.data.slice(start, start + this.perPage);
+      return this.filteredData.slice(start, start + this.perPage);
     },
 
-    // Compute visible pages with ellipses for large page sets
     get visiblePages() {
       const delta = 2;
       const pages = [];
@@ -70,6 +82,13 @@ export function tablePaginedComponent (apiUrl, perPage = 20) {
       return pages;
     },
 
+    // Watch search input and reset page to 1
+    updateSearch(value) {
+      this.search = value;
+      this.page = 1;
+    },
+
+    // Init
     init() {
       this.load();
     },
