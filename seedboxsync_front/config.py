@@ -12,42 +12,61 @@ import os
 import yaml
 
 
-CONFIG_PATHS = [
-    os.path.expanduser("~/.config/seedboxsync/seedboxsync.yml"),
-    os.path.expanduser("~/.seedboxsync.yml"),
-    os.path.expanduser("~/.seedboxsync/config/seedboxsync.yml"),
-    "/etc/seedboxsync/seedboxsync.yml",
-]
-
-
-def __load_yaml_config() -> dict:  # type: ignore[type-arg]
+class Config(object):
     """
-    Load config from the seedboxsync cli yaml.
+    Config.
+
+    Attributes:
+        app (Flask): The database object.
     """
-    for path in CONFIG_PATHS:
-        if os.path.exists(path):
-            with open(path, "r") as f:
-                return yaml.safe_load(f)  # type: ignore[no-any-return]
-    return {}
 
+    CONFIG_PATHS = [
+        os.path.expanduser("~/.config/seedboxsync/seedboxsync.yml"),
+        os.path.expanduser("~/.seedboxsync.yml"),
+        os.path.expanduser("~/.seedboxsync/config/seedboxsync.yml"),
+        "/etc/seedboxsync/seedboxsync.yml",
+    ]
 
-def init_app(app: Flask) -> None:
-    # Set from env prefixed by 'FLASK_'
-    app.config.from_prefixed_env()  # From env préfix by 'FLASK_'
+    def __init__(self, app: Flask, test_config: dict[str, str] | None = None):
+        """
+        Initialize a new Config instance.
 
-    # Load config from SeedboxSync yaml
-    yaml_config = __load_yaml_config()
-    if not yaml_config:
-        app.config['INIT_ERROR'] = gettext(u"No SeedboxSync configuration file found!")
-        app.logger.error('No SeedboxSync configuration file found!')
-    app.config.update(yaml_config)
+        Args:
+            app (Flask): The database object.
+        """
 
-    # SECRET_KEY warning
-    if app.config.get('SECRET_KEY') is None:
-        app.logger.warning('Warning: SECRET_KEY is still not set. Set it in production to secure your sessions.')
+        self.app = app
+        self.app.config.from_prefixed_env()  # Set from env prefixed by 'FLASK_'
 
-    # Init Flask Cache
-    app.config.setdefault('CACHE_TYPE', 'SimpleCache')
+        # Load config
+        if test_config is not None:
+            self.app.config.from_mapping(test_config)  # load the test config if passed in
+        else:
+            # Load config from SeedboxSync yaml
+            yaml_config = self.__load_yaml_config()
+            if not yaml_config:
+                self.app.config['INIT_ERROR'] = gettext(u"No SeedboxSync configuration file found!")
+                self.app.logger.error('No SeedboxSync configuration file found!')
+            self.app.config.update(yaml_config)
 
-    # Get DB file
-    app.config.setdefault('DATABASE', fs.abspath(str((app.config.get('local') or {}).get('db_file', 'default.db'))))
+        self.__check_config()  # Do all checks
+        self.app.config.setdefault('CACHE_TYPE', 'SimpleCache')  # Init Flask Cache
+        self.app.config.setdefault('DATABASE', fs.abspath(str((self.app.config.get('local') or {}).get('db_file', 'default.db'))))  # Get DB file
+
+    def __check_config(self) -> None:
+        """
+        Check all configurations needed.
+        """
+        # SECRET_KEY warning
+        if self.app.config.get('SECRET_KEY') is None:
+            self.app.logger.warning('Warning: SECRET_KEY is still not set. Set it in production to secure your sessions.')
+
+    def __load_yaml_config(self) -> dict:  # type: ignore[type-arg]
+        """
+        Load config from the seedboxsync cli yaml.
+        """
+        for path in Config.CONFIG_PATHS:
+            if os.path.exists(path):
+                with open(path, "r") as f:
+                    return yaml.safe_load(f)  # type: ignore[no-any-return]
+        return {}

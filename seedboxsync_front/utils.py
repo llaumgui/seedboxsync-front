@@ -21,9 +21,13 @@ def init_flash() -> None:
 def get_limit(default: int = 5, max_limit: int = 1000) -> int:
     """
     Helper which get limit parameter from arg.
-    :param default: default limit if not set or invalid (default: 5).
-    :param max_limit: max limit accepted (default: 50).
-    :return: integer, limit value.
+
+    Args:
+        default (int): Default limit if not set or invalid (default: 5).
+        max_limit (int): Max limit accepted (default: 1000).
+
+    Returns:
+        int: limit value.
     """
     try:
         limit = int(request.args.get('limit', default))
@@ -39,9 +43,13 @@ def sizeof(num: float, suffix: str = 'B') -> str:
     """
     Convert in human readable units.
     From: https://stackoverflow.com/a/1094933
-    :param num: integer, value not human readable.
-    :param suffix: string, suffix for value given to (default: B).
-    :return: string, human readable value.
+
+    Args:
+        num (int): Value not human readable.
+        suffix (str): Suffix for value given to (default: B).
+
+    Returns:
+        str: Human readable value.
     """
     for unit in ("", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"):
         if abs(num) < 1024.0:
@@ -53,9 +61,13 @@ def sizeof(num: float, suffix: str = 'B') -> str:
 def byte_to_gi(bytes_value: float, suffix: str = 'B') -> str:
     """
     Convert in human readable units.
-    :param bytes_value: integer, value not human readable.
-    :param suffix: string, suffix for value given to (default: B).
-    :return: string, human readable value in Gi.
+
+    Args:
+        bytes_value (integer): Value not human readable.
+        suffix (str): Suffix for value given to (default: B).
+
+    Returns:
+        str: human readable value in Gi.
     """
     gib = bytes_value / (1024**3)
     return f"{gib:.1f}Gi{suffix}"
@@ -64,8 +76,12 @@ def byte_to_gi(bytes_value: float, suffix: str = 'B') -> str:
 def stats_by_period(period: str) -> list[dict[str, str | float]]:
     """
     Generic stats by period (month or year).
-    :param period: 'month' or 'year'.
-    :return: list of dict with period, files count and total size in GiB.
+
+    Args:
+        period (str): 'month' or 'year'.
+
+    Returns:
+        dict: List of dict with period, files count and total size in GiB.
     """
     strftime_format = "%Y-%m" if period == "month" else "%Y"
 
@@ -100,5 +116,8 @@ def stats_by_period(period: str) -> list[dict[str, str | float]]:
 def get_locale() -> str | None:
     """
     Get locale from browser.
+
+    Returns:
+        str: The local.
     """
     return request.accept_languages.best_match(['fr', 'en'])

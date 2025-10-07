@@ -12,43 +12,68 @@ from .utils import sizeof, byte_to_gi
 import os
 
 
-def get_db(app: Flask) -> None:
+class Database(object):
     """
-    Load SeedboxSync DB from SeedboxSyncFront
-    :param app: Flask application.
+    Database connector using peewee.
+
+    Attributes:
+        app (Flask): The database object.
     """
 
-    # Get DB from config
-    db_file = app.config['DATABASE']
+    def __init__(self, app: Flask):
+        """
+        Initialize a new Database instance.
 
-    if not os.path.exists(db_file):
-        app.logger.error('No database %s found', db_file)
-        app.config['INIT_ERROR'] = "Can't load seedbox database!"
-    else:
-        app.logger.debug('Use database %s', db_file)
-        db = SqliteDatabase(db_file)
-        global_database_object.initialize(db)
+        Args:
+            app (Flask): The database object.
+            database (SqliteDatabase | None): The database object.
+        """
+        self.app = app
+        self.dbProxy = global_database_object
+        self.__load_database()
+        self.__register_handlers()
+        self.__register_functions()
 
-        @db.func('sizeof')  # type: ignore
-        def db_sizeof(num: float, suffix: str = 'B') -> str:
-            return sizeof(num, suffix)
+    def __load_database(self) -> None:
+        """
+        Load SeedboxSync DB from SeedboxSyncFront.
+        """
 
-        @db.func('byte_to_gi')  # type: ignore
+        # Get DB from config
+        db_file = self.app.config['DATABASE']
+
+        if not os.path.exists(db_file):
+            self.app.logger.error('No database %s found', db_file)
+            self.app.config['INIT_ERROR'] = "Can't load seedbox database!"
+        else:
+            self.db = SqliteDatabase(db_file)
+            global_database_object.initialize(self.db)
+            self.app.logger.debug('Use database %s', db_file)
+
+    def __close_db(self, exc: BaseException | None = None) -> None:
+        """
+        Close database.
+
+        Args:
+            exc (BaseException  | None): An exception.
+        """
+        if self.dbProxy is not None and not self.dbProxy.is_closed():
+            self.dbProxy.close()
+
+    def __register_handlers(self) -> None:
+        """
+        Register DB hanlers.
+        """
+        self.app.teardown_request(self.__close_db)
+
+    def __register_functions(self) -> None:
+        """
+        Register DB functions.
+        """
+        @self.db.func('byte_to_gi')  # type: ignore
         def db_byte_to_gi(num: float, suffix: str = 'B') -> str:
             return byte_to_gi(num, suffix)
 
-
-def close_db(ext=None) -> None:  # type: ignore[no-untyped-def]
-    """
-    Close database
-    """
-    if global_database_object is not None:
-        global_database_object.close()
-
-
-def init_app(app: Flask) -> None:
-    """
-    DB init
-    """
-    app.teardown_appcontext(close_db)
-    get_db(app)
+        @self.db.func('sizeof')  # type: ignore
+        def db_sizeof(num: float, suffix: str = 'B') -> str:
+            return sizeof(num, suffix)

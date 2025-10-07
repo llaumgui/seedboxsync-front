@@ -10,7 +10,7 @@ virtualenv:
 run:
 	export FLASK_SECRET_KEY=dev ; \
 	export FLASK_CACHE_TYPE=NullCache ; \
-	flask --app seedboxsync_front run --debug
+	flask --app seedboxsync_front.app:app run --debug
 
 i18n-extract:
 	pybabel extract -F babel.cfg -o seedboxsync_front/messages.pot .

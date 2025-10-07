@@ -1,5 +1,4 @@
-from seedboxsync_front import create_app
-from seedboxsync_front.app import create_app as app_create_app
+from seedboxsync_front.app import create_app
 
 
 def test_config(app):
@@ -8,4 +7,4 @@ def test_config(app):
 
 
 def test_wrapper(app):
-    assert app_create_app
+    assert create_app
