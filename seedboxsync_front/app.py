@@ -8,8 +8,8 @@
 #
 from flask import Flask, Response, request
 from flask_babel import Babel
-from .controlers import bp as bp_frontend, error as error_front
-from .controlers.api import bp as bp_api, error as error_api
+from .views import bp as bp_frontend, error as error_front
+from .views.api import bp as bp_api, error as error_api
 from .db import Database
 from .cache import cache
 from .config import Config
