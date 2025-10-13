@@ -6,9 +6,9 @@
 # file that was distributed with this source code.
 #
 from flask import jsonify, Response
-from . import bp
-from ...utils import stats_by_period
-from ...cache import cache
+from seedboxsync_front.views.api import bp
+from seedboxsync_front.utils import stats_by_period
+from seedboxsync_front.cache import cache
 
 
 @bp.route('/stats-by-year', methods=['GET'])

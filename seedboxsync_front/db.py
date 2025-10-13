@@ -5,11 +5,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-from flask import Flask
-from peewee import SqliteDatabase
-from seedboxsync.core.dao.model import global_database_object
-from .utils import sizeof, byte_to_gi
 import os
+from cement.utils import fs
+from flask import Flask
+from playhouse.flask_utils import FlaskDB
+from seedboxsync.core.dao import Download, Lock, SeedboxSync, Torrent
+from seedboxsync.core.db import sizeof
+from seedboxsync_front.utils import byte_to_gi
 
 
 class Database(object):
@@ -28,10 +30,8 @@ class Database(object):
             app (Flask): The database object.
             database (SqliteDatabase | None): The database object.
         """
-        self.app = app
-        self.dbProxy = global_database_object
+        self.__app = app
         self.__load_database()
-        self.__register_handlers()
         self.__register_functions()
 
     def __load_database(self) -> None:
@@ -40,31 +40,17 @@ class Database(object):
         """
 
         # Get DB from config
-        db_file = self.app.config['DATABASE']
+        db_file = fs.abspath(self.__app.config['DATABASE'])
+        db_url = 'sqlite:///' + db_file
 
         if not os.path.exists(db_file):
-            self.app.logger.error('No database %s found', db_file)
-            self.app.config['INIT_ERROR'] = "Can't load seedbox database!"
+            self.__app.logger.error('No database %s found', db_url)
+            self.__app.config['INIT_ERROR'] = "Can't load seedbox database!"
         else:
-            self.db = SqliteDatabase(db_file)
-            global_database_object.initialize(self.db)
-            self.app.logger.debug('Use database %s', db_file)
-
-    def __close_db(self, exc: BaseException | None = None) -> None:
-        """
-        Close database.
-
-        Args:
-            exc (BaseException  | None): An exception.
-        """
-        if self.dbProxy is not None and not self.dbProxy.is_closed():
-            self.dbProxy.close()
-
-    def __register_handlers(self) -> None:
-        """
-        Register DB hanlers.
-        """
-        self.app.teardown_request(self.__close_db)
+            db_wrapper = FlaskDB(self.__app, db_url)
+            self.db = db_wrapper.database
+            self.db.bind([Download, Lock, SeedboxSync, Torrent])
+            self.__app.logger.debug('Use database %s', db_file)
 
     def __register_functions(self) -> None:
         """

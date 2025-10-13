@@ -14,7 +14,7 @@
 [![Security Rating][ico-sonarcloud-security]][link-sonarcloud-security]
 
 <p align="center">
-  <img alt="SeedboxSync logo" src="screenshots/logo.png" />
+  <a href="https://llaumgui.github.io/seedboxsync/" title="Documentation"><img alt="SeedboxSync logo" src="logo/256.png" /></a>
 </p>
 
 SeedboxSyncFront is the frontend of **SeedboxSync**, which provides powerful synchronization features between your NAS and your seedbox, making torrent management seamless and automated.

@@ -6,9 +6,9 @@
 # file that was distributed with this source code.
 #
 from flask import jsonify, Response
-from seedboxsync.core.dao.torrent import Torrent
-from . import bp
-from ...utils import get_limit
+from seedboxsync.core.dao import Torrent
+from seedboxsync_front.views.api import bp
+from seedboxsync_front.utils import get_limit
 
 
 @bp.route('/uploads', methods=['GET'])

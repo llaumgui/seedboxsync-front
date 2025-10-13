@@ -7,14 +7,15 @@
 #
 from flask import Flask, Response, request
 from flask_babel import Babel
-from .views import bp as bp_frontend, error as error_front
-from .views.api import bp as bp_api, error as error_api
-from .db import Database
-from .cache import cache
-from .config import Config
-from .utils import get_locale
+from seedboxsync_front.views import bp as bp_frontend, error as error_front
+from seedboxsync_front.views.api import bp as bp_api, error as error_api
+from seedboxsync_front.db import Database
+from seedboxsync_front.cache import cache
+from seedboxsync_front.config import Config
+from seedboxsync_front.utils import get_locale
+from seedboxsync_front.__version__ import __version__ as version
 
-__version__ = "1.0.0b2"
+__version__ = version
 
 
 def __handle_http_exception(e: Exception) -> tuple[Response, int | None] | tuple[str, int | None]:

@@ -6,8 +6,8 @@
 # file that was distributed with this source code.
 #
 from flask import current_app, flash, request
-from seedboxsync.core.dao.download import Download
 from peewee import fn
+from seedboxsync.core.dao import Download
 
 
 def init_flash() -> None:
@@ -37,25 +37,6 @@ def get_limit(default: int = 5, max_limit: int = 1000) -> int:
         limit = default
 
     return limit
-
-
-def sizeof(num: float, suffix: str = 'B') -> str:
-    """
-    Convert in human readable units.
-    From: https://stackoverflow.com/a/1094933
-
-    Args:
-        num (int): Value not human readable.
-        suffix (str): Suffix for value given to (default: B).
-
-    Returns:
-        str: Human readable value.
-    """
-    for unit in ("", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"):
-        if abs(num) < 1024.0:
-            return f"{num:3.1f}{unit}{suffix}"
-        num /= 1024.0
-    return f"{num:.1f}Yi{suffix}"
 
 
 def byte_to_gi(bytes_value: float, suffix: str = 'B') -> str:

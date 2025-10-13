@@ -6,9 +6,9 @@
 # file that was distributed with this source code.
 #
 from flask import render_template
-from . import bp
-from ..cache import cache
-from ..utils import init_flash
+from seedboxsync_front.views import bp
+from seedboxsync_front.cache import cache
+from seedboxsync_front.utils import init_flash
 
 
 @bp.route('/uploaded')

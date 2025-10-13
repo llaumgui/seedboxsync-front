@@ -6,10 +6,11 @@
 # file that was distributed with this source code.
 #
 from flask import render_template
-from seedboxsync.core.dao.download import Download
-from . import bp
-from ..cache import cache
-from ..utils import init_flash, sizeof
+from seedboxsync.core.dao import Download
+from seedboxsync.core.db import sizeof
+from seedboxsync_front.views import bp
+from seedboxsync_front.cache import cache
+from seedboxsync_front.utils import init_flash
 
 
 @bp.route('/stats')

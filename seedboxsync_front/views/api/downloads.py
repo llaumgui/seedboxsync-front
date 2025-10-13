@@ -7,9 +7,9 @@
 #
 from flask import jsonify, Response
 from peewee import fn
-from seedboxsync.core.dao.download import Download
-from . import bp
-from ...utils import get_limit
+from seedboxsync.core.dao import Download
+from seedboxsync_front.views.api import bp
+from seedboxsync_front.utils import get_limit
 
 
 @bp.route('/downloads', methods=['GET'])
