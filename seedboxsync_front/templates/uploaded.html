@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="title is-invisible">{% block title %}Homepage{% endblock %}</h1>
+  <h1 class="title">{% block title %}{{ _('Last torrents uploaded') }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="content">
-  <h2>{{ _('Last torrents uploaded') }}</h2>
   <p class="is-italic">{{ _('List of last torrents uploaded from the NAS to the seedbox.') }}</p>
 
   <div x-data="tablePaginedComponent('{{ url_for('api.uploads') }}?limit=1000')">

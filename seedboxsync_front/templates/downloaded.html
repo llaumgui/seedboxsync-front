@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="title is-invisible">{% block title %}Homepage{% endblock %}</h1>
+  <h1 class="title">{% block title %}{{ _('Last files downloaded') }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="content">
-  <h2>{{ _('Last files downloaded') }}</h2>
   <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
 
   <div x-data="tablePaginedComponent('{{ url_for('api.downloads') }}?limit=1000')">
