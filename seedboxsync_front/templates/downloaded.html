@@ -24,7 +24,7 @@
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No files downloaded yet...') }}</div>
 
     {# Table #}
-    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>{{ _('Id') }}</th>

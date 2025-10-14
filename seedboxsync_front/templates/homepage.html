@@ -13,7 +13,7 @@
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-info"><i class="fas fa-inbox"></i> {{ _('No download in progress now...') }}</div>
-    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>{{ _('Id') }}</th>
@@ -39,7 +39,7 @@
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No files downloaded yet...') }}</div>
-    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Id</th>
@@ -67,7 +67,7 @@
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No torrent downloaded yet...') }} </div>
-    <table x-show="data.length > 0" class="table is-bordered is-striped is-fullwidth">
+    <table x-show="data.length > 0" class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>{{ _('Id') }}</th>

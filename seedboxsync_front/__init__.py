@@ -6,7 +6,7 @@
 # file that was distributed with this source code.
 #
 from flask import Flask, Response, request
-from flask_babel import Babel
+from flask_babel import Babel, format_datetime
 from seedboxsync_front.views import bp as bp_frontend, error as error_front
 from seedboxsync_front.views.api import bp as bp_api, error as error_api
 from seedboxsync_front.db import Database
@@ -42,6 +42,10 @@ def create_app(test_config: dict[str, str] | None = None) -> Flask:
 
     # Babel lazy loading
     Babel(app, locale_selector=get_locale)
+
+    @app.context_processor
+    def inject_formatters():
+        return dict(format_datetime=format_datetime)
 
     # Cache lazy loading
     cache.init_app(app)

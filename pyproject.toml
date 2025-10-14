@@ -28,7 +28,7 @@ dependencies = [
   "Flask-Babel",
   "pyyaml",
   "peewee",
-  "seedboxsync>=3.2.0",
+   "seedboxsync @ git+https://github.com/llaumgui/seedboxsync.git@main"
 ]
 
 [project.urls]

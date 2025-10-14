@@ -50,7 +50,7 @@ class Database(object):
             db_wrapper = FlaskDB(self.__app, db_url)
             self.db = db_wrapper.database
             self.db.bind([Download, Lock, SeedboxSync, Torrent])
-            self.__app.logger.debug('Use database %s', db_file)
+            self.__app.logger.debug('Use database %s', db_url)
 
     def __register_functions(self) -> None:
         """
