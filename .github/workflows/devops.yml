@@ -108,7 +108,7 @@ jobs:
         python-version: ${{ env.pythonLastVersion }}
         cache: 'pip'
     - name: Use Node.js ${{ env.nodeLastVersion }}
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ env.nodeLastVersion }}
     - name: Install Python Dependencies
