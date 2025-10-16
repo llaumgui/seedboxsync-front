@@ -8,7 +8,7 @@
 <div class="content">
   <p class="is-italic">{{ _('List of last torrents uploaded from the NAS to the seedbox.') }}</p>
 
-  <div x-data="tablePaginedComponent('{{ url_for('api.uploads') }}?limit=1000')">
+  <div x-data="tablePaginedComponent('{{ url_for('api.uploads_uploads_list') }}?limit=1000')">
 
     {# Search #}
     <div class="mb-4 control has-icons-left has-icons-right">

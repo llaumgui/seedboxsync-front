@@ -1,15 +1,40 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="title is-invisible">{% block title %}{{ _('Dashboard') }}{% endblock %}</h1>
+  <h1 class="title is-hidden">{% block title %}{{ _('Dashboard') }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="content">
 
+  <div class="is-flex is-justify-content-space-between is-align-items-center">
+    <div class="message" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
+      <div class="message-header">
+        <p>{{ _('Blackhole') }}</p>
+      </div>
+      <div class="message-body">
+        <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+        <div x-show="!loading && !error" x-text="lockMessage"></div>
+        <div x-show="error" class="has-text-danger" x-text="error"></div>
+      </div>
+    </div>
+
+    <div class="message" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
+      <div class="message-header">
+        <p>{{ _('Seedbox') }}</p>
+      </div>
+      <div class="message-body">
+        <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+        <div x-show="!loading && !error" x-text="lockMessage"></div>
+        <div x-show="error" class="has-text-danger" x-text="error"></div>
+      </div>
+    </div>
+
+  </div>
+
   <h2>{{ _('Download in progress') }}</h2>
   <p class="is-italic">{{ _('List of downloads in progress from the seedbox to the NAS.') }}</p>
-  <div x-data="tableComponent('{{ url_for('api.progress') }}')">
+  <div x-data="tableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=false')">
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-info"><i class="fas fa-inbox"></i> {{ _('No download in progress now...') }}</div>
@@ -35,7 +60,7 @@
 
   <h2>{{ _('Last files downloaded') }}</h2>
   <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
-  <div x-data="tableComponent('{{ url_for('api.downloads') }}')">
+  <div x-data="tableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5')">
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No files downloaded yet...') }}</div>
@@ -63,7 +88,7 @@
 
   <h2>{{ _('Last torrents uploaded') }}</h2>
   <p class="is-italic">{{ _('List of last torrents uploaded from the NAS to the seedbox.') }}</p>
-  <div x-data="tableComponent('{{ url_for('api.uploads') }}')">
+  <div x-data="tableComponent('{{ url_for('api.uploads_uploads_list') }}?limit=5')">
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No torrent downloaded yet...') }} </div>

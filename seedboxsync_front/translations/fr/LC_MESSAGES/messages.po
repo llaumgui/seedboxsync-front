@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: guillaume@kulakowski.fr\n"
-"POT-Creation-Date: 2025-10-13 20:48+0200\n"
+"POT-Creation-Date: 2025-10-16 21:01+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -18,13 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
+#: seedboxsync_front/apis/error.py:47 seedboxsync_front/views/error.py:20
+msgid "Internal Server Error"
+msgstr "Erreur interne du serveur"
+
 #: seedboxsync_front/templates/downloaded.html:4
-#: seedboxsync_front/templates/homepage.html:36
+#: seedboxsync_front/templates/homepage.html:61
 msgid "Last files downloaded"
 msgstr "Derniers fichiers téléchargés"
 
 #: seedboxsync_front/templates/downloaded.html:9
-#: seedboxsync_front/templates/homepage.html:37
+#: seedboxsync_front/templates/homepage.html:62
 msgid "List of last files downloaded from the seedbox to the NAS."
 msgstr "Liste des derniers fichiers téléchargés de la seedbox vers le NAS."
 
@@ -34,49 +38,49 @@ msgid "Search"
 msgstr "Recherche"
 
 #: seedboxsync_front/templates/downloaded.html:22
-#: seedboxsync_front/templates/homepage.html:13
-#: seedboxsync_front/templates/homepage.html:39
-#: seedboxsync_front/templates/homepage.html:67
+#: seedboxsync_front/templates/homepage.html:38
+#: seedboxsync_front/templates/homepage.html:64
+#: seedboxsync_front/templates/homepage.html:92
 #: seedboxsync_front/templates/uploaded.html:22
 msgid "Loading..."
 msgstr "Chargement..."
 
 #: seedboxsync_front/templates/downloaded.html:23
-#: seedboxsync_front/templates/homepage.html:14
-#: seedboxsync_front/templates/homepage.html:40
-#: seedboxsync_front/templates/homepage.html:68
+#: seedboxsync_front/templates/homepage.html:39
+#: seedboxsync_front/templates/homepage.html:65
+#: seedboxsync_front/templates/homepage.html:93
 #: seedboxsync_front/templates/uploaded.html:23
 msgid "An error has occurred."
 msgstr "Une erreur est survenue."
 
 #: seedboxsync_front/templates/downloaded.html:24
-#: seedboxsync_front/templates/homepage.html:41
+#: seedboxsync_front/templates/homepage.html:66
 msgid "No files downloaded yet..."
 msgstr "Pas encore de fichier téléchargé..."
 
 #: seedboxsync_front/templates/downloaded.html:30
-#: seedboxsync_front/templates/homepage.html:19
-#: seedboxsync_front/templates/homepage.html:73
+#: seedboxsync_front/templates/homepage.html:44
+#: seedboxsync_front/templates/homepage.html:98
 #: seedboxsync_front/templates/uploaded.html:30
 msgid "Id"
 msgstr "Id"
 
 #: seedboxsync_front/templates/downloaded.html:31
-#: seedboxsync_front/templates/homepage.html:20
-#: seedboxsync_front/templates/homepage.html:46
-#: seedboxsync_front/templates/homepage.html:74
+#: seedboxsync_front/templates/homepage.html:45
+#: seedboxsync_front/templates/homepage.html:71
+#: seedboxsync_front/templates/homepage.html:99
 #: seedboxsync_front/templates/uploaded.html:31
 msgid "Name"
 msgstr "Nom"
 
 #: seedboxsync_front/templates/downloaded.html:32
-#: seedboxsync_front/templates/homepage.html:47
+#: seedboxsync_front/templates/homepage.html:72
 msgid "Finished"
 msgstr "Terminé"
 
 #: seedboxsync_front/templates/downloaded.html:33
-#: seedboxsync_front/templates/homepage.html:21
-#: seedboxsync_front/templates/homepage.html:48
+#: seedboxsync_front/templates/homepage.html:46
+#: seedboxsync_front/templates/homepage.html:73
 msgid "Size"
 msgstr "Taille"
 
@@ -95,33 +99,41 @@ msgstr "Suivant"
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: seedboxsync_front/templates/homepage.html:10
+#: seedboxsync_front/templates/homepage.html:13
+msgid "Blackhole"
+msgstr "Blackhole"
+
+#: seedboxsync_front/templates/homepage.html:24
+msgid "Seedbox"
+msgstr "Seedbox"
+
+#: seedboxsync_front/templates/homepage.html:35
 msgid "Download in progress"
 msgstr "Téléchargement en cours"
 
-#: seedboxsync_front/templates/homepage.html:11
+#: seedboxsync_front/templates/homepage.html:36
 msgid "List of downloads in progress from the seedbox to the NAS."
 msgstr "Liste des téléchargements en cours de la seedbox vers le NAS."
 
-#: seedboxsync_front/templates/homepage.html:15
+#: seedboxsync_front/templates/homepage.html:40
 msgid "No download in progress now..."
 msgstr "Aucun téléchargement en cours..."
 
-#: seedboxsync_front/templates/homepage.html:64
+#: seedboxsync_front/templates/homepage.html:89
 #: seedboxsync_front/templates/uploaded.html:4
 msgid "Last torrents uploaded"
 msgstr "Derniers torrents envoyés"
 
-#: seedboxsync_front/templates/homepage.html:65
+#: seedboxsync_front/templates/homepage.html:90
 #: seedboxsync_front/templates/uploaded.html:9
 msgid "List of last torrents uploaded from the NAS to the seedbox."
 msgstr "Liste des derniers torrents envoyés du NAS vers la seedbox."
 
-#: seedboxsync_front/templates/homepage.html:69
+#: seedboxsync_front/templates/homepage.html:94
 msgid "No torrent downloaded yet..."
 msgstr "Pas encore de torrent téléchargé..."
 
-#: seedboxsync_front/templates/homepage.html:75
+#: seedboxsync_front/templates/homepage.html:100
 #: seedboxsync_front/templates/uploaded.html:32
 msgid "Sent"
 msgstr "Envoyé"
@@ -208,9 +220,14 @@ msgid "No files uploaded yet..."
 msgstr "Pas encore de fichier envoyé..."
 
 #: seedboxsync_front/templates/components/footer.html:5
-#, python-format
-msgid "%(seedboxsync)s by %(author)s under %(license)s."
+#, fuzzy, python-format
+msgid "%(seedboxsync)s v%(version)s by %(author)s under %(license)s"
 msgstr "%(seedboxsync)s par %(author)s sous %(license)s."
+
+#: seedboxsync_front/templates/components/footer.html:11
+#, fuzzy, python-format
+msgid "SeedboxSync API %(api_version)s"
+msgstr "Version de SeedboxSync"
 
 #: seedboxsync_front/templates/components/navbar.html:18
 msgid "Downloaded"
@@ -227,10 +244,6 @@ msgstr "Info"
 #: seedboxsync_front/templates/components/navbar.html:21
 msgid "Stats"
 msgstr "Statistiques"
-
-#: seedboxsync_front/views/api/error.py:22 seedboxsync_front/views/error.py:20
-msgid "Internal Server Error"
-msgstr "Erreur interne du serveur"
 
 #~ msgid "Homepage"
 #~ msgstr "Accueil"

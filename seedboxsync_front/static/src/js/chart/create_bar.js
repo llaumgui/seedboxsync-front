@@ -57,8 +57,8 @@ export function createBarChart(
 export function loadChart(ctx, url, labelField) {
   fetch(url)
     .then((res) => res.json())
-    .then((data) =>
-      createBarChart(ctx, data, "Files", "Size (GiB)", labelField)
+    .then((json) =>
+      createBarChart(ctx, json.data, "Files", "Size (GiB)", labelField)
     )
     .catch((err) => console.error("Error loading chart:", err));
 }

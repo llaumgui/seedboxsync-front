@@ -8,7 +8,7 @@
 <div class="content">
   <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
 
-  <div x-data="tablePaginedComponent('{{ url_for('api.downloads') }}?limit=1000')">
+  <div x-data="tablePaginedComponent('{{ url_for('api.downloads_downloads_list') }}?limit=1000')">
 
     {# Search #}
     <div class="mb-4 control has-icons-left has-icons-right">

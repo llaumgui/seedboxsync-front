@@ -29,7 +29,7 @@ export function tablePaginedComponent(apiUrl, perPage = 20) {
           return r.json();
         })
         .then((json) => {
-          this.data = json;
+          this.data = json.data;
           this.page = 1;
         })
         .catch(() => {

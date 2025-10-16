@@ -9,11 +9,6 @@ def test_dashboard(client):  # Is OK
     assert response.status_code == 200
 
 
-def test_stats(client):  # Is OK
-    response = client.get('/stats')
-    assert response.status_code == 200
-
-
 def test_downloads(client):  # Is OK
     response = client.get('/downloaded')
     assert response.status_code == 200
@@ -24,16 +19,26 @@ def test_uploads(client):  # Is OK
     assert response.status_code == 200
 
 
+def test_stats(client):  # Is OK
+    response = client.get('/stats')
+    assert response.status_code == 200
+
+
+def test_infos(client):  # Is OK
+    response = client.get('/info')
+    assert response.status_code == 200
+
+
 def test_translation(client):
     # Is default language
     response = client.get('/')
-    assert b'<h1 class="title is-invisible">Dashboard</h1>' in response.data
+    assert b'<h1 class="title is-hidden">Dashboard</h1>' in response.data
     # Is defallbackfault language
     response = client.get('/', headers={'Accept-Language': 'zz'})
-    assert b'<h1 class="title is-invisible">Dashboard</h1>' in response.data
+    assert b'<h1 class="title is-hidden">Dashboard</h1>' in response.data
     # Is fr language
     response = client.get('/', headers={'Accept-Language': 'fr'})
-    assert b'<h1 class="title is-invisible">Tableau de bord</h1>' in response.data
+    assert b'<h1 class="title is-hidden">Tableau de bord</h1>' in response.data
 
 
 def test_flash(app, client):

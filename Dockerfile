@@ -18,7 +18,7 @@ FROM python:3.13-alpine AS builder-python
 WORKDIR /src
 COPY . /src
 
-RUN apk add --no-cache make && \
+RUN apk add --no-cache make git && \
     pip install --no-cache-dir -e ".[dev]"
 
 RUN make i18n-compile
@@ -54,7 +54,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLA
 RUN tar -C / -Jxpf /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
 
 # ------------------------------------------------------------ SeedboxSync setup
-RUN apk add --update --no-cache shadow
+RUN apk add --update --no-cache shadow git
 RUN addgroup -g ${PGID} seedboxsync && adduser -D -u ${PUID} -G seedboxsync seedboxsync
 
 # System folders

@@ -62,4 +62,4 @@ class Database(object):
 
         @self.db.func('sizeof')  # type: ignore
         def db_sizeof(num: float, suffix: str = 'B') -> str:
-            return sizeof(num, suffix)
+            return sizeof(num, suffix)  # type: ignore[no-any-return]

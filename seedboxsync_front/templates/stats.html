@@ -31,8 +31,8 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    loadChart(document.getElementById('statsByMonth'), '{{ url_for("api.stats_by_month") }}', 'month');
-    loadChart(document.getElementById('statsByYear'), '{{ url_for("api.stats_by_year") }}', 'year');
+    loadChart(document.getElementById('statsByMonth'), '{{ url_for("api.downloads_downloads_stats_by_month") }}', 'month');
+    loadChart(document.getElementById('statsByYear'), '{{ url_for("api.downloads_downloads_stats_by_year") }}', 'year');
   });
 </script>
 {% endblock %}

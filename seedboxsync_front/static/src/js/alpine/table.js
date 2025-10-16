@@ -25,7 +25,7 @@ export function tableComponent(apiUrl, refreshMs = 30000) {
           return r.json();
         })
         .then((json) => {
-          this.data = json;
+          this.data = json.data;
         })
         .catch(() => {
           this.error = true;

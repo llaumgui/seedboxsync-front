@@ -50,6 +50,8 @@ class Config(object):
         self.__check_config()  # Do all checks
         self.app.config.setdefault('CACHE_TYPE', 'SimpleCache')  # Init Flask Cache
         self.app.config.setdefault('DATABASE', fs.abspath(str((self.app.config.get('local') or {}).get('db_file', 'default.db'))))  # Get DB file
+        self.app.config.setdefault('SWAGGER_UI_DOC_EXPANSION', 'list')  # Expense swager namespaces
+        self.app.config['PROPAGATE_EXCEPTIONS'] = False
 
     def __check_config(self) -> None:
         """

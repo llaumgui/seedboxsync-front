@@ -26,9 +26,10 @@ dependencies = [
   "flask",
   "Flask-Caching",
   "Flask-Babel",
+  "flask-restx",
   "pyyaml",
   "peewee",
-   "seedboxsync @ git+https://github.com/llaumgui/seedboxsync.git@main"
+  "seedboxsync @ git+https://github.com/llaumgui/seedboxsync.git@main"
 ]
 
 [project.urls]
