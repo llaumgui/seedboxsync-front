@@ -35,11 +35,11 @@ export function lockBoxComponent(url, refreshMs = 30000) {
         this.lockData = json.data;
 
         if (this.lockData.locked) {
-          this.lockMessage = `Lock since ${new Date(
+          this.lockMessage = `${Translations.locked_since} ${new Date(
             this.lockData.locked_at
           ).toLocaleString()}`;
         } else {
-          this.lockMessage = `Unlock since ${new Date(
+          this.lockMessage = `${Translations.unlocked_since} ${new Date(
             this.lockData.unlocked_at
           ).toLocaleString()}`;
         }

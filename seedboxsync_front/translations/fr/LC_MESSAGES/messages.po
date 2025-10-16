@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: guillaume@kulakowski.fr\n"
-"POT-Creation-Date: 2025-10-16 21:01+0200\n"
+"POT-Creation-Date: 2025-10-16 21:13+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -228,6 +228,14 @@ msgstr "%(seedboxsync)s par %(author)s sous %(license)s."
 #, fuzzy, python-format
 msgid "SeedboxSync API %(api_version)s"
 msgstr "Version de SeedboxSync"
+
+#: seedboxsync_front/templates/components/javascripts.html:3
+msgid "Unlocked since"
+msgstr "Déverrouillé depuis"
+
+#: seedboxsync_front/templates/components/javascripts.html:4
+msgid "Locked since"
+msgstr "Verrouillé depuis"
 
 #: seedboxsync_front/templates/components/navbar.html:18
 msgid "Downloaded"
