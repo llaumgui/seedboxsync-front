@@ -31,7 +31,7 @@ def test_downloads_list(client):
     # Default
     response = client.get(f'{API_PATH}/downloads')
     assert response.status_code == 200
-    assert response.json['data'][2]['finished'] == 'Tue, 20 May 2025 21:50:46 -0000'
+    assert response.json['data'][2]['finished'] == '2025-05-20T21:50:46'
     assert response.json['data'][2]['id'] == 997
     assert response.json['data'][2]['local_size'] == '3.6GiB'
     assert response.json['data'][2]['path'] == 'FelisSedLacus.ppt'
@@ -48,7 +48,7 @@ def test_downloads(client):
     # Default
     response = client.get(f'{API_PATH}/downloads/1000')
     assert response.status_code == 200
-    assert response.json['data']['finished'] == 'Fri, 30 May 2025 01:47:04 -0000'
+    assert response.json['data']['finished'] == '2025-05-30T01:47:04'
     assert response.json['data']['id'] == 1000
     assert response.json['data']['local_size'] == '3.3GiB'
     assert response.json['data']['path'] == 'Quis.mpeg'
@@ -96,7 +96,7 @@ def test_uploads_list(client):
     assert response.status_code == 200
     assert response.json['data'][3]['id'] == 247
     assert response.json['data'][3]['name'] == 'SuscipitLigulaIn.torrent'
-    assert response.json['data'][3]['sent'] == 'Mon, 16 Oct 2017 21:13:02 -0000'
+    assert response.json['data'][3]['sent'] == '2017-10-16T21:13:02.851925'
     assert len(response.json['data']) == DEFAULT
     # With param limit
     response = client.get(f'{API_PATH}/uploads?limit=6')
@@ -110,7 +110,7 @@ def test_uploads(client):
     # Default
     response = client.get(f'{API_PATH}/uploads/100')
     assert response.status_code == 200
-    assert response.json['data']['sent'] == 'Sun, 10 Sep 2017 19:52:03 -0000'
+    assert response.json['data']['sent'] == '2017-09-10T19:52:03.455537'
     assert response.json['data']['id'] == 100
     assert response.json['data']['name'] == 'Justo.torrent'
 
@@ -129,8 +129,8 @@ def test_locks_list(client):
     assert response.json['data'][0]['key'] == 'sync_blackhole'
     assert response.json['data'][0]['pid'] == 0
     assert response.json['data'][0]['locked'] is False
-    assert response.json['data'][0]['locked_at'] == 'Mon, 13 Oct 2025 15:37:46 -0000'
-    assert response.json['data'][0]['unlocked_at'] == 'Mon, 13 Oct 2025 15:37:46 -0000'
+    assert response.json['data'][0]['locked_at'] == '2025-10-13T15:37:46.747181'
+    assert response.json['data'][0]['unlocked_at'] == '2025-10-13T15:37:46.752033'
     assert len(response.json['data']) == 2
 
 
@@ -141,7 +141,7 @@ def test_locks(client):
     assert response.json['data']['key'] == 'sync_seedbox'
     assert response.json['data']['pid'] == 84074
     assert response.json['data']['locked'] is True
-    assert response.json['data']['locked_at'] == 'Mon, 13 Oct 2025 15:38:29 -0000'
+    assert response.json['data']['locked_at'] == '2025-10-13T15:38:29.652233'
     assert response.json['data']['unlocked_at'] is None
 
 

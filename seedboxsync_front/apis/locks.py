@@ -19,9 +19,9 @@ api = Namespace('locks', description='Operations related to lock')
 lock_model = api.model('Locks', {
     'key': fields.String(required=True, description="Unique lock identifier"),
     'pid': fields.Integer(required=True, description="Process ID holding the lock"),
-    'locked': fields.Boolean(dt_format='rfc822', required=True, description="Whether the lock is currently active"),
-    'locked_at': DateTimeOrZero(dt_format='rfc822', required=False, description="Timestamp when the lock was acquired"),
-    'unlocked_at': DateTimeOrZero(dt_format='rfc822', required=True, description="Timestamp when the lock was released"),
+    'locked': fields.Boolean(dt_format='iso8601', required=True, description="Whether the lock is currently active"),
+    'locked_at': DateTimeOrZero(dt_format='iso8601', required=False, description="Timestamp when the lock was acquired"),
+    'unlocked_at': DateTimeOrZero(dt_format='iso8601', required=True, description="Timestamp when the lock was released"),
 })
 lock_list_envelope = Resource.build_envelope_model(api, 'Locks', lock_model)
 lock_envelope = Resource.build_envelope_model(api, 'Lock', lock_model)

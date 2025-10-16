@@ -22,8 +22,8 @@ api = Namespace('downloads', description='Operations related to download managem
 download_model = api.model('Download', {
     'id': fields.Integer(required=True, description="Unique identifier of the download record"),
     'path': fields.String(required=True, description="Local path of the downloaded file"),
-    'started': fields.DateTime(dt_format='rfc822', required=True, description="Download start timestamp"),
-    'finished': DateTimeOrZero(dt_format='rfc822', required=False, description="Download completion timestamp"),
+    'started': fields.DateTime(dt_format='iso8601', required=True, description="Download start timestamp"),
+    'finished': DateTimeOrZero(dt_format='iso8601', required=False, description="Download completion timestamp"),
     'local_size': fields.String(required=True, description="File size on local storage"),
     'seedbox_size': fields.String(required=True, description="File size on seedbox storage"),
 })

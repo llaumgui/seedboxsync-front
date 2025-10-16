@@ -19,7 +19,7 @@ upload_model = api.model('Upload', {
     'id': fields.Integer(required=True, description="Unique identifier of the uploaded torrent"),
     'name': fields.String(required=True, description="Torrent file name"),
     'announce': fields.String(required=False, description="Announce URL or tracker information from the torrent file"),
-    'sent': fields.DateTime(dt_format='rfc822', required=True, description="Timestamp when the torrent was uploaded"),
+    'sent': fields.DateTime(dt_format='iso8601', required=True, description="Timestamp when the torrent was uploaded"),
 })
 upload_list_envelope = Resource.build_envelope_model(api, 'Uploads', upload_model)
 upload_envelope = Resource.build_envelope_model(api, 'Upload', upload_model)

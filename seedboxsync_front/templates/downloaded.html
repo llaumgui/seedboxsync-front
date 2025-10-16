@@ -38,7 +38,7 @@
           <tr>
             <td x-text="row.id"></td>
             <td x-text="row.path"></td>
-            <td x-text="row.finished"></td>
+            <td x-text="row.finished ? new Date(row.finished).toLocaleString(undefined, dateTimeOption) : ''"></td>
             <td x-text="row.local_size"></td>
           </tr>
         </template>

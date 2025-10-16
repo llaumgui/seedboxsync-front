@@ -37,11 +37,11 @@ export function lockBoxComponent(url, refreshMs = 30000) {
         if (this.lockData.locked) {
           this.lockMessage = `${Translations.locked_since} ${new Date(
             this.lockData.locked_at
-          ).toLocaleString()}`;
+          ).toLocaleString(undefined, dateTimeOption)}`;
         } else {
           this.lockMessage = `${Translations.unlocked_since} ${new Date(
             this.lockData.unlocked_at
-          ).toLocaleString()}`;
+          ).toLocaleString(undefined, dateTimeOption)}`;
         }
       } catch (e) {
         this.error = "Error loading lock status";

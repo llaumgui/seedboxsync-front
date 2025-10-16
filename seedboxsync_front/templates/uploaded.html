@@ -37,7 +37,7 @@
           <tr>
             <td x-text="row.id"></td>
             <td x-text="row.name"></td>
-            <td x-text="row.sent"></td>
+            <td x-text="row.sent ? new Date(row.sent).toLocaleString(undefined, dateTimeOption) : ''"></td>
           </tr>
         </template>
       </tbody>
