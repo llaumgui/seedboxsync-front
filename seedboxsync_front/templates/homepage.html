@@ -7,11 +7,9 @@
 {% block content %}
 <div class="content">
 
-  <div class="is-flex is-justify-content-space-between is-align-items-center">
-    <div class="message" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
-      <div class="message-header">
-        <p>{{ _('Blackhole') }}</p>
-      </div>
+  <div class="is-flex is-justify-content-space-between is-align-items-start">
+    <div class="message is-small"" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
+      <div class="message-header">{{ _('Blackhole') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
         <div x-show="!loading && !error" x-text="lockMessage"></div>
@@ -19,17 +17,14 @@
       </div>
     </div>
 
-    <div class="message" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
-      <div class="message-header">
-        <p>{{ _('Seedbox') }}</p>
-      </div>
+    <div class="message is-small"" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
+      <div class="message-header">{{ _('Seedbox') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
         <div x-show="!loading && !error" x-text="lockMessage"></div>
         <div x-show="error" class="has-text-danger" x-text="error"></div>
       </div>
     </div>
-
   </div>
 
   <h2>{{ _('Download in progress') }}</h2>

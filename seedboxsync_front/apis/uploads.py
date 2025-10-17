@@ -12,6 +12,7 @@ from seedboxsync_front.apis import Resource
 
 api = Namespace('uploads', description='Operations related to uploaded torrents management')
 
+
 # ==========================
 # Models
 # ==========================
@@ -23,6 +24,7 @@ upload_model = api.model('Upload', {
 })
 upload_list_envelope = Resource.build_envelope_model(api, 'Uploads', upload_model)
 upload_envelope = Resource.build_envelope_model(api, 'Upload', upload_model)
+
 
 # ==========================
 # Request parser

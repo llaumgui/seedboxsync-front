@@ -30,21 +30,26 @@ export function lockBoxComponent(url, refreshMs = 30000) {
       this.error = null;
       try {
         const res = await fetch(url);
+
+        if (res.status === 404) {
+          // Specific handling for never launched
+          this.lockData = null;
+          this.lockMessage = Translations.never_launched;
+          this.loading = false;
+          return;
+        };
+
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         const json = await res.json();
         this.lockData = json.data;
 
         if (this.lockData.locked) {
-          this.lockMessage = `${Translations.locked_since} ${new Date(
-            this.lockData.locked_at
-          ).toLocaleString(undefined, dateTimeOption)}`;
+          this.lockMessage = `${Translations.in_progress_since} ${new Date(this.lockData.locked_at).toLocaleString(undefined, dateTimeOption)}`;
         } else {
-          this.lockMessage = `${Translations.unlocked_since} ${new Date(
-            this.lockData.unlocked_at
-          ).toLocaleString(undefined, dateTimeOption)}`;
+          this.lockMessage = `${Translations.completed_since} ${new Date(this.lockData.unlocked_at).toLocaleString(undefined, dateTimeOption)}`;
         }
       } catch (e) {
-        this.error = "Error loading lock status";
+        this.error = Translations.error_loading_lock_status;
         console.error(e);
       } finally {
         this.loading = false;
