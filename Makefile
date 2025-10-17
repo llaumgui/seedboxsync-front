@@ -12,6 +12,11 @@ run:
 	export FLASK_CACHE_TYPE=NullCache ; \
 	flask --app seedboxsync_front.app:app run --debug
 
+run-gunicorn:
+	export FLASK_SECRET_KEY=gunicorn ; \
+	gunicorn -w 1 -b 0.0.0.0:5000 seedboxsync_front.app:app
+
+
 i18n-extract:
 	pybabel extract -F babel.cfg -o seedboxsync_front/messages.pot .
 

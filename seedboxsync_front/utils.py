@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-from flask import current_app, flash, request
+from flask import current_app, flash
 
 
 def init_flash() -> None:
@@ -29,13 +29,3 @@ def byte_to_gi(bytes_value: float, suffix: str = 'B') -> str:
     """
     gib = bytes_value / (1024**3)
     return f"{gib:.1f}Gi{suffix}"
-
-
-def get_locale() -> str | None:
-    """
-    Get locale from browser.
-
-    Returns:
-        str: The local.
-    """
-    return request.accept_languages.best_match(['fr', 'en'])

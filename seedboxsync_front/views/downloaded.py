@@ -15,7 +15,7 @@ from seedboxsync_front.utils import init_flash
 @cache.cached(timeout=300)
 def downloaded() -> str:
     """
-    Downloaded list controller.
+    Downloaded list view.
     """
     init_flash()
 

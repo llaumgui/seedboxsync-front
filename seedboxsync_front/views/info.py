@@ -8,15 +8,17 @@
 from flask import render_template
 from seedboxsync.core.dao import Download, Lock, SeedboxSync
 from seedboxsync.core.db import sizeof
+from seedboxsync_front.cache import cache
 from seedboxsync_front.views import bp
 from seedboxsync_front.utils import init_flash
 from seedboxsync_front.__version__ import __version__ as version
 
 
 @bp.route('/info')
+@cache.cached(timeout=60)
 def info() -> str:
     """
-    Information page controller.
+    Information page view.
     """
     init_flash()
 

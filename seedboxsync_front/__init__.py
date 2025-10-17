@@ -7,15 +7,15 @@
 #
 import os
 from flask import Flask, Response, request, send_from_directory
-from flask_babel import Babel, format_datetime
+from flask_babel import format_datetime
 from datetime import datetime
 from typing import Callable
 from seedboxsync_front.views import bp as bp_frontend, error as error_front
 from seedboxsync_front.apis import bp as bp_api, error as error_api
+from seedboxsync_front.babel import babel, get_locale
 from seedboxsync_front.db import Database
 from seedboxsync_front.cache import cache
 from seedboxsync_front.config import Config
-from seedboxsync_front.utils import get_locale
 from seedboxsync_front.__version__ import __version__ as version, __api_version__ as api_version, __api_path_version__ as api_path_version
 
 __version__ = version
@@ -44,7 +44,7 @@ def create_app(test_config: dict[str, str] | None = None) -> Flask:
     Config(app, test_config)
 
     # Babel loading
-    Babel(app, locale_selector=get_locale)
+    babel.init_app(app, locale_selector=get_locale)
 
     # Inject Jinja function / variables
     @app.context_processor

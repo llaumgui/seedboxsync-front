@@ -55,7 +55,7 @@
 
   <h2>{{ _('Last files downloaded') }}</h2>
   <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
-  <div x-data="tableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5')">
+  <div x-data="tableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=true')">
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
     <div x-show="!loading && !error && data.length === 0" class="notification is-warning"><i class="fas fa-inbox"></i> {{ _('No files downloaded yet...') }}</div>

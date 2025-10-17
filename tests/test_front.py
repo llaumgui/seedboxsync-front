@@ -29,6 +29,12 @@ def test_infos(client):  # Is OK
     assert response.status_code == 200
 
 
+def test_healthcheck(client):  # Is OK
+    response = client.get('/healthcheck')
+    assert response.status_code == 200
+    assert response.json['status'] == 'ok'
+
+
 def test_translation(client):
     # Is default language
     response = client.get('/')

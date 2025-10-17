@@ -17,7 +17,7 @@ from seedboxsync_front.utils import init_flash
 @cache.cached(timeout=300)
 def stats() -> str:
     """
-    Stats page controller.
+    Stats page view.
     """
     init_flash()
 
