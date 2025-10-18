@@ -20,35 +20,36 @@ api = Namespace('downloads', description='Operations related to download managem
 # Models
 # ==========================
 download_model = api.model('Download', {
-    'id': fields.Integer(required=True, description="Unique identifier of the download record"),
-    'path': fields.String(required=True, description="Local path of the downloaded file"),
+    'id': fields.Integer(required=True, description="Unique identifier of the download record", example=999),
+    'path': fields.String(required=True, description="Local path of the downloaded file", example="ConvallisMorbi.doc"),
     'started': fields.DateTime(dt_format='iso8601', required=True, description="Download start timestamp"),
     'finished': DateTimeOrZero(dt_format='iso8601', required=False, description="Download completion timestamp"),
-    'local_size': fields.String(required=True, description="File size on local storage"),
-    'seedbox_size': fields.String(required=True, description="File size on seedbox storage"),
+    'local_size': fields.String(required=True, description="File size on local storage", example="958.1MiB"),
+    'seedbox_size': fields.String(required=True, description="File size on seedbox storage", example="958.1MiB"),
 })
-download_list_envelope = Resource.build_envelope_model(api, 'Downloads', download_model)
-download_envelope = Resource.build_envelope_model(api, 'Download', download_model)
+download_list_envelope = Resource.build_envelope_model(api, 'DownloadList', download_model)
+download_envelope = Resource.build_envelope_model(api, 'Download', download_model, False)
+download_message_envelope = Resource.build_envelope_model(api, 'DownloadMessage', download_model, False, True)
 
 stats_month_model = api.model('StatsMonth', {
-    'files': fields.Integer(required=True, description="Number of files downloaded in the month"),
-    'month': fields.String(
-        required=True,
-        description="Year and month of the statistics (format: yyyy-mm)",
-        pattern=r'^\d{4}-(0[1-9]|1[0-2])$'
-    ),
-    'total_size': fields.String(required=True, description="Total size of files downloaded"),
+    'files': fields.Integer(required=True, description="Number of files downloaded in the month", example=135),
+    'month': fields.String(required=True,
+                           description="Year and month of the statistics (format: yyyy-mm)",
+                           pattern=r'^\d{4}-(0[1-9]|1[0-2])$',
+                           example="2025-08"),
+    'total_size': fields.String(required=True, description="Total size of files downloaded", example="427.8GiB"),
 })
 stats_month_envelope = Resource.build_envelope_model(api, 'StatsMonth', stats_month_model)
 
 stats_year_model = api.model('StatsYear', {
-    'files': fields.Integer(required=True, description="Number of files downloaded in the year"),
+    'files': fields.Integer(required=True, description="Number of files downloaded in the year", example=4989),
     'year': fields.String(
         required=True,
         description="Year of the statistics (format: yyyy)",
-        pattern=r'^\d{4}$'
+        pattern=r'^\d{4}$',
+        example="2018"
     ),
-    'total_size': fields.String(required=True, description="Total size of files downloaded"),
+    'total_size': fields.String(required=True, description="Total size of files downloaded", example="1476.5GiB"),
 })
 stats_year_envelope = Resource.build_envelope_model(api, 'StatsYear', stats_year_model)
 
@@ -120,6 +121,22 @@ class DownloadsList(Resource):
         return self.build_envelope(list(query.dicts()), 'Download', 200)
 
 
+@api.route('/progress')
+class DownloadsProgress(Resource):
+    """
+    Endpoint for managing downloads progress.
+    """
+    @api.doc('delete_downloads_progress')  # type: ignore[misc]
+    @api.marshal_with(download_message_envelope, code=200, description="Downloads in progress deleted")  # type: ignore[misc]
+    def delete(self) -> dict[str, Any]:
+        """
+        Delete progress downloads.
+        """
+
+        count = Download.delete().where(Download.finished == 0).execute()
+        return self.build_envelope(None, 'Download', 200, f'{count} download(s) deleted.')
+
+
 @api.route('/<int:id>')
 @api.response(404, 'Download not found')
 @api.param('id', 'The download identifier')
@@ -149,6 +166,18 @@ class Downloads(Resource):
             api.abort(404, "Download {} doesn't exist".format(id))
 
         return self.build_envelope(result, 'Download', 200)
+
+    @api.doc('delete_download')  # type: ignore[misc]
+    @api.marshal_with(download_message_envelope, code=200, description="Download element")  # type: ignore[misc]
+    def delete(self, id: int) -> dict[str, Any]:
+        """
+        Retrieve a download.
+        """
+        count = Download.delete().where(Download.id == id).execute()
+        if count == 0:
+            api.abort(404, "Download {} doesn't exist".format(id))
+
+        return self.build_envelope(None, 'Download', 200, 'Download {} deleted.'.format(id))
 
 
 @api.route('/stats/month')

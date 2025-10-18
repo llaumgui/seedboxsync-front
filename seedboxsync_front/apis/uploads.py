@@ -17,13 +17,14 @@ api = Namespace('uploads', description='Operations related to uploaded torrents 
 # Models
 # ==========================
 upload_model = api.model('Upload', {
-    'id': fields.Integer(required=True, description="Unique identifier of the uploaded torrent"),
-    'name': fields.String(required=True, description="Torrent file name"),
-    'announce': fields.String(required=False, description="Announce URL or tracker information from the torrent file"),
+    'id': fields.Integer(required=True, description="Unique identifier of the uploaded torrent", example=99),
+    'name': fields.String(required=True, description="Torrent file name", example="Justo.torrent"),
+    'announce': fields.String(required=False, description="Announce URL or tracker information from the torrent file",
+                              example="https://serversecret.com/anounce"),
     'sent': fields.DateTime(dt_format='iso8601', required=True, description="Timestamp when the torrent was uploaded"),
 })
-upload_list_envelope = Resource.build_envelope_model(api, 'Uploads', upload_model)
-upload_envelope = Resource.build_envelope_model(api, 'Upload', upload_model)
+upload_list_envelope = Resource.build_envelope_model(api, 'UploadList', upload_model)
+upload_envelope = Resource.build_envelope_model(api, 'Upload', upload_model, False)
 
 
 # ==========================
@@ -53,7 +54,7 @@ class UploadsList(Resource):
 
     @api.doc('list_uploads')  # type: ignore[misc]
     @api.expect(parser)  # type: ignore[misc]
-    @api.marshal_with(upload_envelope, code=200, description="List of uploaded torrents")  # type: ignore[misc]
+    @api.marshal_with(upload_list_envelope, code=200, description="List of uploaded torrents")  # type: ignore[misc]
     def get(self) -> dict[str, Any]:
         """
         Retrieve the most recent uploaded torrents.
