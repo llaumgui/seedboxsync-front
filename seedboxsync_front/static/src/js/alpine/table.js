@@ -38,6 +38,7 @@ export function tableComponent(apiUrl, refreshMs = 30000) {
     init() {
       this.load();
       setInterval(() => this.load(), refreshMs);
+      window.addEventListener("force-refresh", () => this.load());
     },
   };
 };

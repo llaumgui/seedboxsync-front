@@ -91,6 +91,7 @@ export function tablePaginedComponent(apiUrl, perPage = 20) {
     // Init
     init() {
       this.load();
+      window.addEventListener("force-refresh", () => this.load());
     },
   };
 };

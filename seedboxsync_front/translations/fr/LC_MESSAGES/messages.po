@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: guillaume@kulakowski.fr\n"
-"POT-Creation-Date: 2025-10-17 08:19+0200\n"
+"POT-Creation-Date: 2025-10-18 09:41+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgid "Internal Server Error"
 msgstr "Erreur interne du serveur"
 
 #: seedboxsync_front/templates/downloaded.html:4
-#: seedboxsync_front/templates/homepage.html:56
+#: seedboxsync_front/templates/homepage.html:65
 msgid "Last files downloaded"
 msgstr "Derniers fichiers téléchargés"
 
 #: seedboxsync_front/templates/downloaded.html:9
-#: seedboxsync_front/templates/homepage.html:57
+#: seedboxsync_front/templates/homepage.html:67
 msgid "List of last files downloaded from the seedbox to the NAS."
 msgstr "Liste des derniers fichiers téléchargés de la seedbox vers le NAS."
 
@@ -37,50 +37,52 @@ msgstr "Liste des derniers fichiers téléchargés de la seedbox vers le NAS."
 msgid "Search"
 msgstr "Recherche"
 
+#: seedboxsync_front/templates/components/modal.html:13
 #: seedboxsync_front/templates/downloaded.html:22
-#: seedboxsync_front/templates/homepage.html:33
-#: seedboxsync_front/templates/homepage.html:59
-#: seedboxsync_front/templates/homepage.html:87
+#: seedboxsync_front/templates/homepage.html:40
+#: seedboxsync_front/templates/homepage.html:68
+#: seedboxsync_front/templates/homepage.html:96
 #: seedboxsync_front/templates/uploaded.html:22
 msgid "Loading..."
 msgstr "Chargement..."
 
+#: seedboxsync_front/templates/components/modal.html:16
 #: seedboxsync_front/templates/downloaded.html:23
-#: seedboxsync_front/templates/homepage.html:34
-#: seedboxsync_front/templates/homepage.html:60
-#: seedboxsync_front/templates/homepage.html:88
+#: seedboxsync_front/templates/homepage.html:41
+#: seedboxsync_front/templates/homepage.html:69
+#: seedboxsync_front/templates/homepage.html:97
 #: seedboxsync_front/templates/uploaded.html:23
 msgid "An error has occurred."
 msgstr "Une erreur est survenue."
 
 #: seedboxsync_front/templates/downloaded.html:24
-#: seedboxsync_front/templates/homepage.html:61
+#: seedboxsync_front/templates/homepage.html:70
 msgid "No files downloaded yet..."
 msgstr "Pas encore de fichier téléchargé..."
 
 #: seedboxsync_front/templates/downloaded.html:30
-#: seedboxsync_front/templates/homepage.html:39
-#: seedboxsync_front/templates/homepage.html:93
+#: seedboxsync_front/templates/homepage.html:46
+#: seedboxsync_front/templates/homepage.html:102
 #: seedboxsync_front/templates/uploaded.html:30
 msgid "Id"
 msgstr "Id"
 
 #: seedboxsync_front/templates/downloaded.html:31
-#: seedboxsync_front/templates/homepage.html:40
-#: seedboxsync_front/templates/homepage.html:66
-#: seedboxsync_front/templates/homepage.html:94
+#: seedboxsync_front/templates/homepage.html:47
+#: seedboxsync_front/templates/homepage.html:75
+#: seedboxsync_front/templates/homepage.html:103
 #: seedboxsync_front/templates/uploaded.html:31
 msgid "Name"
 msgstr "Nom"
 
 #: seedboxsync_front/templates/downloaded.html:32
-#: seedboxsync_front/templates/homepage.html:67
+#: seedboxsync_front/templates/homepage.html:76
 msgid "Finished"
 msgstr "Terminé"
 
 #: seedboxsync_front/templates/downloaded.html:33
-#: seedboxsync_front/templates/homepage.html:41
-#: seedboxsync_front/templates/homepage.html:68
+#: seedboxsync_front/templates/homepage.html:49
+#: seedboxsync_front/templates/homepage.html:77
 msgid "Size"
 msgstr "Taille"
 
@@ -111,29 +113,45 @@ msgstr "Seedbox"
 msgid "Download in progress"
 msgstr "Téléchargement en cours"
 
-#: seedboxsync_front/templates/homepage.html:31
+#: seedboxsync_front/templates/homepage.html:33
 msgid "List of downloads in progress from the seedbox to the NAS."
 msgstr "Liste des téléchargements en cours de la seedbox vers le NAS."
 
-#: seedboxsync_front/templates/homepage.html:35
+#: seedboxsync_front/templates/homepage.html:37
+msgid "Purge?"
+msgstr "Purger ?"
+
+#: seedboxsync_front/templates/homepage.html:38
+msgid "Do you want to purge all in-progress downloads?"
+msgstr "Voulez-vous purger tous les téléchargements en cours ?"
+
+#: seedboxsync_front/templates/homepage.html:38
+msgid "Purge"
+msgstr "Purger"
+
+#: seedboxsync_front/templates/homepage.html:42
 msgid "No download in progress now..."
 msgstr "Aucun téléchargement en cours..."
 
-#: seedboxsync_front/templates/homepage.html:84
+#: seedboxsync_front/templates/homepage.html:48
+msgid "Started"
+msgstr "Démarré"
+
+#: seedboxsync_front/templates/homepage.html:93
 #: seedboxsync_front/templates/uploaded.html:4
 msgid "Last torrents uploaded"
 msgstr "Derniers torrents envoyés"
 
-#: seedboxsync_front/templates/homepage.html:85
+#: seedboxsync_front/templates/homepage.html:95
 #: seedboxsync_front/templates/uploaded.html:9
 msgid "List of last torrents uploaded from the NAS to the seedbox."
 msgstr "Liste des derniers torrents envoyés du NAS vers la seedbox."
 
-#: seedboxsync_front/templates/homepage.html:89
+#: seedboxsync_front/templates/homepage.html:98
 msgid "No torrent downloaded yet..."
 msgstr "Pas encore de torrent téléchargé..."
 
-#: seedboxsync_front/templates/homepage.html:95
+#: seedboxsync_front/templates/homepage.html:104
 #: seedboxsync_front/templates/uploaded.html:32
 msgid "Sent"
 msgstr "Envoyé"
@@ -219,14 +237,14 @@ msgid "No files uploaded yet..."
 msgstr "Pas encore de fichier envoyé..."
 
 #: seedboxsync_front/templates/components/footer.html:5
-#, fuzzy, python-format
+#, python-format
 msgid "%(seedboxsync)s v%(version)s by %(author)s under %(license)s"
-msgstr "%(seedboxsync)s par %(author)s sous %(license)s."
+msgstr "%(seedboxsync)s v%(version)s par %(author)s sous %(license)s"
 
-#: seedboxsync_front/templates/components/footer.html:11
-#, fuzzy, python-format
-msgid "SeedboxSync API %(api_version)s"
-msgstr "Version de SeedboxSync"
+#: seedboxsync_front/templates/components/footer.html:12
+#, python-format
+msgid "SeedboxSync API v%(api_version)s"
+msgstr "API  SeedboxSync v%(api_version)s"
 
 #: seedboxsync_front/templates/components/javascripts.html:2
 msgid "In progress since"
@@ -236,13 +254,21 @@ msgstr "En cours depuis le"
 msgid "Completed since"
 msgstr "Terminé depuis le"
 
-#: seedboxsync_front/templates/components/javascripts.html:3
+#: seedboxsync_front/templates/components/javascripts.html:2
 msgid "Never launched"
 msgstr "Jamais exécuté"
 
-#: seedboxsync_front/templates/components/javascripts.html:4
+#: seedboxsync_front/templates/components/javascripts.html:2
 msgid "Error loading lock status"
 msgstr "Erreur lors du chargement du statut"
+
+#: seedboxsync_front/templates/components/modal.html:22
+msgid "OK"
+msgstr "OK"
+
+#: seedboxsync_front/templates/components/modal.html:23
+msgid "Cancel"
+msgstr "Annuler"
 
 #: seedboxsync_front/templates/components/navbar.html:18
 msgid "Downloaded"
