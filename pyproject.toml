@@ -20,7 +20,7 @@ classifiers = [
 ]
 readme = "README.md"
 license-files = ["LICENSE"]
-license = "GPL-2.0-only"
+license = "GPL-3.0-only"
 requires-python = ">=3.10"
 dependencies = [
   "flask",
@@ -29,7 +29,7 @@ dependencies = [
   "flask-restx",
   "pyyaml",
   "peewee",
-  "seedboxsync @ git+https://github.com/llaumgui/seedboxsync.git@main"
+  "seedboxsync>=3.3.0",
 ]
 
 [project.urls]
