@@ -34,3 +34,20 @@ def test_get_uploads_404(client):
     response = client.get(f'{API_PATH}/uploads/9999999')
     assert response.status_code == 404
     assert response.json['title'] == 'Upload 9999999 doesn\'t exist'
+
+
+def test_delete_uploads(client):
+    # Default
+    response = client.delete(f'{API_PATH}/uploads/102')
+    assert response.status_code == 200
+    assert response.json['message'] == 'Upload 102 deleted.'
+    response = client.get(f'{API_PATH}/uploads/102')
+    assert response.status_code == 404
+    assert response.json['title'] == 'Upload 102 doesn\'t exist'
+
+
+def test_delete_uploads_404(client):
+    # Default
+    response = client.delete(f'{API_PATH}/uploads/9999999')
+    assert response.status_code == 404
+    assert response.json['title'] == 'Upload 9999999 doesn\'t exist'

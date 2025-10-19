@@ -25,6 +25,7 @@ upload_model = api.model('Upload', {
 })
 upload_list_envelope = Resource.build_envelope_model(api, 'UploadList', upload_model)
 upload_envelope = Resource.build_envelope_model(api, 'Upload', upload_model, False)
+upload_message_envelope = Resource.build_envelope_model(api, 'UploadMessage', upload_model, False, True)
 
 
 # ==========================
@@ -101,3 +102,15 @@ class Uploads(Resource):
             api.abort(404, "Upload {} doesn't exist".format(id))
 
         return self.build_envelope(result, 'Upload', 200)
+
+    @api.doc('delete_upload')  # type: ignore[misc]
+    @api.marshal_with(upload_message_envelope, code=200, description="Delete upload element")  # type: ignore[misc]
+    def delete(self, id: int) -> dict[str, Any]:
+        """
+        Retrieve a download.
+        """
+        count = Torrent.delete().where(Torrent.id == id).execute()
+        if count == 0:
+            api.abort(404, "Upload {} doesn't exist".format(id))
+
+        return self.build_envelope(None, 'Upload', 200, 'Upload {} deleted.'.format(id))
