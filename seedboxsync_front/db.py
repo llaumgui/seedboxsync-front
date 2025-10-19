@@ -7,7 +7,6 @@
 #
 import os
 import humanize
-from cement.utils import fs
 from flask import Flask
 from playhouse.flask_utils import FlaskDB
 from seedboxsync.core.dao import Download, Lock, SeedboxSync, Torrent
@@ -40,7 +39,7 @@ class Database(object):
         """
 
         # Get DB from config
-        db_file = fs.abspath(self.__app.config['DATABASE'])
+        db_file = self.__app.config['DATABASE']
         db_url = 'sqlite:///' + db_file
 
         if not os.path.exists(db_file):

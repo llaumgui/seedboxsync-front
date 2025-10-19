@@ -8,7 +8,6 @@
 import os
 import yaml
 from flask import Flask
-from cement.utils import fs
 
 
 class Config(object):
@@ -49,7 +48,12 @@ class Config(object):
 
         self.__check_config()  # Do all checks
         self.app.config.setdefault('CACHE_TYPE', 'SimpleCache')  # Init Flask Cache
-        self.app.config.setdefault('DATABASE', fs.abspath(str((self.app.config.get('local') or {}).get('db_file', 'default.db'))))  # Get DB file
+
+        # Get DB file
+        db_path = str((self.app.config.get('local') or {}).get('db_file', 'default.db'))
+        db_path = os.path.abspath(os.path.expanduser(db_path))
+        self.app.config.setdefault('DATABASE', db_path)
+
         self.app.config.setdefault('SWAGGER_UI_DOC_EXPANSION', 'list')  # Expense swager namespaces
         self.app.config['PROPAGATE_EXCEPTIONS'] = False
 
