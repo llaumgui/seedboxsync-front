@@ -59,6 +59,6 @@ class Database(object):
         def db_byte_to_gi(num: float, suffix: str = 'B') -> str:
             return byte_to_gi(num, suffix)
 
-        @self.db.func('naturalsize')  # type: ignore
-        def naturalsize(num: float) -> str:
+        @self.db.func('humanize')  # type: ignore
+        def db_humanize(num: float) -> str:
             return humanize.filesize.naturalsize(num, True)

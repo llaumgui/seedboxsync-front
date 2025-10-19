@@ -111,8 +111,8 @@ class DownloadsList(Resource):
             Download.finished,
             Download.local_size,
             Download.seedbox_size,
-            fn.naturalsize(Download.local_size).alias('human_local_size'),
-            fn.naturalsize(Download.seedbox_size).alias('human_seedbox_size')
+            fn.humanize(Download.local_size).alias('human_local_size'),
+            fn.humanize(Download.seedbox_size).alias('human_seedbox_size')
         ).limit(limit).order_by(Download.finished.desc())
 
         if finished is not None:
@@ -165,8 +165,8 @@ class Downloads(Resource):
                 Download.finished,
                 Download.local_size,
                 Download.seedbox_size,
-                fn.naturalsize(Download.local_size).alias('human_local_size'),
-                fn.naturalsize(Download.seedbox_size).alias('human_seedbox_size')
+                fn.humanize(Download.local_size).alias('human_local_size'),
+                fn.humanize(Download.seedbox_size).alias('human_seedbox_size')
             ).where(Download.id == id).dicts().get()
         except Download.DoesNotExist:
             api.abort(404, "Download {} doesn't exist".format(id))
