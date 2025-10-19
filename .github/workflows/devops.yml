@@ -2,7 +2,7 @@ name: DevOps
 on:
   [push, pull_request]
 env:
-  pythonLastVersion: '3.13'
+  pythonLastVersion: '3.14'
   nodeLastVersion: '24.X'
   GHCR_REGISTRY: ghcr.io
   IMAGE_NAME: llaumgui/seedboxsync-front
