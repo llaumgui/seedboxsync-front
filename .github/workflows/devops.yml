@@ -252,8 +252,14 @@ jobs:
       with:
         python-version: ${{ env.pythonLastVersion }}
         cache: 'pip'
+    - name: Use Node.js ${{ env.nodeLastVersion }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ env.nodeLastVersion }}
     - name: Install Dependencies
       run: pip install -e ".[dev]"
+    - name: Install Node Dependencies
+      run: npm install
     - name: Package
       run: make dist
     - name: Create GitHub release
@@ -277,8 +283,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: dist/seedboxsync-front-${{ env.RELEASE_VERSION }}.tar.gz
-        asset_name: seedboxsync-front-${{ env.RELEASE_VERSION }}.tar.gz
+        asset_path: dist/seedboxsync_front-${{ env.RELEASE_VERSION }}.tar.gz
+        asset_name: seedboxsync-front_${{ env.RELEASE_VERSION }}.tar.gz
         asset_content_type: application/tar+gzip
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@master
