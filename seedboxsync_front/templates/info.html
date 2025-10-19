@@ -18,6 +18,16 @@
       <th>{{ _('Total size of files downloaded') }}</th>
       <td>{{ info.stats_total_size }}</td>
     </tr>
+    <tr>
+      <th>{{ _('Since') }}</th>
+      <td>
+        {% if info.stats_first == None %}
+          {{ _('Never executed.') }}
+        {% else %}
+          {{ format_datetime(info.stats_first) }}<br>{{ info.stats_first_delta }}
+        {% endif %}
+      </td>
+    </tr>
     <tr class="is-link has-text-centered">
       <th colspan="2">{{ _('Versions') }}</th>
     </tr>

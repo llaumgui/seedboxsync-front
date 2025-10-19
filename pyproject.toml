@@ -29,6 +29,7 @@ dependencies = [
   "flask-restx",
   "pyyaml",
   "peewee",
+  "humanize",
   "seedboxsync>=3.3.0",
 ]
 

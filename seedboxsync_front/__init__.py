@@ -6,6 +6,7 @@
 # file that was distributed with this source code.
 #
 import os
+import humanize
 from flask import Flask, Response, request, send_from_directory
 from flask_babel import format_datetime
 from datetime import datetime
@@ -45,6 +46,11 @@ def create_app(test_config: dict[str, str] | None = None) -> Flask:
 
     # Babel loading
     babel.init_app(app, locale_selector=get_locale)
+
+    # Init humanize
+    @app.before_request
+    def init_once() -> None:
+        humanize.i18n.activate(get_locale())
 
     # Inject Jinja function / variables
     @app.context_processor

@@ -168,7 +168,7 @@ class Downloads(Resource):
         return self.build_envelope(result, 'Download', 200)
 
     @api.doc('delete_download')  # type: ignore[misc]
-    @api.marshal_with(download_message_envelope, code=200, description="Download element")  # type: ignore[misc]
+    @api.marshal_with(download_message_envelope, code=200, description="Delete download element")  # type: ignore[misc]
     def delete(self, id: int) -> dict[str, Any]:
         """
         Retrieve a download.

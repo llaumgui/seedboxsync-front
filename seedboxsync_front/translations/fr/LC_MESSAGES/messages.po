@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: guillaume@kulakowski.fr\n"
-"POT-Creation-Date: 2025-10-19 13:46+0200\n"
+"POT-Creation-Date: 2025-10-19 14:57+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -190,47 +190,52 @@ msgid "Total size of files downloaded"
 msgstr "Taille totale des fichiers téléchargés"
 
 #: seedboxsync_front/templates/info.html:22
-msgid "Versions"
-msgstr "Versions"
+msgid "Since"
+msgstr "Depuis"
 
 #: seedboxsync_front/templates/info.html:25
-msgid "SeedboxSyncFront version"
-msgstr "Version de SeedboxSyncFront"
-
-#: seedboxsync_front/templates/info.html:29
-msgid "SeedboxSync version"
-msgstr "Version de SeedboxSync"
-
-#: seedboxsync_front/templates/info.html:33
-msgid "SeedboxSync database version"
-msgstr "Version de la base de données de SeedboxSync"
-
-#: seedboxsync_front/templates/info.html:37
-msgid "Cron job"
-msgstr "Tâche planifiée"
-
-#: seedboxsync_front/templates/info.html:40
-msgid "Blackhole synchronization"
-msgstr "Synchronisation de la blackhole"
-
-#: seedboxsync_front/templates/info.html:43
-#: seedboxsync_front/templates/info.html:57
+#: seedboxsync_front/templates/info.html:53
+#: seedboxsync_front/templates/info.html:67
 msgid "Never executed."
 msgstr "Jamais exécuté."
 
-#: seedboxsync_front/templates/info.html:46
-#: seedboxsync_front/templates/info.html:60
+#: seedboxsync_front/templates/info.html:32
+msgid "Versions"
+msgstr "Versions"
+
+#: seedboxsync_front/templates/info.html:35
+msgid "SeedboxSyncFront version"
+msgstr "Version de SeedboxSyncFront"
+
+#: seedboxsync_front/templates/info.html:39
+msgid "SeedboxSync version"
+msgstr "Version de SeedboxSync"
+
+#: seedboxsync_front/templates/info.html:43
+msgid "SeedboxSync database version"
+msgstr "Version de la base de données de SeedboxSync"
+
+#: seedboxsync_front/templates/info.html:47
+msgid "Cron job"
+msgstr "Tâche planifiée"
+
+#: seedboxsync_front/templates/info.html:50
+msgid "Blackhole synchronization"
+msgstr "Synchronisation de la blackhole"
+
+#: seedboxsync_front/templates/info.html:56
+#: seedboxsync_front/templates/info.html:70
 #, python-format
 msgid "Locked since %(since)s"
 msgstr "Verrouillé depuis %(since)s"
 
-#: seedboxsync_front/templates/info.html:48
-#: seedboxsync_front/templates/info.html:62
+#: seedboxsync_front/templates/info.html:58
+#: seedboxsync_front/templates/info.html:72
 #, python-format
 msgid "Unlocked since %(since)s"
 msgstr "Déverrouillé depuis %(since)s"
 
-#: seedboxsync_front/templates/info.html:54
+#: seedboxsync_front/templates/info.html:64
 msgid "Seedbox synchronization"
 msgstr "Synchronisation de la seedbox"
 

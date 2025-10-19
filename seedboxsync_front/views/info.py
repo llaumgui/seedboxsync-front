@@ -5,7 +5,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
+import humanize
 from flask import render_template
+from peewee import fn
+from datetime import datetime
 from seedboxsync.core.dao import Download, Lock, SeedboxSync
 from seedboxsync.core.db import sizeof
 from seedboxsync_front.cache import cache
@@ -22,10 +25,10 @@ def info() -> str:
     """
     init_flash()
 
-    query = Download.select().where(Download.finished != 0)
-    total_files = query.count()
-    total_size = sum([d.seedbox_size for d in query if d.seedbox_size])
-
+    # DL stats
+    query_stats = Download.select().where(Download.finished != 0)
+    total_files = query_stats.count()
+    total_size = sum([d.seedbox_size for d in query_stats if d.seedbox_size])
     try:
         sync_blackhole = Lock.get(Lock.key == 'sync_blackhole')
     except Lock.DoesNotExist:
@@ -35,9 +38,18 @@ def info() -> str:
     except Lock.DoesNotExist:
         sync_seedbox = False
 
+    # First dl stats
+    first_date = (Download.select(fn.MIN(Download.finished)).where(Download.finished != 0).scalar())
+    first_delta = ''
+    if first_date is not None:
+        first_delta = datetime.now() - first_date
+        first_delta = humanize.precisedelta(first_delta, minimum_unit='days')
+
     info = {
         'stats_total_files': total_files,
         'stats_total_size': sizeof(total_size),
+        'stats_first': first_date,
+        'stats_first_delta': first_delta,
         'version': version,
         'seedboxsync_version': SeedboxSync.get_version(),
         'seedboxsync_db_version': SeedboxSync.get_db_version(),
