@@ -10,7 +10,8 @@ def test_get_downloads_list(client):
     assert response.status_code == 200
     assert response.json['data'][2]['finished'] == '2025-05-20T21:50:46'
     assert response.json['data'][2]['id'] == 997
-    assert response.json['data'][2]['local_size'] == '3.6GiB'
+    assert response.json['data'][2]['local_size'] == 3912090693
+    assert response.json['data'][2]['human_local_size'] == '3.6 GiB'
     assert response.json['data'][2]['path'] == 'FelisSedLacus.ppt'
     assert len(response.json['data']) == DEFAULT
     # With param limit
@@ -27,7 +28,8 @@ def test_get_downloads_list_progress(client):
     assert response.status_code == 200
     assert response.json['data'][1]['finished'] == 0
     assert response.json['data'][1]['id'] == 999
-    assert response.json['data'][1]['local_size'] == '958.1MiB'
+    assert response.json['data'][1]['local_size'] == 1004650709
+    assert response.json['data'][1]['human_local_size'] == '958.1 MiB'
     assert response.json['data'][1]['path'] == 'ConvallisMorbi.doc'
     assert len(response.json['data']) == 2
 
@@ -48,7 +50,8 @@ def test_get_downloads(client):
     assert response.status_code == 200
     assert response.json['data']['finished'] == '2025-05-30T01:47:04'
     assert response.json['data']['id'] == 1000
-    assert response.json['data']['local_size'] == '3.3GiB'
+    assert response.json['data']['local_size'] == 3529149958
+    assert response.json['data']['human_local_size'] == '3.3 GiB'
     assert response.json['data']['path'] == 'Quis.mpeg'
 
 

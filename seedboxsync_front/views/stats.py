@@ -5,9 +5,9 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
+import humanize
 from flask import render_template
 from seedboxsync.core.dao import Download
-from seedboxsync.core.db import sizeof
 from seedboxsync_front.views import bp
 from seedboxsync_front.cache import cache
 from seedboxsync_front.utils import init_flash
@@ -27,7 +27,7 @@ def stats() -> str:
 
     stats_total = {
         'files': total_files,
-        'total_size': sizeof(total_size),
+        'total_size': humanize.filesize.naturalsize(total_size, True),
     }
 
     return render_template('stats.html', stats_total=stats_total)

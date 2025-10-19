@@ -10,7 +10,6 @@ from flask import render_template
 from peewee import fn
 from datetime import datetime
 from seedboxsync.core.dao import Download, Lock, SeedboxSync
-from seedboxsync.core.db import sizeof
 from seedboxsync_front.cache import cache
 from seedboxsync_front.views import bp
 from seedboxsync_front.utils import init_flash
@@ -47,7 +46,7 @@ def info() -> str:
 
     info = {
         'stats_total_files': total_files,
-        'stats_total_size': sizeof(total_size),
+        'stats_total_size': humanize.filesize.naturalsize(total_size, True),
         'stats_first': first_date,
         'stats_first_delta': first_delta,
         'version': version,

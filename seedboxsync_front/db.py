@@ -6,11 +6,11 @@
 # file that was distributed with this source code.
 #
 import os
+import humanize
 from cement.utils import fs
 from flask import Flask
 from playhouse.flask_utils import FlaskDB
 from seedboxsync.core.dao import Download, Lock, SeedboxSync, Torrent
-from seedboxsync.core.db import sizeof
 from seedboxsync_front.utils import byte_to_gi
 
 
@@ -60,6 +60,6 @@ class Database(object):
         def db_byte_to_gi(num: float, suffix: str = 'B') -> str:
             return byte_to_gi(num, suffix)
 
-        @self.db.func('sizeof')  # type: ignore
-        def db_sizeof(num: float, suffix: str = 'B') -> str:
-            return sizeof(num, suffix)  # type: ignore[no-any-return]
+        @self.db.func('naturalsize')  # type: ignore
+        def naturalsize(num: float) -> str:
+            return humanize.filesize.naturalsize(num, True)

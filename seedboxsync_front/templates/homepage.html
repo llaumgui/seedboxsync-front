@@ -55,7 +55,7 @@
             <td x-text="row.id"></td>
             <td x-text="row.path"></td>
             <td class="is-hidden-mobile" x-text="row.started ? new Date(row.started).toLocaleString(undefined, dateTimeOption) : ''"><
-            <td class="is-hidden-mobile" x-text="row.local_size"></td>
+            <td class="is-hidden-mobile" x-text="row.human_local_size"></td>
           </tr>
         </template>
       </tbody>
@@ -83,7 +83,7 @@
             <td x-text="row.id"></td>
             <td x-text="row.path"></td>
             <td class="is-hidden-mobile" x-text="row.finished ? new Date(row.finished).toLocaleString(undefined, dateTimeOption) : ''"></td>
-            <td class="is-hidden-mobile" x-text="row.local_size"></td>
+            <td class="is-hidden-mobile" x-text="row.human_local_size"></td>
           </tr>
         </template>
       </tbody>

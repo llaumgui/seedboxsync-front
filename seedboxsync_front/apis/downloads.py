@@ -24,8 +24,10 @@ download_model = api.model('Download', {
     'path': fields.String(required=True, description="Local path of the downloaded file", example="ConvallisMorbi.doc"),
     'started': fields.DateTime(dt_format='iso8601', required=True, description="Download start timestamp"),
     'finished': DateTimeOrZero(dt_format='iso8601', required=False, description="Download completion timestamp"),
-    'local_size': fields.String(required=True, description="File size on local storage", example="958.1MiB"),
-    'seedbox_size': fields.String(required=True, description="File size on seedbox storage", example="958.1MiB"),
+    'local_size': fields.Integer(required=True, description="File size on local storage in bytes", example=3337353289),
+    'human_local_size': fields.String(required=True, description="File size on local storage with related humanization", example="3.1 GiB"),
+    'seedbox_size': fields.Integer(required=True, description="File size on seedbox storage in bytes", example=3337353289),
+    'human_seedbox_size': fields.String(required=True, description="File size on seedbox storage with related humanization", example="3.1 GiB"),
 })
 download_list_envelope = Resource.build_envelope_model(api, 'DownloadList', download_model)
 download_envelope = Resource.build_envelope_model(api, 'Download', download_model, False)
@@ -107,8 +109,10 @@ class DownloadsList(Resource):
             Download.path,
             Download.started,
             Download.finished,
-            fn.sizeof(Download.local_size),
-            fn.sizeof(Download.seedbox_size)
+            Download.local_size,
+            Download.seedbox_size,
+            fn.naturalsize(Download.local_size).alias('human_local_size'),
+            fn.naturalsize(Download.seedbox_size).alias('human_seedbox_size')
         ).limit(limit).order_by(Download.finished.desc())
 
         if finished is not None:
@@ -159,8 +163,10 @@ class Downloads(Resource):
                 Download.path,
                 Download.started,
                 Download.finished,
-                fn.sizeof(Download.local_size),
-                fn.sizeof(Download.seedbox_size)
+                Download.local_size,
+                Download.seedbox_size,
+                fn.naturalsize(Download.local_size).alias('human_local_size'),
+                fn.naturalsize(Download.seedbox_size).alias('human_seedbox_size')
             ).where(Download.id == id).dicts().get()
         except Download.DoesNotExist:
             api.abort(404, "Download {} doesn't exist".format(id))
