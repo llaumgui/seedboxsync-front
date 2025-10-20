@@ -61,4 +61,9 @@ class Database(object):
 
         @self.db.func('humanize')  # type: ignore
         def db_humanize(num: float) -> str:
+            try:
+                # Treat None or invalid type as 0
+                num = float(num or 0)
+            except (ValueError, TypeError):
+                num = 0.0
             return humanize.filesize.naturalsize(num, True)
