@@ -23,9 +23,9 @@ upload_model = api.model('Upload', {
                               example="https://serversecret.com/anounce"),
     'sent': fields.DateTime(dt_format='iso8601', required=True, description="Timestamp when the torrent was uploaded"),
 })
-upload_list_envelope = Resource.build_envelope_model(api, 'UploadList', upload_model)
-upload_envelope = Resource.build_envelope_model(api, 'Upload', upload_model, False)
-upload_message_envelope = Resource.build_envelope_model(api, 'UploadMessage', upload_model, False, True)
+upload_list_envelope = Resource.build_envelope_model(api, 'UploadList', nested_model=upload_model)
+upload_envelope = Resource.build_envelope_model(api, 'Upload', nested_model=upload_model, as_list=False)
+upload_message_envelope = Resource.build_envelope_model(api, 'UploadMessage', as_message=True)
 
 
 # ==========================
@@ -66,14 +66,14 @@ class UploadsList(Resource):
         args = parser.parse_args()
         limit = self.set_limit(args.get('limit'))
 
-        # Fetch torrents ordered by upload timestamp (most recent first)
-        query = Torrent.select(
+        count = Torrent.select().count()
+        select = Torrent.select(
             Torrent.id,
             Torrent.name,
             Torrent.sent
         ).limit(limit).order_by(Torrent.sent.desc())
 
-        return self.build_envelope(list(query.dicts()), 'Upload', 200)
+        return self.build_envelope(list(select.dicts()), data_total=count, type='Upload')
 
 
 @api.route('/<int:id>')
@@ -93,7 +93,7 @@ class Uploads(Resource):
         Retrieve a upload.
         """
         try:
-            result = Torrent.select(
+            select = Torrent.select(
                 Torrent.id,
                 Torrent.name,
                 Torrent.sent
@@ -101,7 +101,7 @@ class Uploads(Resource):
         except Torrent.DoesNotExist:
             api.abort(404, "Upload {} doesn't exist".format(id))
 
-        return self.build_envelope(result, 'Upload', 200)
+        return self.build_envelope(select, type='Upload')
 
     @api.doc('delete_upload')  # type: ignore[misc]
     @api.marshal_with(upload_message_envelope, code=200, description="Delete upload element")  # type: ignore[misc]
@@ -113,4 +113,4 @@ class Uploads(Resource):
         if count == 0:
             api.abort(404, "Upload {} doesn't exist".format(id))
 
-        return self.build_envelope(None, 'Upload', 200, 'Upload {} deleted.'.format(id))
+        return self.build_envelope(None, type='Upload', message='Upload {} deleted.'.format(id))

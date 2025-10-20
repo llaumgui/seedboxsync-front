@@ -23,8 +23,8 @@ lock_model = api.model('Locks', {
     'locked_at': DateTimeOrZero(dt_format='iso8601', required=False, description="Timestamp when the lock was acquired"),
     'unlocked_at': DateTimeOrZero(dt_format='iso8601', required=True, description="Timestamp when the lock was released"),
 })
-lock_list_envelope = Resource.build_envelope_model(api, 'LockList', lock_model)
-lock_envelope = Resource.build_envelope_model(api, 'Lock', lock_model, False)
+lock_list_envelope = Resource.build_envelope_model(api, 'LockList', nested_model=lock_model)
+lock_envelope = Resource.build_envelope_model(api, 'Lock', nested_model=lock_model, as_list=False)
 
 
 # ==========================
@@ -44,7 +44,7 @@ class LocksList(Resource):
         """
         Retrieve a list of lock.
         """
-        query = Lock.select(
+        select = Lock.select(
             Lock.key,
             Lock.pid,
             Lock.locked,
@@ -52,7 +52,7 @@ class LocksList(Resource):
             Lock.unlocked_at,
         )
 
-        return self.build_envelope(list(query.dicts()), 'Lock', 200)
+        return self.build_envelope(list(select.dicts()), type='Lock')
 
 
 @api.route('/<string:key>')
@@ -72,7 +72,7 @@ class Locks(Resource):
         Retrieve a lock.
         """
         try:
-            result = Lock.select(
+            select = Lock.select(
                 Lock.key,
                 Lock.pid,
                 Lock.locked,
@@ -82,4 +82,4 @@ class Locks(Resource):
         except Lock.DoesNotExist:
             api.abort(404, "Lock {} doesn't exist".format(key))
 
-        return self.build_envelope(result, 'Lock', 200)
+        return self.build_envelope(select, type='Lock')

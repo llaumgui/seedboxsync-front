@@ -29,9 +29,9 @@ download_model = api.model('Download', {
     'seedbox_size': fields.Integer(required=True, description="File size on seedbox storage in bytes", example=3337353289),
     'human_seedbox_size': fields.String(required=True, description="File size on seedbox storage with related humanization", example="3.1 GiB"),
 })
-download_list_envelope = Resource.build_envelope_model(api, 'DownloadList', download_model)
-download_envelope = Resource.build_envelope_model(api, 'Download', download_model, False)
-download_message_envelope = Resource.build_envelope_model(api, 'DownloadMessage', download_model, False, True)
+download_list_envelope = Resource.build_envelope_model(api, 'DownloadList', nested_model=download_model)
+download_envelope = Resource.build_envelope_model(api, 'Download', nested_model=download_model, as_list=False)
+download_message_envelope = Resource.build_envelope_model(api, 'DownloadMessage', as_message=True)
 
 stats_month_model = api.model('StatsMonth', {
     'files': fields.Integer(required=True, description="Number of files downloaded in the month", example=135),
@@ -41,7 +41,7 @@ stats_month_model = api.model('StatsMonth', {
                            example="2025-08"),
     'total_size': fields.String(required=True, description="Total size of files downloaded", example="427.8GiB"),
 })
-stats_month_envelope = Resource.build_envelope_model(api, 'StatsMonth', stats_month_model)
+stats_month_envelope = Resource.build_envelope_model(api, 'StatsMonth', nested_model=stats_month_model)
 
 stats_year_model = api.model('StatsYear', {
     'files': fields.Integer(required=True, description="Number of files downloaded in the year", example=4989),
@@ -53,7 +53,7 @@ stats_year_model = api.model('StatsYear', {
     ),
     'total_size': fields.String(required=True, description="Total size of files downloaded", example="1476.5GiB"),
 })
-stats_year_envelope = Resource.build_envelope_model(api, 'StatsYear', stats_year_model)
+stats_year_envelope = Resource.build_envelope_model(api, 'StatsYear', nested_model=stats_year_model)
 
 
 # ==========================
@@ -104,7 +104,8 @@ class DownloadsList(Resource):
         limit = self.set_limit(args.get('limit'))
         finished = args.get('finished')
 
-        query = Download.select(
+        count = Download.select()
+        select = Download.select(
             Download.id,
             Download.path,
             Download.started,
@@ -118,11 +119,13 @@ class DownloadsList(Resource):
         if finished is not None:
             # Filter downloads by completion status
             if finished:
-                query = query.where(Download.finished != 0)
+                count = count.where(Download.finished != 0)
+                select = select.where(Download.finished != 0)
             else:
-                query = query.where(Download.finished == 0)
+                count = count.where(Download.finished == 0)
+                select = select.where(Download.finished == 0)
 
-        return self.build_envelope(list(query.dicts()), 'Download', 200)
+        return self.build_envelope(list(select.dicts()), data_total=count.count(), type='Download')
 
 
 @api.route('/progress')
@@ -138,7 +141,7 @@ class DownloadsProgress(Resource):
         """
 
         count = Download.delete().where(Download.finished == 0).execute()
-        return self.build_envelope(None, 'Download', 200, f'{count} download(s) deleted.')
+        return self.build_envelope(None, type='Download', message=f'{count} download(s) deleted.')
 
 
 @api.route('/<int:id>')
@@ -158,7 +161,7 @@ class Downloads(Resource):
         Retrieve a download.
         """
         try:
-            result = Download.select(
+            select = Download.select(
                 Download.id,
                 Download.path,
                 Download.started,
@@ -171,7 +174,7 @@ class Downloads(Resource):
         except Download.DoesNotExist:
             api.abort(404, "Download {} doesn't exist".format(id))
 
-        return self.build_envelope(result, 'Download', 200)
+        return self.build_envelope(select, type='Download')
 
     @api.doc('delete_download')  # type: ignore[misc]
     @api.marshal_with(download_message_envelope, code=200, description="Delete download element")  # type: ignore[misc]
@@ -183,7 +186,7 @@ class Downloads(Resource):
         if count == 0:
             api.abort(404, "Download {} doesn't exist".format(id))
 
-        return self.build_envelope(None, 'Download', 200, 'Download {} deleted.'.format(id))
+        return self.build_envelope(None, type='Download', message='Download {} deleted.'.format(id))
 
 
 @api.route('/stats/month')
@@ -201,7 +204,7 @@ class DownloadsStatsByMonth(Resource):
 
         Returns the number of files downloaded and total size per month.
         """
-        return self.build_envelope(stats_by_period('month'), 'StatsMonth', 200)
+        return self.build_envelope(stats_by_period('month'), type='StatsMonth')
 
 
 @api.route('/stats/year')
@@ -219,7 +222,7 @@ class DownloadsStatsByYear(Resource):
 
         Returns the number of files downloaded and total size per year.
         """
-        return self.build_envelope(stats_by_period('year'), 'StatsYear', 200)
+        return self.build_envelope(stats_by_period('year'), type='StatsYear')
 
 
 # ==========================

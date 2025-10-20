@@ -40,9 +40,11 @@ class Resource(RestXResource):  # type: ignore[misc]
     def build_envelope(
         self,
         data: Any,
+        *,
         type: str = 'about:blank',
         status_code: int = 200,
-        message: str | None = None
+        message: str | None = None,
+        data_total: int | None = None
     ) -> dict[str, Any]:
         """
         Build a standard API response envelope.
@@ -52,6 +54,7 @@ class Resource(RestXResource):  # type: ignore[misc]
             type (str): The resource type or endpoint identifier (default: 'about:blank').
             status_code (int): HTTP status code (default: 200).
             message (str): Send message in place of data.
+            data_total (int | None): Optional total number of items if the result is paginated.
 
         Returns:
             dict[str, Any]: Structured API response containing metadata and payload.
@@ -63,6 +66,7 @@ class Resource(RestXResource):  # type: ignore[misc]
             'timestamp': datetime.now().astimezone().isoformat(),
             'traceId': str(uuid.uuid4()),
             **({'data': data} if data is not None else {}),
+            **({'data_total': data_total} if data_total is not None else {}),
             **({'message': message} if message is not None else {}),
             'data': data
         }
@@ -71,7 +75,8 @@ class Resource(RestXResource):  # type: ignore[misc]
     def build_envelope_model(
         api: Namespace,
         name: str,
-        nested_model: Model,
+        *,
+        nested_model: Model | None = None,
         as_list: bool = True,
         as_message: bool = False
     ) -> Model:
@@ -95,9 +100,11 @@ class Resource(RestXResource):  # type: ignore[misc]
                 data_field = fields.List(fields.Nested(nested_model), required=True, description=f"List of {name} objects")
             else:
                 data_field = fields.Nested(nested_model, required=True, description=f"The {name} object")
+            data_total = fields.Integer(required=False, description=f"Total of {name} object")
             message_field = None
         else:
             data_field = None
+            data_total = None
             message_field = fields.String(required=False, description="Response message", example="All is OK")
 
         return api.model(f'Envelope[{name}]', {
@@ -107,6 +114,7 @@ class Resource(RestXResource):  # type: ignore[misc]
             'timestamp': fields.DateTime(required=True, description="Timestamp of the response"),
             'traceId': fields.String(required=True, description="Unique trace identifier", example="0a8ab95e-a463-424e-bc6d-505503bf200d"),
             **({'data': data_field} if data_field is not None else {}),
+            **({'data_total': data_total} if data_total is not None else {}),
             **({'message': message_field} if message_field is not None else {}),
         })
 

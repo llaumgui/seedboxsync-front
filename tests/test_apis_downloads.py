@@ -13,12 +13,15 @@ def test_get_downloads_list(client):
     assert response.json['data'][2]['local_size'] == 3912090693
     assert response.json['data'][2]['human_local_size'] == '3.6 GiB'
     assert response.json['data'][2]['path'] == 'FelisSedLacus.ppt'
+    assert response.json['data_total'] == 1000
     assert len(response.json['data']) == DEFAULT
     # With param limit
     response = client.get(f'{API_PATH}/downloads?limit=6')
+    assert response.json['data_total'] == 1000
     assert len(response.json['data']) == 6
     # Out of the limit
     response = client.get(f'{API_PATH}/downloads?limit=1001')
+    assert response.json['data_total'] == 1000
     assert len(response.json['data']) == 1000
 
 
@@ -31,6 +34,7 @@ def test_get_downloads_list_progress(client):
     assert response.json['data'][1]['local_size'] == 1004650709
     assert response.json['data'][1]['human_local_size'] == '958.1 MiB'
     assert response.json['data'][1]['path'] == 'ConvallisMorbi.doc'
+    assert response.json['data_total'] == 2
     assert len(response.json['data']) == 2
 
 

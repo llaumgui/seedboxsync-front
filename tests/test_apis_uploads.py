@@ -11,6 +11,7 @@ def test_get_uploads_list(client):
     assert response.json['data'][3]['id'] == 247
     assert response.json['data'][3]['name'] == 'SuscipitLigulaIn.torrent'
     assert response.json['data'][3]['sent'] == '2017-10-16T21:13:02.851925'
+    assert response.json['data_total'] == 250
     assert len(response.json['data']) == DEFAULT
     # With param limit
     response = client.get(f'{API_PATH}/uploads?limit=6')
