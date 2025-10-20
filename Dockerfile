@@ -13,7 +13,7 @@ RUN npm run build
 
 
 # Build translations
-FROM python:3.13-alpine AS builder-python
+FROM python:3.14-alpine AS builder-python
 
 WORKDIR /src
 COPY . /src
@@ -27,7 +27,7 @@ RUN make i18n-compile
 ################################################################################
 # Prod
 #
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 
 # -------------------------------------------- Set environment and ARG variables
 ENV \
