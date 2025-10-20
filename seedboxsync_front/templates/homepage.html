@@ -7,8 +7,8 @@
 {% block content %}
 <div class="content">
 
-  <div class="is-flex is-justify-content-space-between is-align-items-start">
-    <div class="message is-small"" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
+  <div class="columns is-desktop">
+    <div class="message is-small column is-4" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
       <div class="message-header">{{ _('Blackhole') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="message is-small"" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
+    <div class="message is-small column is-4 is-offset-4" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
       <div class="message-header">{{ _('Seedbox') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
@@ -71,7 +71,6 @@
     <table x-show="data.length > 0" class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th>Id</th>
           <th>{{ _('Name') }}</th>
           <th class="is-hidden-mobile">{{ _('Finished') }}</th>
           <th class="is-hidden-mobile">{{ _('Size') }}</th>
@@ -80,7 +79,6 @@
       <tbody>
         <template x-for="row in data" :key="row.id || row.key">
           <tr>
-            <td x-text="row.id"></td>
             <td x-text="row.path"></td>
             <td class="is-hidden-mobile" x-text="row.finished ? new Date(row.finished).toLocaleString(undefined, dateTimeOption) : ''"></td>
             <td class="is-hidden-mobile" x-text="row.human_local_size"></td>
@@ -99,7 +97,6 @@
     <table x-show="data.length > 0" class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th>{{ _('Id') }}</th>
           <th>{{ _('Name') }}</th>
           <th class="is-hidden-mobile">{{ _('Sent') }}</th>
         </tr>
@@ -107,7 +104,6 @@
       <tbody>
         <template x-for="row in data" :key="row.id || row.key">
           <tr>
-            <td x-text="row.id"></td>
             <td x-text="row.name"></td>
             <td class="is-hidden-mobile" x-text="row.sent ? new Date(row.sent).toLocaleString(undefined, dateTimeOption) : ''"></td>
           </tr>
