@@ -36,6 +36,12 @@
     --bulma-yellow-invert: rgba(hsl(221, 14%, 4%)k, 0.7);
     --bulma-primary-invert: rgba(hsl(221, 14%, 4%), 0.7);
   }
+  .table {
+    --bulma-table-head-background-color: #{color.adjust(nord.$nord4, $lightness: 5%)};
+  }
+  .footer {
+    --bulma-footer-background-color: #{nord.$nord4};
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -69,4 +75,12 @@
   .footer {
     --bulma-footer-background-color: #{nord.$nord0};
   }
+
+  .navbar-brand img.light {
+    display: none;
+  }
+}
+
+.is-overflow-anywhere {
+  overflow-wrap: anywhere;
 }
