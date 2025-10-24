@@ -32,6 +32,28 @@ jobs:
         path: coverage.xml
 
   ##############################################################################
+  # Test python application
+  #
+  test_javascript:
+    runs-on: ubuntu-latest
+    name: Test Javascript
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22.X, 24.X, 25.X]
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v5
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v5
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: npm install
+    - name: Run tests (QA and unit tests)
+      run: npm run test:lint
+
+  ##############################################################################
   # Markdownlint
   #
   test_markdownlint:
@@ -69,7 +91,8 @@ jobs:
     needs: [
       test_python,
       test_markdownlint,
-      test_dockerfiles
+      test_dockerfiles,
+      test_javascript
     ]
     runs-on: ubuntu-latest
     name: SonarCloud analyse
