@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="title">{% block title %}{{ _('Last files downloaded') }}{% endblock %}</h1>
+<h1 class="title">{% block title %}{{ _('Last files downloaded') }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="content">
   <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
 
-  <div x-data="tablePaginedComponent('{{ url_for('api.downloads_downloads_list') }}?limit=1000&finished=true')">
+  <div x-data="TablePaginedComponent('{{ url_for('api.downloads_downloads_list') }}?limit=1000&finished=true')">
 
     {# Search #}
     <div class="mb-4 control has-icons-left has-icons-right">
-      <input class="input" type="text" placeholder="{{ _('Search') }}" x-model="search" />
+      <input class="input" type="text" placeholder="{{ _('Search') }}" x-model="search" @input.debounce.300ms="load()" />
       <span class="icon is-small is-left">
         <i class="fas fa-search"></i>
       </span>
@@ -34,14 +34,14 @@
         </tr>
       </thead>
       <tbody>
-        <template x-for="row in paginatedData" :key="row.id || row.key">
+        <template x-for="row in data" :key="row.id || row.key">
           <tr>
             <td x-text="row.path"></td>
             <td x-text="row.finished ? new Date(row.finished).toLocaleString(undefined, dateTimeOption) : ''"></td>
             <td class="is-hidden-mobile" x-text="row.human_local_size"></td>
             <td class="has-text-right">
               <button class="button is-danger is-outlined"
-                 @click="openModalConfirmCall(
+                 @click="OpenModalConfirmCall(
                   '{{ url_for('api.downloads_downloads', id=0) }}'.replace('0', row.id),
                   '{{ _('Delete?') }}',
                   '{{ _('Do you want to delete this download?') }}',
@@ -56,17 +56,21 @@
 
     {# Pagination controls #}
     <nav class="pagination is-right" role="navigation" aria-label="pagination">
-      <a href="#" class="pagination-previous"  :class="{ 'is-disabled': page === 1 }" @click.prevent="if(page>1) page--">{{ _('Previous') }}</a>
-      <a href="#" class="pagination-next"  :class="{ 'is-disabled': page === totalPages }"   @click.prevent="if(page<totalPages) page++">{{ _('Next') }}</a>
+      <a href="#" class="pagination-previous" :class="{ 'is-disabled': page === 1 }" @click.prevent="prevPage()">{{ _('Previous') }}</a>
+      <a href="#" class="pagination-next" :class="{ 'is-disabled': page === totalPages }" @click.prevent="nextPage()">{{ _('Next') }}</a>
+
       <ul class="pagination-list">
         <template x-for="pObj in visiblePages" :key="pObj.page ?? Math.random()">
           <li>
-            <a href="#" class="pagination-link" :class="{ 'is-current': page === pObj.page, 'is-disabled': pObj.isEllipsis }" @click.prevent="if(!pObj.isEllipsis) page = pObj.page" x-text="pObj.isEllipsis ? '…' : pObj.page"></a>
+            <a href="#" class="pagination-link"
+              :class="{ 'is-current': page === pObj.page, 'is-disabled': pObj.isEllipsis }"
+              @click.prevent="if(!pObj.isEllipsis) goToPage(pObj.page)"
+              x-text="pObj.isEllipsis ? '…' : pObj.page">
+            </a>
           </li>
         </template>
       </ul>
     </nav>
   </div>
-
 </div>
 {% endblock %}

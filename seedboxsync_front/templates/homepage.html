@@ -8,7 +8,7 @@
 <div class="content">
 
   <div class="columns is-desktop">
-    <div class="message is-small column is-4" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
+    <div class="message is-small column is-4" x-data="LockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
       <div class="message-header">{{ _('Blackhole') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="message is-small column is-4 is-offset-4" x-data="lockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
+    <div class="message is-small column is-4 is-offset-4" x-data="LockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
       <div class="message-header">{{ _('Seedbox') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
@@ -28,11 +28,11 @@
   </div>
 
   <h2>{{ _('Download in progress') }}</h2>
-  <div x-data="tableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=false')">
+  <div x-data="TableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=false')">
     <div class="is-flex is-justify-content-space-between is-align-items-center mb-2">
       <p class="is-italic">{{ _('List of downloads in progress from the seedbox to the NAS.') }}</p>
       <button x-show="data.length > 0" class="button is-danger is-small is-responsive js-modal-trigger"
-              onclick="openModalConfirmCall(
+              onclick="OpenModalConfirmCall(
                 '{{ url_for('api.downloads_downloads_progress') }}',
                 '{{ _('Purge?') }}',
                 '{{ _('Do you want to purge all in-progress downloads?') }}', 'DELETE')">{{ _('Purge') }}</button>
@@ -61,7 +61,7 @@
   </div>
 
   <h2>{{ _('Last files downloaded') }}</h2>
-  <div x-data="tableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=true')">
+  <div x-data="TableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=true')">
     <p class="is-italic">{{ _('List of last files downloaded from the seedbox to the NAS.') }}</p>
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
@@ -87,7 +87,7 @@
   </div>
 
   <h2>{{ _('Last torrents uploaded') }}</h2>
-  <div x-data="tableComponent('{{ url_for('api.uploads_uploads_list') }}?limit=5')">
+  <div x-data="TableComponent('{{ url_for('api.uploads_uploads_list') }}?limit=5')">
     <p class="is-italic">{{ _('List of last torrents uploaded from the NAS to the seedbox.') }}</p>
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>

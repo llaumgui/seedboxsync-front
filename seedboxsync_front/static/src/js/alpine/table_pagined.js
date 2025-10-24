@@ -11,55 +11,68 @@
  * @param {*} perPage
  * @returns
  */
-export function tablePaginedComponent(apiUrl, perPage = 20) {
+export function TablePaginedComponent(apiUrl, perPage = 20) {
   return {
     data: [],
     loading: true,
     error: false,
     page: 1,
     perPage,
-    search: '',
+    offset: 0,
+    total: 0,
+    search: "",
 
-    load() {
+    async load() {
       this.loading = true;
       this.error = false;
-      fetch(apiUrl)
-        .then((r) => {
-          if (!r.ok) throw new Error();
-          return r.json();
-        })
-        .then((json) => {
-          this.data = json.data;
-          this.page = 1;
-        })
-        .catch(() => {
-          this.error = true;
-          this.data = [];
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      try {
+        const url = new URL(apiUrl, window.location.origin);
+        url.searchParams.set("limit", this.perPage);
+        url.searchParams.set("offset", this.offset);
+        if (this.search) url.searchParams.set("search", this.search);
+
+        const r = await fetch(url);
+        if (!r.ok) throw new Error("Fetch failed");
+
+        const json = await r.json();
+        this.data = json.data;
+        this.total = json.data_total;
+      } catch (e) {
+        this.error = true;
+        this.data = [];
+        this.total = 0;
+        console.error(e);
+      } finally {
+        this.loading = false;
+      }
     },
 
-    // Filter data based on search
-    get filteredData() {
-      if (!this.search) return this.data;
-      const searchLower = this.search.toLowerCase();
-      return this.data.filter(item =>
-        Object.values(item).some(
-          val => String(val).toLowerCase().includes(searchLower)
-        )
-      );
-    },
-
-    // PAgination based on search (or not)
     get totalPages() {
-      return Math.ceil(this.filteredData.length / this.perPage);
+      return Math.ceil(this.total / this.perPage);
     },
 
-    get paginatedData() {
-      const start = (this.page - 1) * this.perPage;
-      return this.filteredData.slice(start, start + this.perPage);
+    nextPage() {
+      if (this.page < this.totalPages) {
+        this.page++;
+        this.offset = (this.page - 1) * this.perPage;
+        this.load();
+      }
+    },
+
+    prevPage() {
+      if (this.page > 1) {
+        this.page--;
+        this.offset = (this.page - 1) * this.perPage;
+        this.load();
+      }
+    },
+
+    goToPage(p) {
+      if (p >= 1 && p <= this.totalPages) {
+        this.page = p;
+        this.offset = (this.page - 1) * this.perPage;
+        this.load();
+      }
     },
 
     get visiblePages() {
@@ -82,16 +95,16 @@ export function tablePaginedComponent(apiUrl, perPage = 20) {
       return pages;
     },
 
-    // Watch search input and reset page to 1
     updateSearch(value) {
       this.search = value;
       this.page = 1;
+      this.offset = 0;
+      this.load();
     },
 
-    // Init
     init() {
       this.load();
       window.addEventListener("force-refresh", () => this.load());
     },
   };
-};
+}

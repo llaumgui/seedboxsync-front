@@ -5,16 +5,16 @@
  * file that was distributed with this source code.
  */
 import Alpine from "alpinejs";
-import { tableComponent } from "./table";
-import { tablePaginedComponent } from "./table_pagined";
-import { lockBoxComponent } from "./lockbox";
-import { modalConfirmCallComponent, openModalConfirmCall } from "./modal";
+import { TableComponent } from "./table";
+import { TablePaginedComponent } from "./table_pagined";
+import { LockBoxComponent } from "./lockbox";
+import { ModalConfirmCallComponent, OpenModalConfirmCall } from "./modal";
 
-window.tableComponent = tableComponent;
-window.tablePaginedComponent = tablePaginedComponent;
-window.lockBoxComponent = lockBoxComponent;
-window.modalConfirmCallComponent = modalConfirmCallComponent;
-window.openModalConfirmCall = openModalConfirmCall;
+window.TableComponent = TableComponent;
+window.TablePaginedComponent = TablePaginedComponent;
+window.LockBoxComponent = LockBoxComponent;
+window.ModalConfirmCallComponent = ModalConfirmCallComponent;
+window.OpenModalConfirmCall = OpenModalConfirmCall;
 
 window.Alpine = Alpine;
 Alpine.start();

@@ -11,7 +11,7 @@
  * @param {*} refreshMs
  * @returns
  */
-export function tableComponent(apiUrl, refreshMs = 30000) {
+export function TableComponent(apiUrl, refreshMs = 30000) {
   return {
     data: [],
     loading: true,

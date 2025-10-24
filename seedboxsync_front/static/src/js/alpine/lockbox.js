@@ -11,7 +11,7 @@
  * @param {*} refreshMs
  * @returns
  */
-export function lockBoxComponent(url, refreshMs = 30000) {
+export function LockBoxComponent(url, refreshMs = 30000) {
   return {
     loading: true,
     error: null,

@@ -10,7 +10,7 @@
  *
  * @returns
  */
-export function modalConfirmCallComponent() {
+export function ModalConfirmCallComponent() {
   return {
     isActive: false,
     title: "",
@@ -67,7 +67,7 @@ export function modalConfirmCallComponent() {
  * @param {*} content
  * @param {*} method
  */
-export function openModalConfirmCall(url, title, content, method = "POST") {
-  const modal = document.querySelector("#modalConfirmCallComponent").__modal;
+export function OpenModalConfirmCall(url, title, content, method = "POST") {
+  const modal = document.querySelector("#ModalConfirmCallComponent").__modal;
   modal.open(title, content, url, method);
 }
