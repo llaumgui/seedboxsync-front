@@ -1,4 +1,4 @@
-.PHONY: virtualenv run i18n-extract i18n-update i18n-compile test test-ci pytest pytest-xml comply markdownlint hadolint mypy clean dist publish
+.PHONY: virtualenv run i18n-extract i18n-update i18n-compile test test-ci pytest pytest-xml comply markdownlint hadolint mypy npm-lint clean dist publish
 
 virtualenv:
 	virtualenv --prompt '|> seedboxsync-front <| ' env
@@ -26,8 +26,7 @@ i18n-update:
 i18n-compile:
 	pybabel compile -d seedboxsync_front/translations
 
-test: comply mypy pytest markdownlint hadolint
-
+test: comply mypy pytest markdownlint hadolint npm-lint
 test-ci: comply mypy i18n-compile pytest-xml
 
 pytest:
@@ -46,6 +45,9 @@ hadolint:
 
 mypy:
 	mypy
+
+npm-lint:
+	npm run test:lint
 
 clean:
 	find . -name '*.py[co]' -delete
