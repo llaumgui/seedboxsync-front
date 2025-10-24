@@ -32,14 +32,9 @@ upload_message_envelope = Resource.build_envelope_model(api, 'UploadMessage', as
 # Request parser
 # ==========================
 parser = reqparse.RequestParser()
-parser.add_argument(
-    'limit',
-    type=int,
-    required=False,
-    default=50,
-    help='Maximum number of items to return (min=5, max=1000)',
-    location='args'
-)
+parser.add_argument('offset', type=int, default=0, location='args', help='Number of items to skip before starting to collect the result set (default: 0)')
+parser.add_argument('limit', type=int, default=50, location='args', help='Maximum number of items to return (min=5, max=1000)')
+parser.add_argument('search', type=str, required=False, help='Optional search string to filter items')
 
 
 # ==========================
@@ -61,19 +56,27 @@ class UploadsList(Resource):
         Retrieve the most recent uploaded torrents.
 
         Query Parameters:
-        - limit: Maximum number of torrents to return (default=50)
+        - offset: Number of items to skip before starting to collect the result set (default: 0)
+        - limit: Maximum number of downloads to return (default=50)
+        - search: Optional search string to filter items
         """
         args = parser.parse_args()
+        offset = args.get('offset')
         limit = self.set_limit(args.get('limit'))
+        search = args.get('search')
 
-        count = Torrent.select().count()
+        count = Torrent.select()
         select = Torrent.select(
             Torrent.id,
             Torrent.name,
             Torrent.sent
-        ).limit(limit).order_by(Torrent.sent.desc())
+        ).limit(limit).offset(offset).order_by(Torrent.sent.desc())
 
-        return self.build_envelope(list(select.dicts()), data_total=count, type='Upload')
+        if search:
+            count = count.where(Torrent.name.contains(search))
+            select = select.where(Torrent.name.contains(search))
+
+        return self.build_envelope(list(select.dicts()), data_total=count.count(), type='Upload')
 
 
 @api.route('/<int:id>')

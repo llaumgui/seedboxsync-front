@@ -3,7 +3,7 @@ on:
   [push, pull_request]
 env:
   pythonLastVersion: '3.14'
-  nodeLastVersion: '24.X'
+  nodeLastVersion: '25.X'
   GHCR_REGISTRY: ghcr.io
   IMAGE_NAME: llaumgui/seedboxsync-front
 

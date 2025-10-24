@@ -60,22 +60,11 @@ stats_year_envelope = Resource.build_envelope_model(api, 'StatsYear', nested_mod
 # Request parser
 # ==========================
 parser = reqparse.RequestParser()
-parser.add_argument(
-    'limit',
-    type=int,
-    required=False,
-    default=50,
-    help='Maximum number of items to return (min=5, max=1000)',
-    location='args'
-)
-parser.add_argument(
-    'finished',
-    type=inputs.boolean,
-    required=False,
-    default=None,
-    help='Filter only completed downloads (true) or in-progress downloads (false)',
-    location='args'
-)
+parser.add_argument('offset', type=int, default=0, location='args', help='Number of items to skip before starting to collect the result set (default: 0)')
+parser.add_argument('limit', type=int, default=50, location='args', help='Maximum number of items to return (min=5, max=1000)')
+parser.add_argument('finished', type=inputs.boolean, default=None,
+                    location='args', help='Filter only completed downloads (true) or in-progress downloads (false)')
+parser.add_argument('search', type=str, required=False, help='Optional search string to filter items')
 
 
 # ==========================
@@ -97,11 +86,15 @@ class DownloadsList(Resource):
         Retrieve a list of recent downloads.
 
         Query Parameters:
+        - offset: Number of items to skip before starting to collect the result set (default: 0)
         - limit: Maximum number of downloads to return (default=50)
-        - progress: Filter downloads by status (true=in-progress, false=finished)
+        - search: Optional search string to filter items
+        - finished: Filter downloads by status (false=in-progress, true=finished)
         """
         args = parser.parse_args()
+        offset = args.get('offset')
         limit = self.set_limit(args.get('limit'))
+        search = args.get('search')
         finished = args.get('finished')
 
         count = Download.select()
@@ -114,7 +107,11 @@ class DownloadsList(Resource):
             Download.seedbox_size,
             fn.humanize(Download.local_size).alias('human_local_size'),
             fn.humanize(Download.seedbox_size).alias('human_seedbox_size')
-        ).limit(limit).order_by(Download.finished.desc())
+        ).limit(limit).offset(offset).order_by(Download.finished.desc())
+
+        if search:
+            count = count.where(Download.path.contains(search))
+            select = select.where(Download.path.contains(search))
 
         if finished is not None:
             # Filter downloads by completion status
