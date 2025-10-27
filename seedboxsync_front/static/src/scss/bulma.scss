@@ -39,6 +39,12 @@
   .table {
     --bulma-table-head-background-color: #{color.adjust(nord.$nord4, $lightness: 5%)};
   }
+  .navbar {
+    --bulma-navbar-background-color: #{nord.$nord1};
+    .navbar-menu .navbar-item.is-active {
+      background-color: #{nord.$nord3};
+    }
+  }
   .footer {
     --bulma-footer-background-color: #{nord.$nord4};
   }
@@ -70,15 +76,15 @@
     --bulma-table-head-background-color: #{color.adjust(nord.$nord0, $lightness: 5%)};
   }
   .navbar {
-    --bulma-navbar-background-color: #{nord.$nord3};
+    --bulma-navbar-background-color: #{nord.$nord1};
+    .navbar-menu .navbar-item.is-active {
+      background-color: #{nord.$nord3};
+    }
   }
   .footer {
     --bulma-footer-background-color: #{nord.$nord0};
   }
 
-  .navbar-brand img.light {
-    display: none;
-  }
 }
 
 .is-overflow-anywhere {
