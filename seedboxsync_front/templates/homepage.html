@@ -51,7 +51,7 @@
       <tbody>
         <template x-for="row in data" :key="row.id || row.key">
           <tr>
-            <td class="is-overflow-anywhere">x-text="row.path"></td>
+            <td class="is-overflow-anywhere" x-text="row.path"></td>
             <td class="is-hidden-mobile" x-text="row.started ? new Date(row.started).toLocaleString(undefined, dateTimeOption) : ''"><
             <td class="is-hidden-mobile" x-text="row.human_local_size"></td>
           </tr>
