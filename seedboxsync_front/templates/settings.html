@@ -12,7 +12,7 @@
     {{ _('If you have any questions, <a title="SeedboxSync configuration documentation" href="https://llaumgui.github.io/seedboxsync/getting-started/configuration/">the documentation</a> contains all the information you need.') }}
   </div>
 
-  <form>
+  <form method="post">
     {% if readonly == True %}
     <div class="notification is-warning">
       {{ _('The configuration is read-only. Check the permissions.') }}
@@ -31,7 +31,7 @@
               isValid() { return this.host.length > 2 }
             }">
             <label class="label">{{ _('Hostname') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                      name="seedbox_host" x-model="host"
                      placeholder="my-seedbox.ltd"
@@ -67,7 +67,7 @@
               isValid() { return this.login.length > 2 }
             }">
             <label class="label">{{ _('Login') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_login" x-model="login"
                     placeholder="me"
@@ -84,7 +84,7 @@
               isValid() { return this.password.length > 2 }
             }">
             <label class="label">{{ _('Password') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="password" {{ readonly_attr }}
                     name="seedbox_password" x-model="password"
                     placeholder="********"
@@ -160,7 +160,7 @@
               isValid() { return this.tmp_path.length > 2 }
             }">
             <label class="label">{{ _('Tempory path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_tmp_path" x-model="tmp_path"
                     placeholder="./tmp"
@@ -177,7 +177,7 @@
               isValid() { return this.watch_path.length > 2 }
             }">
             <label class="label">{{ _('Watch path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_watch_path" x-model="watch_path"
                     placeholder="./watch"
@@ -196,7 +196,7 @@
               isValid() { return this.finished_path.length > 2 }
             }">
             <label class="label">{{ _('Finished path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_finished_path" x-model="finished_path"
                     placeholder="./downloads"
@@ -213,7 +213,7 @@
               isValid() { return this.prefixed_path.length > 2 }
             }">
             <label class="label">{{ _('Prefixed path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_prefixed_path" x-model="prefixed_path"
                     placeholder="downloaded"
@@ -232,7 +232,7 @@
               isValid() { return this.part_suffix.length > 2 }
             }">
             <label class="label">{{ _('Suffix used for .part') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_part_suffix" x-model="part_suffix"
                     placeholder=".part"
@@ -249,7 +249,7 @@
               isValid() { return this.exclude_syncing.length > 2 }
             }">
             <label class="label">{{ _('Suffix used for .part') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_exclude_syncing" x-model="exclude_syncing"
                     placeholder=".*missing$|^\..*\.sw"
@@ -273,7 +273,7 @@
               isValid() { return this.watch_path.length > 2 }
             }">
             <label class="label">{{ _('Watch path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_watch_path" x-model="watch_path"
                     placeholder="/watch"
@@ -290,7 +290,7 @@
               isValid() { return this.download_path.length > 2 }
             }">
             <label class="label">{{ _('Downloads path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_download_path" x-model="download_path"
                     placeholder="/downloads"
@@ -309,7 +309,7 @@
               isValid() { return this.db_file.length > 2 }
             }">
             <label class="label">{{ _('Database file path') }}</label>
-            <div class="control column is-8 p-0 has-icons-left has-icons-right">
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
               <input class="input" type="text" {{ readonly_attr }}
                     name="seedbox_db_file" x-model="db_file"
                     placeholder="/config/seedboxsync.db"
@@ -324,8 +324,72 @@
 
     <div class="box">
       <h2 class="title is-4">{{ _('Healthchecks') }}</h2>
-      <h3 class="subtitle is-4">{{ _('Settings Healthchecks service') }}</h3>
+      <p class="is-italic">{{ _('Settings Healthchecks service.') }}</p>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_seedbox_enabled: '{{ form.healthchecks.sync_seedbox_enabled }}',
+              isValid() { return this.part_suffix.length > 2 }
+            }">
+            <label class="label">{{ _('Enable for seedboxsync task ?') }}</label>
+            <input type="checkbox" value="{{ form.seedbox.timeout }}" checked x-model="enabled"  {{ readonly_attr }}/>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_seedbox_ping_url: '{{ form.healthchecks.sync_seedbox_ping_url }}',
+              isValid() { return this.sync_seedbox_ping_url.length > 2 }
+            }">
+            <label class="label">{{ _('Ping URL for seedboxsync task') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_sync_seedbox_ping_url" x-model="sync_seedbox_ping_url"
+                    placeholder=".*missing$|^\..*\.sw"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-globe"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_blackhole_enabled: '{{ form.healthchecks.sync_seedbox_enabled }}',
+              isValid() { return this.part_suffix.length > 2 }
+            }">
+            <label class="label">{{ _('Enable for blackhole task ?') }}</label>
+            <input type="checkbox" value="{{ form.seedbox.timeout }}" checked x-model="enabled"  {{ readonly_attr }}/>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_seedbox_ping_url: '{{ form.healthchecks.sync_seedbox_ping_url }}',
+              isValid() { return this.sync_seedbox_ping_url.length > 2 }
+            }">
+            <label class="label">{{ _('Ping URL for blackhole task') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_sync_blackhole_ping_url" x-model="sync_blackhole_ping_url"
+                    placeholder=".*missing$|^\..*\.sw"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-globe"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="control">
+      <button class="button is-primary">Submit</button>
+    </div>
+
   </form>
 </div>
 {% endblock %}
