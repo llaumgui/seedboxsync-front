@@ -7,8 +7,8 @@
 
 /**
  * Build AlpineJS table components.
- * @param {*} apiUrl
- * @param {*} refreshMs
+ * @param {string} apiUrl
+ * @param {number} refreshMs
  * @returns
  */
 export function TableComponent(apiUrl, refreshMs = 30000) {

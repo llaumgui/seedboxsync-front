@@ -5,18 +5,23 @@
  * file that was distributed with this source code.
  */
 
+import { toast } from "bulma-toast";
+
 /**
  * Build AlpineJS lock box components.
- * @param {*} apiUrl
- * @param {*} refreshMs
+ * @param {string} apiUrl
+ * @param {string} title
+ * @param {number} refreshMs
  * @returns
  */
-export function LockBoxComponent(url, refreshMs = 30000) {
+export function LockBoxComponent(url, title, refreshMs = 30000) {
   return {
     loading: true,
     error: null,
     lockData: null,
     lockMessage: "",
+    lockTitle: title,
+    previousLockMessage: "",
 
     async init() {
       await this.loadLock();
@@ -34,7 +39,7 @@ export function LockBoxComponent(url, refreshMs = 30000) {
         if (res.status === 404) {
           // Specific handling for never launched
           this.lockData = null;
-          this.lockMessage = Translations.never_launched;
+          this.updateLockMessage(Translations.never_launched);
           this.loading = false;
           return;
         };
@@ -44,9 +49,17 @@ export function LockBoxComponent(url, refreshMs = 30000) {
         this.lockData = json.data;
 
         if (this.lockData.locked) {
-          this.lockMessage = `${Translations.in_progress_since} ${new Date(this.lockData.locked_at).toLocaleString(undefined, dateTimeOption)}`;
+          this.updateLockMessage(
+            `${Translations.in_progress_since} ${new Date(
+              this.lockData.locked_at
+            ).toLocaleString(undefined, dateTimeOption)}`
+          );
         } else {
-          this.lockMessage = `${Translations.completed_since} ${new Date(this.lockData.unlocked_at).toLocaleString(undefined, dateTimeOption)}`;
+          this.updateLockMessage(
+            `${Translations.completed_since} ${new Date(
+              this.lockData.unlocked_at
+            ).toLocaleString(undefined, dateTimeOption)}`
+          );
         }
       } catch (e) {
         this.error = Translations.error_loading_lock_status;
@@ -55,5 +68,17 @@ export function LockBoxComponent(url, refreshMs = 30000) {
         this.loading = false;
       }
     },
+
+    updateLockMessage(newMessage) {
+      // Trigger toast if message changed
+      if (this.lockMessage !== "" && this.lockMessage !== newMessage) {
+        toast({
+          message: "<strong>" + this.lockTitle + "</strong>\n<br>" + newMessage,
+          type: "is-info",
+        });
+      }
+      this.previousLockMessage = this.lockMessage;
+      this.lockMessage = newMessage;
+    }
   };
 }

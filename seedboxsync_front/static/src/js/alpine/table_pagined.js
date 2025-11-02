@@ -7,8 +7,8 @@
 
 /**
  * Build AlpineJS table pagined components.
- * @param {*} apiUrl
- * @param {*} perPage
+ * @param {string} apiUrl
+ * @param {number} perPage
  * @returns
  */
 export function TablePaginedComponent(apiUrl, perPage = 20) {

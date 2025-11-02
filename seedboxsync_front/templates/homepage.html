@@ -8,7 +8,7 @@
 <div class="content">
 
   <div class="columns is-desktop">
-    <div class="message is-small column is-4" x-data="LockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}')">
+    <div class="message is-small column is-4" x-data="LockBoxComponent('{{ url_for('api.locks_locks', key='sync_blackhole') }}', '{{ _('Blackhole') }}')">
       <div class="message-header">{{ _('Blackhole') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="message is-small column is-4 is-offset-4" x-data="LockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}')">
+    <div class="message is-small column is-4 is-offset-4" x-data="LockBoxComponent('{{ url_for('api.locks_locks', key='sync_seedbox') }}', '{{ _('Seedbox') }}')">
       <div class="message-header">{{ _('Seedbox') }}</div>
       <div class="message-body">
         <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>

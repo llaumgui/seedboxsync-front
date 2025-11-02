@@ -12,6 +12,10 @@
  */
 import { toast } from "bulma-toast";
 
+/**
+ * Modal confirmation and call API.
+ * @returns
+ */
 export function ModalConfirmCallComponent() {
   return {
     isActive: false,
@@ -59,12 +63,11 @@ export function ModalConfirmCallComponent() {
 
         this.close();
       } catch (e) {
-        console.error(e.message);
+        console.error(e);
         toast({
           message: e.message,
           type: "is-danger",
         });
-
         this.error = true;
       } finally {
         this.loading = false;
@@ -76,11 +79,11 @@ export function ModalConfirmCallComponent() {
 /**
  * Open modal outside Alpine.
  *
- * @param {*} url
- * @param {*} method
- * @param {*} title
- * @param {*} content
- * @param {*} toastMessage
+ * @param {string} url
+ * @param {string} method
+ * @param {string} title
+ * @param {string} content
+ * @param {string} toastMessage
  */
 export function OpenModalConfirmCall(
   url,
