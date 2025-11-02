@@ -13,8 +13,11 @@ from werkzeug.exceptions import HTTPException
 def error(e: Exception) -> tuple[str, int | None]:
     """
     Global error handler.
-    :param e: Exception
-    :return: Rendered error template with status code
+    Args:
+        e (Exception): The exception.
+
+    Returns:
+        str: Rendered error template with status code.
     """
     status_code = e.code if isinstance(e, HTTPException) else 500
     title = e.name if isinstance(e, HTTPException) else gettext(u'Internal Server Error')

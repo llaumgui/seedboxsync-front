@@ -32,10 +32,13 @@
     <div class="is-flex is-justify-content-space-between is-align-items-center mb-2">
       <p class="is-italic">{{ _('List of downloads in progress from the seedbox to the NAS.') }}</p>
       <button x-show="data.length > 0" class="button is-danger is-small is-responsive js-modal-trigger"
-              onclick="OpenModalConfirmCall(
+              @click="OpenModalConfirmCall(
                 '{{ url_for('api.downloads_downloads_progress') }}',
+                'DELETE',
                 '{{ _('Purge?') }}',
-                '{{ _('Do you want to purge all in-progress downloads?') }}', 'DELETE')">{{ _('Purge') }}</button>
+                '{{ _('Do you want to purge all in-progress downloads?') }}',
+                'In-progress has been purged'
+              )">{{ _('Purge') }}</button>
     </div>
     <div x-show="loading"><i class="fas fa-spinner fa-spin"></i> {{ _('Loading...') }}</div>
     <div x-show="error" class="notification is-danger"><i class="fas fa-triangle-exclamation"></i> {{ _('An error has occurred.') }}</div>
