@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="title">{% block title %}{{ _('Settings') }}{% endblock %}</h1>
+{% endblock %}
+
+{% set readonly_attr = 'disabled' if readonly else '' %}
+
+{% block content %}
+<div class="content">
+  <div class="notification is-primary">
+    {{ _('If you have any questions, <a title="SeedboxSync configuration documentation" href="https://llaumgui.github.io/seedboxsync/getting-started/configuration/">the documentation</a> contains all the information you need.') }}
+  </div>
+
+  <form method="post">
+    {% if readonly == True %}
+    <div class="notification is-warning">
+      {{ _('The configuration is read-only. Check the permissions.') }}
+    </div>
+    {% endif %}
+
+    <div class="box">
+      <h2 class="title is-4">{{ _('Seedbox') }}</h2>
+      <h3 class="subtitle is-4">{{ _('Connection') }}</h3>
+      <p class="is-italic">{{ _('Information about your seedbox connection.') }}</p>
+
+      <div class="columns">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              host: '{{ form.seedbox.host }}',
+              isValid() { return isValidHost(this.host) }
+            }">
+            <label class="label">{{ _('Hostname') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                     name="seedbox_host" x-model="host"
+                     placeholder="my-seedbox.ltd"
+                     x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-server"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              port: '{{ form.seedbox.port }}',
+              isValid() { return isValidPort(this.port) }
+            }">
+            <label class="label">{{ _('Port') }}</label>
+            <div class="control column is-4 p-0 has-icons-left has-icons-right">
+              <input class="input" type="number" {{ readonly_attr }}
+                    name="seedbox_port" x-model="port"
+                    placeholder="22"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-plug"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              login: '{{ form.seedbox.login }}',
+              isValid() { return isRequired(this.login) }
+            }">
+            <label class="label">{{ _('Login') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_login" x-model="login"
+                    placeholder="me"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              password: '{{ form.seedbox.password }}',
+              isValid() { return isRequired(this.password) }
+            }">
+            <label class="label">{{ _('Password') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="password" {{ readonly_attr }}
+                    name="seedbox_password" x-model="password"
+                    placeholder="********"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              timeout: '{{ form.seedbox.timeout }}',
+              enabled: {{ 'true' if form.seedbox.timeout_enabled else 'false' }},
+              isValid() { return isValidTimeout(this.timeout) }
+            }">
+            <label class="label">{{ _('Timeout (in seconds)') }}</label>
+            <input type="checkbox" name="seedbox_timeout_enabled" value="1" checked x-model="enabled" {{ readonly_attr }}/>
+            <div class="control column is-4 p-0 has-icons-left has-icons-right"  x-show="enabled" x-transition>
+              <input class="input" type="number" {{ readonly_attr }}
+                    name="seedbox_timeout" x-model="timeout"
+                    placeholder="30"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-clock"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{ protocol: '{{ form.seedbox.protocol }}' }">
+            <label class="label">{{ _('Protocol') }}</label>
+            <div class="control select">
+              <select name="seedbox_protocol" x-model="protocol" {{ readonly_attr }}>
+                <option value="sftp">{{ _('sFTP') }}</option>
+              </select>
+            </div>
+            <input type="hidden" name="seedbox_protocol" :value="protocol">
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              chmod: '{{ form.seedbox.chmod }}',
+              enabled: {{ 'true' if form.seedbox.chmod_enabled else 'false' }},
+              isValid() { return isOctalChmod(this.chmod) }
+            }">
+            <label class="label">{{ _('chmod (in octal notation)') }}</label>
+            <input type="checkbox" name="seedbox_chmod_enabled" value="1" checked x-model="enabled" {{ readonly_attr }} />
+            <div class="control column is-4 p-0 has-icons-left has-icons-right" x-show="enabled" x-transition>
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_chmod" x-model="chmod"
+                    placeholder="0o644"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subtitle is-4 pt-6">{{ _('Path') }}</h3>
+      <p class="is-italic">{{ _('Information about your seedbox paths.') }}</p>
+
+      <div class="columns">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              tmp_path: '{{ form.seedbox.tmp_path }}',
+              isValid() { return isRequired(this.tmp_path) }
+            }">
+            <label class="label">{{ _('Tempory path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_tmp_path" x-model="tmp_path"
+                    placeholder="./tmp"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-folder"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              watch_path: '{{ form.seedbox.watch_path }}',
+              isValid() { return isRequired(this.watch_path) }
+            }">
+            <label class="label">{{ _('Watch path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_watch_path" x-model="watch_path"
+                    placeholder="./watch"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-folder"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              finished_path: '{{ form.seedbox.finished_path }}',
+              isValid() { return isRequired(this.finished_path) }
+            }">
+            <label class="label">{{ _('Finished path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_finished_path" x-model="finished_path"
+                    placeholder="./downloads"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-folder"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              prefixed_path: '{{ form.seedbox.prefixed_path }}',
+              isValid() { return isRequired(this.prefixed_path) }
+            }">
+            <label class="label">{{ _('Prefixed path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_prefixed_path" x-model="prefixed_path"
+                    placeholder="downloaded"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-broom"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              part_suffix: '{{ form.seedbox.part_suffix }}',
+              isValid() { return isRequired(this.part_suffix) }
+            }">
+            <label class="label">{{ _('Suffix used for .part') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_part_suffix" x-model="part_suffix"
+                    placeholder=".part"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-caret-left"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              exclude_syncing: '{{ form.seedbox.exclude_syncing }}',
+              isValid() { return true }
+            }">
+            <label class="label">{{ _('Suffix used for .part') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="seedbox_exclude_syncing" x-model="exclude_syncing"
+                    placeholder=".*missing$|^\..*\.sw"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-ban"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2 class="title is-4">{{ _('Local (NAS)') }}</h2>
+      <p class="is-italic">{{ _('Information about local environment (NAS?).') }}</p>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              watch_path: '{{ form.local.watch_path }}',
+              isValid() { return isRequired(this.watch_path) }
+            }">
+            <label class="label">{{ _('Watch path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="local_watch_path" x-model="watch_path"
+                    placeholder="/watch"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-folder"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              download_path: '{{ form.local.download_path }}',
+              isValid() { return isRequired(this.download_path) }
+            }">
+            <label class="label">{{ _('Downloads path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="local_download_path" x-model="download_path"
+                    placeholder="/downloads"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-folder"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              db_file: '{{ form.local.db_file }}',
+              isValid() { return isRequired(this.db_file) }
+            }">
+            <label class="label">{{ _('Database file path') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="local_db_file" x-model="db_file"
+                    placeholder="/config/seedboxsync.db"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-database"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2 class="title is-4">{{ _('Healthchecks') }}</h2>
+      <p class="is-italic">{{ _('Settings Healthchecks service.') }}</p>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_seedbox_enabled: '{{ form.healthchecks.sync_seedbox_enabled }}',
+              enabled: {{ 'true' if form.healthchecks.sync_seedbox_enabled else 'false' }},
+            }">
+            <label class="label">{{ _('Enable for sync_seedbox task?') }}</label>
+            <input type="checkbox" name="healthchecks_sync_seedbox_enabled" value="1" checked x-model="enabled"  {{ readonly_attr }}/>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_seedbox_ping_url: '{{ form.healthchecks.sync_seedbox_ping_url }}',
+              isValid() { return isValidUrl(this.sync_seedbox_ping_url) }
+            }">
+            <label class="label">{{ _('Ping URL for sync_seedbox task') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="healthchecks_sync_seedbox_ping_url" x-model="sync_seedbox_ping_url"
+                    placeholder="https://hc-ping.com/826cb034-14fe-4965-a9d9-bc0bed7b034d"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-globe"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns pt-4">
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_blackhole_enabled: '{{ form.healthchecks.sync_blackhole_enabled }}',
+              enabled: {{ 'true' if form.healthchecks.sync_blackhole_enabled else 'false' }},
+            }">
+            <label class="label">{{ _('Enable for sync_blackhole task?') }}</label>
+            <input type="checkbox" name="healthchecks_sync_blackhole_enabled" value="1" checked x-model="enabled"  {{ readonly_attr }}/>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              sync_blackhole_ping_url: '{{ form.healthchecks.sync_blackhole_ping_url }}',
+              isValid() { return isValidUrl(this.sync_blackhole_ping_url) }
+            }">
+            <label class="label">{{ _('Ping URL for sync_blackhole task') }}</label>
+            <div class="control column is-10 p-0 has-icons-left has-icons-right">
+              <input class="input" type="text" {{ readonly_attr }}
+                    name="healthchecks_sync_blackhole_ping_url" x-model="sync_blackhole_ping_url"
+                    placeholder="https://hc-ping.com/94db845e-bd7c-42af-9ca8-25e89556b814"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-globe"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if not readonly %}
+    <div class="control">
+      <button class="button is-primary">{{ _('Save') }}</button>
+    </div>
+    {% endif %}
+
+  </form>
+</div>
+
+{% if saved %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    bulmaToast.toast({
+      message: `{{ _('Settings saved.') }}`,
+      type: "is-success",
+    });
+  });
+</script>
+{% endif %}
+
+{% endblock %}

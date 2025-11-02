@@ -30,6 +30,7 @@ dependencies = [
   "pyyaml",
   "peewee",
   "humanize",
+  "ruamel.yaml",
   "seedboxsync>=3.3.0",
 ]
 

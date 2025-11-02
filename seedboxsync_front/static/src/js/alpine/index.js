@@ -5,16 +5,28 @@
  * file that was distributed with this source code.
  */
 import Alpine from "alpinejs";
+import * as validators from "./validators";
 import { TableComponent } from "./table";
 import { TablePaginedComponent } from "./table_pagined";
 import { LockBoxComponent } from "./lockbox";
 import { ModalConfirmCallComponent, OpenModalConfirmCall } from "./modal";
 
+// Tables
 window.TableComponent = TableComponent;
 window.TablePaginedComponent = TablePaginedComponent;
 window.LockBoxComponent = LockBoxComponent;
+
+// Modales
 window.ModalConfirmCallComponent = ModalConfirmCallComponent;
 window.OpenModalConfirmCall = OpenModalConfirmCall;
+
+// Validators
+window.isValidHost = validators.isValidHost;
+window.isValidPort = validators.isValidPort;
+window.isOctalChmod = validators.isOctalChmod;
+window.isRequired = validators.isRequired;
+window.isValidTimeout = validators.isValidTimeout;
+window.isValidUrl = validators.isValidUrl;
 
 window.Alpine = Alpine;
 Alpine.start();

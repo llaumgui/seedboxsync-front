@@ -72,5 +72,7 @@ class Config(object):
         for path in Config.CONFIG_PATHS:
             if os.path.exists(path):
                 with open(path, "r") as f:
+                    self.app.config['CONFIG_YAML_PATH'] = path
+                    self.app.logger.debug('Use yaml config %s', path)
                     return yaml.safe_load(f)  # type: ignore[no-any-return]
         return {}
