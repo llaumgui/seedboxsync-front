@@ -14,8 +14,8 @@ from typing import Any
 from seedboxsync_front.apis import api
 
 
-@api.errorhandler(BadRequest)  # type: ignore[misc]
-@api.errorhandler(NotFound)  # type: ignore[misc]
+@api.errorhandler(BadRequest)  # type: ignore[untyped-decorator]
+@api.errorhandler(NotFound)  # type: ignore[untyped-decorator]
 def api_errorhandler(error: BadRequest | NotFound) -> tuple[dict[str, Any], int]:
     """
     API error handler.

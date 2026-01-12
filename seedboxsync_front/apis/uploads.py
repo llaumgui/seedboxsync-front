@@ -48,9 +48,9 @@ class UploadsList(Resource):
     Provides a list of uploaded torrents with optional limit on the number of items returned.
     """
 
-    @api.doc('list_uploads')  # type: ignore[misc]
-    @api.expect(parser)  # type: ignore[misc]
-    @api.marshal_with(upload_list_envelope, code=200, description="List of uploaded torrents")  # type: ignore[misc]
+    @api.doc('list_uploads')  # type: ignore[untyped-decorator]
+    @api.expect(parser)  # type: ignore[untyped-decorator]
+    @api.marshal_with(upload_list_envelope, code=200, description="List of uploaded torrents")  # type: ignore[untyped-decorator]
     def get(self) -> dict[str, Any]:
         """
         Retrieve the most recent uploaded torrents.
@@ -89,8 +89,8 @@ class Uploads(Resource):
     Provides upload operations.
     """
 
-    @api.doc('get_upload')  # type: ignore[misc]
-    @api.marshal_with(upload_envelope, code=200, description="Upload element")  # type: ignore[misc]
+    @api.doc('get_upload')  # type: ignore[untyped-decorator]
+    @api.marshal_with(upload_envelope, code=200, description="Upload element")  # type: ignore[untyped-decorator]
     def get(self, id: int) -> dict[str, Any]:
         """
         Retrieve a upload.
@@ -106,8 +106,8 @@ class Uploads(Resource):
 
         return self.build_envelope(select, type='Upload')
 
-    @api.doc('delete_upload')  # type: ignore[misc]
-    @api.marshal_with(upload_message_envelope, code=200, description="Delete upload element")  # type: ignore[misc]
+    @api.doc('delete_upload')  # type: ignore[untyped-decorator]
+    @api.marshal_with(upload_message_envelope, code=200, description="Delete upload element")  # type: ignore[untyped-decorator]
     def delete(self, id: int) -> dict[str, Any]:
         """
         Retrieve a download.

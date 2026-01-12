@@ -38,8 +38,8 @@ class LocksList(Resource):
     Provides a list of lock.
     """
 
-    @api.doc('list_lock')  # type: ignore[misc]
-    @api.marshal_with(lock_list_envelope, code=200, description="List of locks")  # type: ignore[misc]
+    @api.doc('list_lock')  # type: ignore[untyped-decorator]
+    @api.marshal_with(lock_list_envelope, code=200, description="List of locks")  # type: ignore[untyped-decorator]
     def get(self) -> dict[str, Any]:
         """
         Retrieve a list of lock.
@@ -65,8 +65,8 @@ class Locks(Resource):
     Provides locks operations.
     """
 
-    @api.doc('get_lock')  # type: ignore[misc]
-    @api.marshal_with(lock_envelope, code=200, description="Lock element")  # type: ignore[misc]
+    @api.doc('get_lock')  # type: ignore[untyped-decorator]
+    @api.marshal_with(lock_envelope, code=200, description="Lock element")  # type: ignore[untyped-decorator]
     def get(self, key: str) -> dict[str, Any]:
         """
         Retrieve a lock.

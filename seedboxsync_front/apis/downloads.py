@@ -78,9 +78,9 @@ class DownloadsList(Resource):
     Provides a list of downloads with optional filtering for in-progress or completed files.
     """
 
-    @api.doc('list_downloads')  # type: ignore[misc]
-    @api.expect(parser)  # type: ignore[misc]
-    @api.marshal_with(download_list_envelope, code=200, description="List of downloads")  # type: ignore[misc]
+    @api.doc('list_downloads')  # type: ignore[untyped-decorator]
+    @api.expect(parser)  # type: ignore[untyped-decorator]
+    @api.marshal_with(download_list_envelope, code=200, description="List of downloads")  # type: ignore[untyped-decorator]
     def get(self) -> dict[str, Any]:
         """
         Retrieve a list of recent downloads.
@@ -130,8 +130,8 @@ class DownloadsProgress(Resource):
     """
     Endpoint for managing downloads progress.
     """
-    @api.doc('delete_downloads_progress')  # type: ignore[misc]
-    @api.marshal_with(download_message_envelope, code=200, description="Downloads in progress deleted")  # type: ignore[misc]
+    @api.doc('delete_downloads_progress')  # type: ignore[untyped-decorator]
+    @api.marshal_with(download_message_envelope, code=200, description="Downloads in progress deleted")  # type: ignore[untyped-decorator]
     def delete(self) -> dict[str, Any]:
         """
         Delete progress downloads.
@@ -151,8 +151,8 @@ class Downloads(Resource):
     Provides downloads operations.
     """
 
-    @api.doc('get_download')  # type: ignore[misc]
-    @api.marshal_with(download_envelope, code=200, description="Download element")  # type: ignore[misc]
+    @api.doc('get_download')  # type: ignore[untyped-decorator]
+    @api.marshal_with(download_envelope, code=200, description="Download element")  # type: ignore[untyped-decorator]
     def get(self, id: int) -> dict[str, Any]:
         """
         Retrieve a download.
@@ -173,8 +173,8 @@ class Downloads(Resource):
 
         return self.build_envelope(select, type='Download')
 
-    @api.doc('delete_download')  # type: ignore[misc]
-    @api.marshal_with(download_message_envelope, code=200, description="Delete download element")  # type: ignore[misc]
+    @api.doc('delete_download')  # type: ignore[untyped-decorator]
+    @api.marshal_with(download_message_envelope, code=200, description="Delete download element")  # type: ignore[untyped-decorator]
     def delete(self, id: int) -> dict[str, Any]:
         """
         Retrieve a download.
@@ -193,8 +193,8 @@ class DownloadsStatsByMonth(Resource):
     """
 
     @cache.cached(timeout=3600)
-    @api.doc('stats_downloads_by_month')  # type: ignore[misc]
-    @api.marshal_with(stats_month_envelope, code=200, description="Download statistics aggregated by month")  # type: ignore[misc]
+    @api.doc('stats_downloads_by_month')  # type: ignore[untyped-decorator]
+    @api.marshal_with(stats_month_envelope, code=200, description="Download statistics aggregated by month")  # type: ignore[untyped-decorator]
     def get(self) -> dict[str, Any]:
         """
         Return download statistics grouped by month.
@@ -211,8 +211,8 @@ class DownloadsStatsByYear(Resource):
     """
 
     @cache.cached(timeout=3600)
-    @api.doc('stats_downloads_by_year')  # type: ignore[misc]
-    @api.marshal_with(stats_year_envelope, code=200, description="Download statistics aggregated by year")  # type: ignore[misc]
+    @api.doc('stats_downloads_by_year')  # type: ignore[untyped-decorator]
+    @api.marshal_with(stats_year_envelope, code=200, description="Download statistics aggregated by year")  # type: ignore[untyped-decorator]
     def get(self) -> dict[str, Any]:
         """
         Return download statistics grouped by year.
