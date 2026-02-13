@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "eslint": "^9.38.0",
+    "eslint": "^10.0.0",
     "globals": "^17.0.0",
     "sass": "^1.93.3",
     "vite": "^7.1.10"
