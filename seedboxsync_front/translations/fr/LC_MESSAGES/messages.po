@@ -1,5 +1,5 @@
 # French translations for .
-# Copyright (C) 2025 ORGANIZATION
+# Copyright (C) 2025-2026 Guillaume Kulakowski <guillaume@kulakowski.fr>
 # This file is distributed under the same license as the  project.
 # Guillaume Kulakowski <guillaume@kulakowski.fr>, 2025.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: guillaume@kulakowski.fr\n"
-"POT-Creation-Date: 2025-11-02 16:53+0100\n"
+"POT-Creation-Date: 2026-06-05 20:23+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgid "Internal Server Error"
 msgstr "Erreur interne du serveur"
 
 #: seedboxsync_front/templates/downloaded.html:4
-#: seedboxsync_front/templates/homepage.html:66
+#: seedboxsync_front/templates/homepage.html:70
 msgid "Last files downloaded"
 msgstr "Derniers fichiers téléchargés"
 
 #: seedboxsync_front/templates/downloaded.html:9
-#: seedboxsync_front/templates/homepage.html:68
+#: seedboxsync_front/templates/homepage.html:72
 msgid "List of last files downloaded from the seedbox to the NAS."
 msgstr "Liste des derniers fichiers téléchargés de la seedbox vers le NAS."
 
@@ -40,8 +40,8 @@ msgstr "Recherche"
 #: seedboxsync_front/templates/components/modal.html:13
 #: seedboxsync_front/templates/downloaded.html:22
 #: seedboxsync_front/templates/homepage.html:43
-#: seedboxsync_front/templates/homepage.html:69
-#: seedboxsync_front/templates/homepage.html:95
+#: seedboxsync_front/templates/homepage.html:73
+#: seedboxsync_front/templates/homepage.html:99
 #: seedboxsync_front/templates/uploaded.html:22
 msgid "Loading..."
 msgstr "Chargement..."
@@ -49,33 +49,32 @@ msgstr "Chargement..."
 #: seedboxsync_front/templates/components/modal.html:16
 #: seedboxsync_front/templates/downloaded.html:23
 #: seedboxsync_front/templates/homepage.html:44
-#: seedboxsync_front/templates/homepage.html:70
-#: seedboxsync_front/templates/homepage.html:96
+#: seedboxsync_front/templates/homepage.html:74
+#: seedboxsync_front/templates/homepage.html:100
 #: seedboxsync_front/templates/uploaded.html:23
 msgid "An error has occurred."
 msgstr "Une erreur est survenue."
 
 #: seedboxsync_front/templates/downloaded.html:24
-#: seedboxsync_front/templates/homepage.html:71
+#: seedboxsync_front/templates/homepage.html:75
 msgid "No files downloaded yet..."
 msgstr "Aucun fichier téléchargé pour le moment..."
 
 #: seedboxsync_front/templates/downloaded.html:30
 #: seedboxsync_front/templates/homepage.html:49
-#: seedboxsync_front/templates/homepage.html:75
-#: seedboxsync_front/templates/homepage.html:101
+#: seedboxsync_front/templates/homepage.html:79
+#: seedboxsync_front/templates/homepage.html:105
 #: seedboxsync_front/templates/uploaded.html:30
 msgid "Name"
 msgstr "Nom"
 
 #: seedboxsync_front/templates/downloaded.html:31
-#: seedboxsync_front/templates/homepage.html:76
+#: seedboxsync_front/templates/homepage.html:80
 msgid "Finished"
 msgstr "Terminé"
 
 #: seedboxsync_front/templates/downloaded.html:32
-#: seedboxsync_front/templates/homepage.html:51
-#: seedboxsync_front/templates/homepage.html:77
+#: seedboxsync_front/templates/homepage.html:81
 msgid "Size"
 msgstr "Taille"
 
@@ -113,10 +112,12 @@ msgstr "Suivant"
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
+#: seedboxsync_front/templates/homepage.html:11
 #: seedboxsync_front/templates/homepage.html:12
 msgid "Blackhole"
 msgstr "Blackhole"
 
+#: seedboxsync_front/templates/homepage.html:20
 #: seedboxsync_front/templates/homepage.html:21
 #: seedboxsync_front/templates/settings.html:23
 msgid "Seedbox"
@@ -150,21 +151,26 @@ msgstr "Aucun téléchargement en cours pour le moment..."
 msgid "Started"
 msgstr "Démarré"
 
-#: seedboxsync_front/templates/homepage.html:92
+#: seedboxsync_front/templates/homepage.html:51
+#, fuzzy
+msgid "Progress"
+msgstr "Progression"
+
+#: seedboxsync_front/templates/homepage.html:96
 #: seedboxsync_front/templates/uploaded.html:4
 msgid "Last torrents uploaded"
 msgstr "Derniers torrents envoyés"
 
-#: seedboxsync_front/templates/homepage.html:94
+#: seedboxsync_front/templates/homepage.html:98
 #: seedboxsync_front/templates/uploaded.html:9
 msgid "List of last torrents uploaded from the NAS to the seedbox."
 msgstr "Liste des derniers torrents envoyés du NAS vers la seedbox."
 
-#: seedboxsync_front/templates/homepage.html:97
+#: seedboxsync_front/templates/homepage.html:101
 msgid "No torrent downloaded yet..."
 msgstr "Pas encore de torrent téléchargé..."
 
-#: seedboxsync_front/templates/homepage.html:102
+#: seedboxsync_front/templates/homepage.html:106
 #: seedboxsync_front/templates/uploaded.html:31
 msgid "Sent"
 msgstr "Envoyé"
@@ -256,7 +262,7 @@ msgstr ""
 "informations dont vous avez besoin."
 
 #: seedboxsync_front/templates/settings.html:18
-#: seedboxsync_front/views/settings.py:59
+#: seedboxsync_front/views/settings.py:43
 msgid "The configuration is read-only. Check the permissions."
 msgstr "La configuration est en lecture seule. Vérifiez les permissions."
 
@@ -449,16 +455,16 @@ msgstr "Info"
 msgid "Stats"
 msgstr "Statistiques"
 
-#: seedboxsync_front/views/settings.py:49
+#: seedboxsync_front/views/settings.py:33
 msgid "Configuration .yml not found."
 msgstr "Configuration .yml non trouvée."
 
-#: seedboxsync_front/views/settings.py:61
+#: seedboxsync_front/views/settings.py:45
 #, python-format
 msgid "Missing required fields: %(missing)s"
 msgstr "Il manque les champs requis: {%(missing)s}"
 
-#: seedboxsync_front/views/settings.py:69
+#: seedboxsync_front/views/settings.py:53
 msgid "Failed to save configuration."
 msgstr "Échec de l’enregistrement de la configuration."
 

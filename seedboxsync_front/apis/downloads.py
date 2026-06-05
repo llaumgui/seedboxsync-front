@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2025 Guillaume Kulakowski <guillaume@kulakowski.fr>
+# Copyright (C) 2025-2026 Guillaume Kulakowski <guillaume@kulakowski.fr>
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
@@ -28,6 +28,7 @@ download_model = api.model('Download', {
     'human_local_size': fields.String(required=True, description="File size on local storage with related humanization", example="3.1 GiB"),
     'seedbox_size': fields.Integer(required=True, description="File size on seedbox storage in bytes", example=3337353289),
     'human_seedbox_size': fields.String(required=True, description="File size on seedbox storage with related humanization", example="3.1 GiB"),
+    'progress': fields.Float(required=True, description="Download progress percentage", example=15.0),
 })
 download_list_envelope = Resource.build_envelope_model(api, 'DownloadList', nested_model=download_model)
 download_envelope = Resource.build_envelope_model(api, 'Download', nested_model=download_model, as_list=False)
@@ -106,7 +107,8 @@ class DownloadsList(Resource):
             Download.local_size,
             Download.seedbox_size,
             fn.humanize(Download.local_size).alias('human_local_size'),
-            fn.humanize(Download.seedbox_size).alias('human_seedbox_size')
+            fn.humanize(Download.seedbox_size).alias('human_seedbox_size'),
+            fn.round((Download.local_size.cast('REAL') / Download.seedbox_size.cast('REAL')) * 100, 2).alias('progress')
         ).limit(limit).offset(offset).order_by(Download.finished.desc())
 
         if search:
@@ -166,7 +168,8 @@ class Downloads(Resource):
                 Download.local_size,
                 Download.seedbox_size,
                 fn.humanize(Download.local_size).alias('human_local_size'),
-                fn.humanize(Download.seedbox_size).alias('human_seedbox_size')
+                fn.humanize(Download.seedbox_size).alias('human_seedbox_size'),
+                fn.round((Download.local_size.cast('REAL') / Download.seedbox_size.cast('REAL')) * 100, 2).alias('progress')
             ).where(Download.id == id).dicts().get()
         except Download.DoesNotExist:
             api.abort(404, "Download {} doesn't exist".format(id))
