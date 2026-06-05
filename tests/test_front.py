@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2025-2026 Guillaume Kulakowski <guillaume@kulakowski.fr>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
 def test_404(client):
     response = client.get('/404')
     assert response.status_code == 404  # Is 404
