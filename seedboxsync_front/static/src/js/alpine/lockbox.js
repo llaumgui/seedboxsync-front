@@ -28,6 +28,7 @@ export function LockBoxComponent(url, title, refreshMs = 30000) {
       if (refreshMs > 0) {
         setInterval(() => this.loadLock(), refreshMs);
       }
+      window.addEventListener("force-refresh", () => this.loadLock());
     },
 
     async loadLock() {

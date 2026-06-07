@@ -27,6 +27,17 @@
     </div>
   </div>
 
+  <div class="has-text-right">
+    <button x-data
+            class="button is-info is-small is-responsive"
+            @click="window.dispatchEvent(new CustomEvent('force-refresh'))">
+      <span class="icon">
+        <i class="fa fa-refresh"></i>
+      </span>
+      <span>{{ _('Refresh') }}</span>
+    </button>
+  </div>
+
   <h2>{{ _('Download in progress') }}</h2>
   <div x-data="TableComponent('{{ url_for('api.downloads_downloads_list') }}?limit=5&finished=false')">
     <div class="is-flex is-justify-content-space-between is-align-items-center mb-2">
