@@ -32,7 +32,7 @@ dependencies = [
   "peewee",
   "humanize",
   "ruamel.yaml",
-  "seedboxsync>=3.3.0",
+  "seedboxsync>=3.4.0",
 ]
 
 [project.urls]
