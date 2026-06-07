@@ -122,6 +122,7 @@
             <div class="control select">
               <select name="seedbox_protocol" x-model="protocol" {{ readonly_attr }}>
                 <option value="sftp">{{ _('sFTP') }}</option>
+                <option value="ftp">{{ _('FTP') }}</option>
               </select>
             </div>
             <input type="hidden" name="seedbox_protocol" :value="protocol">
