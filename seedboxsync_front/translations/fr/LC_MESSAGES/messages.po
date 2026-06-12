@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  SeedboxSyncFront\n"
 "Report-Msgid-Bugs-To: guillaume@kulakowski.fr\n"
-"POT-Creation-Date: 2026-06-05 20:23+0200\n"
+"POT-Creation-Date: 2026-06-12 20:51+0200\n"
 "PO-Revision-Date: 2025-10-03 21:41+0200\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgid "Internal Server Error"
 msgstr "Erreur interne du serveur"
 
 #: seedboxsync_front/templates/downloaded.html:4
-#: seedboxsync_front/templates/homepage.html:70
+#: seedboxsync_front/templates/homepage.html:82
 msgid "Last files downloaded"
 msgstr "Derniers fichiers téléchargés"
 
 #: seedboxsync_front/templates/downloaded.html:9
-#: seedboxsync_front/templates/homepage.html:72
+#: seedboxsync_front/templates/homepage.html:84
 msgid "List of last files downloaded from the seedbox to the NAS."
 msgstr "Liste des derniers fichiers téléchargés de la seedbox vers le NAS."
 
@@ -39,42 +39,42 @@ msgstr "Recherche"
 
 #: seedboxsync_front/templates/components/modal.html:13
 #: seedboxsync_front/templates/downloaded.html:22
-#: seedboxsync_front/templates/homepage.html:43
-#: seedboxsync_front/templates/homepage.html:73
-#: seedboxsync_front/templates/homepage.html:99
+#: seedboxsync_front/templates/homepage.html:54
+#: seedboxsync_front/templates/homepage.html:85
+#: seedboxsync_front/templates/homepage.html:111
 #: seedboxsync_front/templates/uploaded.html:22
 msgid "Loading..."
 msgstr "Chargement..."
 
 #: seedboxsync_front/templates/components/modal.html:16
 #: seedboxsync_front/templates/downloaded.html:23
-#: seedboxsync_front/templates/homepage.html:44
-#: seedboxsync_front/templates/homepage.html:74
-#: seedboxsync_front/templates/homepage.html:100
+#: seedboxsync_front/templates/homepage.html:55
+#: seedboxsync_front/templates/homepage.html:86
+#: seedboxsync_front/templates/homepage.html:112
 #: seedboxsync_front/templates/uploaded.html:23
 msgid "An error has occurred."
 msgstr "Une erreur est survenue."
 
 #: seedboxsync_front/templates/downloaded.html:24
-#: seedboxsync_front/templates/homepage.html:75
+#: seedboxsync_front/templates/homepage.html:87
 msgid "No files downloaded yet..."
 msgstr "Aucun fichier téléchargé pour le moment..."
 
 #: seedboxsync_front/templates/downloaded.html:30
-#: seedboxsync_front/templates/homepage.html:49
-#: seedboxsync_front/templates/homepage.html:79
-#: seedboxsync_front/templates/homepage.html:105
+#: seedboxsync_front/templates/homepage.html:60
+#: seedboxsync_front/templates/homepage.html:91
+#: seedboxsync_front/templates/homepage.html:117
 #: seedboxsync_front/templates/uploaded.html:30
 msgid "Name"
 msgstr "Nom"
 
 #: seedboxsync_front/templates/downloaded.html:31
-#: seedboxsync_front/templates/homepage.html:80
+#: seedboxsync_front/templates/homepage.html:92
 msgid "Finished"
 msgstr "Terminé"
 
 #: seedboxsync_front/templates/downloaded.html:32
-#: seedboxsync_front/templates/homepage.html:81
+#: seedboxsync_front/templates/homepage.html:93
 msgid "Size"
 msgstr "Taille"
 
@@ -123,54 +123,58 @@ msgstr "Blackhole"
 msgid "Seedbox"
 msgstr "Seedbox"
 
-#: seedboxsync_front/templates/homepage.html:30
+#: seedboxsync_front/templates/homepage.html:37
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+#: seedboxsync_front/templates/homepage.html:41
 msgid "Download in progress"
 msgstr "Téléchargement en cours"
 
-#: seedboxsync_front/templates/homepage.html:33
+#: seedboxsync_front/templates/homepage.html:44
 msgid "List of downloads in progress from the seedbox to the NAS."
 msgstr "Liste des téléchargements en cours de la seedbox vers le NAS."
 
-#: seedboxsync_front/templates/homepage.html:38
+#: seedboxsync_front/templates/homepage.html:49
 msgid "Purge?"
 msgstr "Purger ?"
 
-#: seedboxsync_front/templates/homepage.html:39
+#: seedboxsync_front/templates/homepage.html:50
 msgid "Do you want to purge all in-progress downloads?"
 msgstr "Voulez-vous purger tous les téléchargements en cours ?"
 
-#: seedboxsync_front/templates/homepage.html:41
+#: seedboxsync_front/templates/homepage.html:52
 msgid "Purge"
 msgstr "Purger"
 
-#: seedboxsync_front/templates/homepage.html:45
+#: seedboxsync_front/templates/homepage.html:56
 msgid "No download in progress now..."
 msgstr "Aucun téléchargement en cours pour le moment..."
 
-#: seedboxsync_front/templates/homepage.html:50
+#: seedboxsync_front/templates/homepage.html:61
 msgid "Started"
 msgstr "Démarré"
 
-#: seedboxsync_front/templates/homepage.html:51
+#: seedboxsync_front/templates/homepage.html:62
 #, fuzzy
 msgid "Progress"
 msgstr "Progression"
 
-#: seedboxsync_front/templates/homepage.html:96
+#: seedboxsync_front/templates/homepage.html:108
 #: seedboxsync_front/templates/uploaded.html:4
 msgid "Last torrents uploaded"
 msgstr "Derniers torrents envoyés"
 
-#: seedboxsync_front/templates/homepage.html:98
+#: seedboxsync_front/templates/homepage.html:110
 #: seedboxsync_front/templates/uploaded.html:9
 msgid "List of last torrents uploaded from the NAS to the seedbox."
 msgstr "Liste des derniers torrents envoyés du NAS vers la seedbox."
 
-#: seedboxsync_front/templates/homepage.html:101
+#: seedboxsync_front/templates/homepage.html:113
 msgid "No torrent downloaded yet..."
 msgstr "Pas encore de torrent téléchargé..."
 
-#: seedboxsync_front/templates/homepage.html:106
+#: seedboxsync_front/templates/homepage.html:118
 #: seedboxsync_front/templates/uploaded.html:31
 msgid "Sent"
 msgstr "Envoyé"
@@ -302,86 +306,95 @@ msgstr "Protocole"
 msgid "sFTP"
 msgstr "sFTP"
 
-#: seedboxsync_front/templates/settings.html:139
+#: seedboxsync_front/templates/settings.html:125
+#, fuzzy
+msgid "FTP"
+msgstr "FTP"
+
+#: seedboxsync_front/templates/settings.html:140
 msgid "chmod (in octal notation)"
 msgstr "chmod (en notation octale)"
 
-#: seedboxsync_front/templates/settings.html:153
+#: seedboxsync_front/templates/settings.html:158
+msgid "Max concurrent prefetch requests"
+msgstr "Nombre maximal de requêtes de préchargement simultanées"
+
+#: seedboxsync_front/templates/settings.html:171
 msgid "Path"
 msgstr "Répertoires"
 
-#: seedboxsync_front/templates/settings.html:154
+#: seedboxsync_front/templates/settings.html:172
 msgid "Information about your seedbox paths."
 msgstr "Informations à propos des paths de votre seedbox."
 
-#: seedboxsync_front/templates/settings.html:162
+#: seedboxsync_front/templates/settings.html:180
 msgid "Tempory path"
 msgstr "Répertoire temporaire"
 
-#: seedboxsync_front/templates/settings.html:179
-#: seedboxsync_front/templates/settings.html:275
+#: seedboxsync_front/templates/settings.html:197
+#: seedboxsync_front/templates/settings.html:293
 msgid "Watch path"
 msgstr "Répertoire \"Watch\""
 
-#: seedboxsync_front/templates/settings.html:198
+#: seedboxsync_front/templates/settings.html:216
 #, fuzzy
 msgid "Finished path"
 msgstr "Répertoire \"Finished\""
 
-#: seedboxsync_front/templates/settings.html:215
+#: seedboxsync_front/templates/settings.html:233
 msgid "Prefixed path"
 msgstr "Prefixe des répertoires"
 
-#: seedboxsync_front/templates/settings.html:234
-#: seedboxsync_front/templates/settings.html:251
+#: seedboxsync_front/templates/settings.html:252
+#: seedboxsync_front/templates/settings.html:269
 msgid "Suffix used for .part"
 msgstr "Suffixe utilisé pour les .part"
 
-#: seedboxsync_front/templates/settings.html:266
+#: seedboxsync_front/templates/settings.html:284
 msgid "Local (NAS)"
 msgstr "Local (NAS)"
 
-#: seedboxsync_front/templates/settings.html:267
+#: seedboxsync_front/templates/settings.html:285
 msgid "Information about local environment (NAS?)."
 msgstr "Informations à propos de votre environnement local (NAS ?)."
 
-#: seedboxsync_front/templates/settings.html:292
+#: seedboxsync_front/templates/settings.html:310
 msgid "Downloads path"
 msgstr "Downloads path"
 
-#: seedboxsync_front/templates/settings.html:311
+#: seedboxsync_front/templates/settings.html:329
 msgid "Database file path"
 msgstr "Path vers la base de données"
 
-#: seedboxsync_front/templates/settings.html:326
+#: seedboxsync_front/templates/settings.html:344
 msgid "Healthchecks"
 msgstr "Healthchecks"
 
-#: seedboxsync_front/templates/settings.html:327
+#: seedboxsync_front/templates/settings.html:345
 msgid "Settings Healthchecks service."
 msgstr "Paramètres du service Healthchecks."
 
-#: seedboxsync_front/templates/settings.html:335
+#: seedboxsync_front/templates/settings.html:353
 msgid "Enable for sync_seedbox task?"
 msgstr "Activer pour la tache sync_seedbox ?"
 
-#: seedboxsync_front/templates/settings.html:345
+#: seedboxsync_front/templates/settings.html:363
 msgid "Ping URL for sync_seedbox task"
 msgstr "URL de ping pour la tache sync_seedbox"
 
-#: seedboxsync_front/templates/settings.html:364
+#: seedboxsync_front/templates/settings.html:382
 msgid "Enable for sync_blackhole task?"
 msgstr "Activer pour la tache sync_blackhole ?"
 
-#: seedboxsync_front/templates/settings.html:374
+#: seedboxsync_front/templates/settings.html:392
 msgid "Ping URL for sync_blackhole task"
 msgstr "URL de ping pour la tache sync_blackhole"
 
-#: seedboxsync_front/templates/settings.html:390
+#: seedboxsync_front/templates/settings.html:408
 msgid "Save"
 msgstr "Sauver"
 
-#: seedboxsync_front/templates/settings.html:401
+#: seedboxsync_front/templates/settings.html:419
 msgid "Settings saved."
 msgstr "Paramètres sauvegardés."
 

@@ -27,6 +27,7 @@ window.isOctalChmod = validators.isOctalChmod;
 window.isRequired = validators.isRequired;
 window.isValidTimeout = validators.isValidTimeout;
 window.isValidUrl = validators.isValidUrl;
+window.isValidMaxConcPrefetchReq = validators.isValidMaxConcPrefetchReq;
 
 window.Alpine = Alpine;
 Alpine.start();

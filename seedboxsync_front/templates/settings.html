@@ -149,6 +149,23 @@
             </div>
           </div>
         </div>
+
+        <div class="column is-6">
+          <div class="field" x-data="{
+              max_concurrent_prefetch_requests: '{{ form.seedbox.max_concurrent_prefetch_requests }}',
+              isValid() { return isValidMaxConcPrefetchReq(this.max_concurrent_prefetch_requests) }
+            }">
+            <label class="label">{{ _('Max concurrent prefetch requests') }}</label>
+            <div class="control column is-4 p-0 has-icons-left has-icons-right">
+              <input class="input" type="number" {{ readonly_attr }}
+                    name="seedbox_max_concurrent_prefetch_requests" x-model="max_concurrent_prefetch_requests"
+                    placeholder="128"
+                    x-bind:class="{ 'is-danger': !isValid()}"/>
+              <span class="icon is-small is-left"><i class="fas fa-network-wired"></i></span>
+              <span class="icon is-small is-right" x-show="isValid()" x-transition><i class="fas fa-check has-text-success"></i></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <h3 class="subtitle is-4 pt-6">{{ _('Path') }}</h3>

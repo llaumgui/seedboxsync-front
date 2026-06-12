@@ -36,6 +36,15 @@ export function isValidPort(port) {
 }
 
 /**
+ * Validate is a valid max concurrent prefetch requests number
+ * @param {int} max
+ * @returns {boolean}
+ */
+export function isValidMaxConcPrefetchReq(max) {
+  return max > 0 && max <= 1024;
+}
+
+/**
  * Validate is a valid port number
  * @param {int} port
  * @returns {boolean}

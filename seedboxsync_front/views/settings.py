@@ -117,6 +117,7 @@ def _load_yaml_into_form(yaml: YAML, path: str) -> Dict[str, Dict[str, Any]]:
             'timeout_enabled': bool(seedbox.get('timeout', False)),
             'timeout': str(seedbox.get('timeout', '30')),
             'protocol': str(seedbox.get('protocol', 'sftp')),
+            'max_concurrent_prefetch_requests': str(seedbox.get('max_concurrent_prefetch_requests', '128')),
             'chmod_enabled': bool(seedbox.get('chmod', False)),
             'chmod': chmod_display,
             'tmp_path': str(seedbox.get('tmp_path', './tmp')),
@@ -154,7 +155,7 @@ def _save_form_to_yaml(yaml: YAML, path: str, req: Request) -> None:
     mappings = {
         'seedbox': [
             'host', 'port', 'login', 'password', 'protocol', 'tmp_path',
-            'watch_path', 'finished_path', 'prefixed_path', 'part_suffix', 'exclude_syncing'
+            'watch_path', 'finished_path', 'prefixed_path', 'part_suffix', 'exclude_syncing', 'max_concurrent_prefetch_requests'
         ],
         'local': ['watch_path', 'download_path', 'db_file'],
     }
